@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Deploy and configure staging GeoBatch &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../index.html" />
+    <link rel="up" title="Installing NFMS in Production" href="index.html" />
+    <link rel="next" title="Deploy and configure Administration interface" href="admin.html" />
+    <link rel="prev" title="Deploy and configure staging and dissemination GeoStore" href="geostore.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../index.html">
+      <img class="logo" src="../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="admin.html" title="Deploy and configure Administration interface"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="geostore.html" title="Deploy and configure staging and dissemination GeoStore"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Installing NFMS in Production</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="deploy-and-configure-staging-geobatch">
+<span id="unredd-install-stg-geobatch"></span><h1>Deploy and configure staging GeoBatch<a class="headerlink" href="#deploy-and-configure-staging-geobatch" title="Permalink to this headline">¶</a></h1>
+<p>GeoBatch only needs to be installed in the staging area.
+No batch processing is going to be run in the dissemination system.</p>
+<div class="section" id="geobatch-configuration-files">
+<h2>GeoBatch configuration files<a class="headerlink" href="#geobatch-configuration-files" title="Permalink to this headline">¶</a></h2>
+<p>Geobatch uses some directories for its processing needs.</p>
+<p>We&#8217;ll create all of them under <code class="docutils literal"><span class="pre">/var/stg_geobatch/</span></code>:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">config</span></code>: GeoBatch main configuration directory</li>
+<li><code class="docutils literal"><span class="pre">input</span></code>: Root input directory<ul>
+<li><code class="docutils literal"><span class="pre">input/ingest</span></code>: Ingestion flow input directory</li>
+<li><code class="docutils literal"><span class="pre">input/reprocess</span></code>: Reprocess flow input directory</li>
+<li><code class="docutils literal"><span class="pre">input/publish</span></code>: Publish flow input directory</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">temp</span></code>: Root temp directory<ul>
+<li><code class="docutils literal"><span class="pre">temp/ingestionFlow</span></code>: Ingestion flow temp dir, used during flow execution</li>
+<li><code class="docutils literal"><span class="pre">temp/reprocessFlow</span></code>: Reprocess flow temp dir, used during flow execution</li>
+<li><code class="docutils literal"><span class="pre">temp/publishFlow</span></code>: Publish flow temp dir, used during flow execution</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">orig</span></code>: The place where original data from ingested flows will be copied</li>
+</ul>
+<p>The <code class="docutils literal"><span class="pre">config</span></code> directory is the most important. It contains the flow definitions and
+the files needed to generate charts from statistics.</p>
+<p>Copy the content of <code class="docutils literal"><span class="pre">WEB-INF/data</span></code> (included inside of <code class="docutils literal"><span class="pre">geobatch.war</span></code>)
+to <code class="docutils literal"><span class="pre">/var/stg_geobatch/config/</span></code>. This is a sample configuration. Edit
+the <code class="docutils literal"><span class="pre">ingestionFlow.xml</span></code>, <code class="docutils literal"><span class="pre">reprocessFlow.xml</span></code>, <code class="docutils literal"><span class="pre">publishFlow.xml</span></code>,
+and the groovy scripts under <code class="docutils literal"><span class="pre">chartscripts</span></code>  to adjust the different paths,
+users and passwords as needed. You may also change the flow definitions to your
+needs.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See <a class="reference internal" href="../geobatch/index.html#unredd-geobatch"><span>GeoBatch</span></a> chapter for details on how to configure the flows.</p>
+</div>
+<p>Remember to change the file permisions as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd /var/stg_geobatch/
+chown -R tomcat6:tomcat6 .
+</pre></div>
+</div>
+<p>Groovy scripts need to be exeutable:</p>
+<div class="highlight-python"><div class="highlight"><pre>chmod ug+x config/chartscripts/*.groovy
+</pre></div>
+</div>
+</div>
+<div class="section" id="environment-settings">
+<h2>Environment settings<a class="headerlink" href="#environment-settings" title="Permalink to this headline">¶</a></h2>
+<p>This is the <code class="docutils literal"><span class="pre">bin/setenv.sh</span></code> file:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">SERVICE</span><span class="o">=</span>stg_geobatch
+
+<span class="c"># Application specific environment</span>
+<span class="nv">GEOBATCH_CONFIG_DIR</span><span class="o">=</span>/var/<span class="nv">$SERVICE</span>/config
+<span class="nv">GEOBATCH_TEMP_DIR</span><span class="o">=</span>/var/<span class="nv">$SERVICE</span>/temp
+<span class="nv">UNREDD_OVR</span><span class="o">=</span><span class="nv">$GEOBATCH_CONFIG_DIR</span>/unredd-ovr.properties
+
+<span class="c"># Java options</span>
+<span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-server -Xms2048m -Xmx2048m -DGEOBATCH_CONFIG_DIR=</span><span class="nv">$GEOBATCH_CONFIG_DIR</span><span class="s2"> -DGEOBATCH_TEMP_DIR=</span><span class="nv">$GEOBATCH_TEMP_DIR</span><span class="s2"> -Dunredd-ovr=</span><span class="nv">$UNREDD_OVR</span><span class="s2"> -Duser.timezone=GMT&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Deploy and configure staging GeoBatch</a><ul>
+<li><a class="reference internal" href="#geobatch-configuration-files">GeoBatch configuration files</a></li>
+<li><a class="reference internal" href="#environment-settings">Environment settings</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="geostore.html"
+                        title="previous chapter">Deploy and configure staging and dissemination GeoStore</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="admin.html"
+                        title="next chapter">Deploy and configure Administration interface</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="admin.html" title="Deploy and configure Administration interface"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="geostore.html" title="Deploy and configure staging and dissemination GeoStore"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Installing NFMS in Production</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

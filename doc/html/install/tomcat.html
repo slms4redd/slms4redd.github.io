@@ -1,0 +1,741 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Preparing multiple tomcat instances &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../index.html" />
+    <link rel="up" title="Installing NFMS in Production" href="index.html" />
+    <link rel="next" title="Deploy and configure staging and dissemination GeoServer" href="geoserver.html" />
+    <link rel="prev" title="Software prerequisites" href="sw_prerequisites.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../index.html">
+      <img class="logo" src="../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="geoserver.html" title="Deploy and configure staging and dissemination GeoServer"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="sw_prerequisites.html" title="Software prerequisites"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Installing NFMS in Production</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="preparing-multiple-tomcat-instances">
+<span id="unredd-install-tomcat-instances"></span><h1>Preparing multiple tomcat instances<a class="headerlink" href="#preparing-multiple-tomcat-instances" title="Permalink to this headline">¶</a></h1>
+<p>Run the steps described in <a class="reference internal" href="sw_prerequisites.html#unredd-install-tomcat6"><span>Tomcat 6</span></a> before reading this chapter.</p>
+<p>The directory where tomcat binaries reside is known as <code class="docutils literal"><span class="pre">CATALINA_HOME</span></code>, common to all running tomcat instances. In our case:</p>
+<div class="highlight-python"><div class="highlight"><pre>CATALINA_HOME=/opt/tomcat
+</pre></div>
+</div>
+<p>We are creating different Tomcat profiles to simultaneously run several tomcat instances on the same system. Each tomcat profile location is called <code class="docutils literal"><span class="pre">CATALINA_BASE</span></code>, and it will be different for each running instance. In our case:</p>
+<div class="highlight-python"><div class="highlight"><pre>CATALINA_BASE=/var/tomcat/$INSTANCE_NAME
+</pre></div>
+</div>
+<p>Where <code class="docutils literal"><span class="pre">$INSTANCE_NAME</span></code> will receive different values.</p>
+<div class="section" id="creating-the-tomcat-profiles">
+<h2>Creating the tomcat profiles<a class="headerlink" href="#creating-the-tomcat-profiles" title="Permalink to this headline">¶</a></h2>
+<p>First, create a template profile with the needed files and directories. It will be cloned to create the real ones:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo -s
+mkdir -p /var/tomcat/template
+cd /var/tomcat/template
+mkdir logs temp webapps work bin lib
+cp -r /opt/tomcat/conf conf
+touch bin/setenv.sh
+</pre></div>
+</div>
+<p>Create tomcat6 user:</p>
+<div class="highlight-python"><div class="highlight"><pre>useradd tomcat6
+</pre></div>
+</div>
+<p>From this template, we will create the different profiles. Following tables show suggested setup for the staging area:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">instance</th>
+<th class="head">shut</th>
+<th class="head">ajp</th>
+<th class="head">http</th>
+<th class="head">location</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>stg_geostore</td>
+<td>8020</td>
+<td>8100</td>
+<td>8200</td>
+<td>/var/tomcat/stg_geostore</td>
+</tr>
+<tr class="row-odd"><td>stg_geoserver</td>
+<td>8021</td>
+<td>8101</td>
+<td>8201</td>
+<td>/var/tomcat/stg_geoserver</td>
+</tr>
+<tr class="row-even"><td>stg_geobatch</td>
+<td>8022</td>
+<td>8102</td>
+<td>8202</td>
+<td>/var/tomcat/stg_geobatch</td>
+</tr>
+<tr class="row-odd"><td>admin</td>
+<td>8023</td>
+<td>8103</td>
+<td>8203</td>
+<td>/var/tomcat/admin</td>
+</tr>
+</tbody>
+</table>
+<p>And for dissemination area:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">instance</th>
+<th class="head">shut</th>
+<th class="head">ajp</th>
+<th class="head">http</th>
+<th class="head">location</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>diss_geostore</td>
+<td>8024</td>
+<td>8104</td>
+<td>8204</td>
+<td>/var/tomcat/diss_geostore</td>
+</tr>
+<tr class="row-odd"><td>diss_geoserver</td>
+<td>8025</td>
+<td>8105</td>
+<td>8205</td>
+<td>/var/tomcat/diss_geoserver</td>
+</tr>
+<tr class="row-even"><td>portal</td>
+<td>8026</td>
+<td>8106</td>
+<td>8206</td>
+<td>/var/tomcat/portal</td>
+</tr>
+</tbody>
+</table>
+<p>For each of the instances, do:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Copy <code class="docutils literal"><span class="pre">/var/tomcat/template</span></code> to <code class="docutils literal"><span class="pre">/var/tomcat/&lt;instance_name&gt;</span></code>.
+This location will be the instance&#8217;s <code class="docutils literal"><span class="pre">CATALINA_BASE</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre>cp -r /var/tomcat/template /var/tomcat/&lt;instance_name&gt;
+</pre></div>
+</div>
+</li>
+<li><p class="first">Edit <code class="docutils literal"><span class="pre">CATALINA_BASE/conf/server.xml</span></code>, replacing
+the port numbers for <cite>shutdown</cite>, <cite>ajp</cite> and <cite>http</cite> connectors. Use a
+rational enumeration on port assignation (see the tables above). For
+example, for <code class="docutils literal"><span class="pre">stg_geoserver</span></code>, do:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd /var/tomcat/stg_geoserver
+sed -i &#39;s/port=&quot;8005&quot;/port=&quot;8021&quot;/g&#39; conf/server.xml #shutdown port
+sed -i &#39;s/port=&quot;8009&quot;/port=&quot;8101&quot;/g&#39; conf/server.xml #ajp port
+sed -i &#39;s/port=&quot;8080&quot;/port=&quot;8201&quot;/g&#39; conf/server.xml #http port
+</pre></div>
+</div>
+</li>
+<li><p class="first">Edit <code class="docutils literal"><span class="pre">CATALINA_BASE/bin/setenv.sh</span></code> and add the needed environment
+variables, depending on the applications running on the specific
+instance. Dont’t forget to set the <code class="docutils literal"><span class="pre">CATALINA_HOME</span></code> var
+with the own path for each application and set <code class="docutils literal"><span class="pre">JAVA_OPTS</span></code> variable
+setting the JVM parameters.</p>
+<p>These are the suggested <code class="docutils literal"><span class="pre">setenv.sh</span></code> contents for each
+instance. For more details on these environment setups, please refer to
+application specific documentation:</p>
+<blockquote>
+<div><p><strong>stg_geostore</strong>:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">SERVICE</span><span class="o">=</span>stg_geostore
+
+<span class="c"># Application specific environment</span>
+<span class="nv">GEOSTORE_OVR_FILE</span><span class="o">=</span>file:/var/<span class="nv">$SERVICE</span>/geostore-datasource-ovr.properties
+
+<span class="c"># Java options</span>
+<span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-server -Xms512m -Xmx512m -Dgeostore-ovr=</span><span class="nv">$GEOSTORE_OVR_FILE</span><span class="s2"> -Duser.timezone=GMT&quot;</span>
+</pre></div>
+</div>
+<p><strong>stg_geoserver</strong>:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">SERVICE</span><span class="o">=</span>stg_geoserver
+
+<span class="c"># Application specific environment</span>
+<span class="nv">GEOSERVER_DATA_DIR</span><span class="o">=</span>/var/<span class="nv">$SERVICE</span>/data
+<span class="nv">GEOSERVER_LOG_LOCATION</span><span class="o">=</span>/var/<span class="nv">$SERVICE</span>/logs/geoserver.log
+
+<span class="c"># Java options</span>
+<span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-server -Xms1024m -Xmx1024m -XX:MaxPermSize=128m -XX:PermSize=64m -XX:+UseConcMarkSweepGC -XX:NewSize=48m -Dorg.geotools.shapefile.datetime=true -DGEOSERVER_DATA_DIR=</span><span class="nv">$GEOSERVER_DATA_DIR</span><span class="s2"> -DGEOSERVER_LOG_LOCATION=</span><span class="nv">$GEOSERVER_LOG_LOCATION</span><span class="s2"> -Duser.timezone=GMT&quot;</span>
+</pre></div>
+</div>
+<p><strong>stg_geobatch</strong>:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">SERVICE</span><span class="o">=</span>stg_geobatch
+
+<span class="c"># Application specific environment</span>
+<span class="nv">GEOBATCH_CONFIG_DIR</span><span class="o">=</span>/var/<span class="nv">$SERVICE</span>/config
+<span class="nv">GEOBATCH_TEMP_DIR</span><span class="o">=</span>/var/<span class="nv">$SERVICE</span>/temp
+
+<span class="c"># Java options</span>
+<span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-server -Xms2048m -Xmx2048m -DGEOBATCH_CONFIG_DIR=</span><span class="nv">$GEOBATCH_CONFIG_DIR</span><span class="s2"> -DGEOBATCH_TEMP_DIR=</span><span class="nv">$GEOBATCH_TEMP_DIR</span><span class="s2"> -Duser.timezone=GMT&quot;</span>
+</pre></div>
+</div>
+<p><strong>admin</strong>:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">SERVICE</span><span class="o">=</span>admin
+
+<span class="c"># Java options</span>
+<span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-server -Duser.timezone=GMT&quot;</span>
+</pre></div>
+</div>
+<p><strong>diss_geostore</strong>:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">SERVICE</span><span class="o">=</span>diss_geostore
+
+<span class="c"># Application specific environment</span>
+<span class="nv">GEOSTORE_OVR_FILE</span><span class="o">=</span>file:/var/<span class="nv">$SERVICE</span>/geostore-datasource-ovr.properties
+
+<span class="c"># Java options</span>
+<span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-server -Xms512m -Xmx1024m -Dgeostore-ovr=</span><span class="nv">$GEOSTORE_OVR_FILE</span><span class="s2"> -Duser.timezone=GMT&quot;</span>
+</pre></div>
+</div>
+<p><strong>diss_geoserver</strong>:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">SERVICE</span><span class="o">=</span>diss_geoserver
+
+<span class="c"># Application specific environment</span>
+<span class="nv">GEOSERVER_DATA_DIR</span><span class="o">=</span>/var/<span class="nv">$SERVICE</span>/data
+<span class="nv">GEOSERVER_LOG_LOCATION</span><span class="o">=</span>/var/<span class="nv">$SERVICE</span>/logs/geoserver.log
+
+<span class="c"># Java options</span>
+<span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-server -Xms1024m -Xmx1024m -XX:MaxPermSize=128m -XX:PermSize=64m -XX:+UseConcMarkSweepGC -XX:NewSize=48m -Dorg.geotools.shapefile.datetime=true -DGEOSERVER_DATA_DIR=</span><span class="nv">$GEOSERVER_DATA_DIR</span><span class="s2"> -DGEOSERVER_LOG_LOCATION=</span><span class="nv">$GEOSERVER_LOG_LOCATION</span><span class="s2"> -Duser.timezone=GMT&quot;</span>
+</pre></div>
+</div>
+<p><strong>portal</strong>:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">SERVICE</span><span class="o">=</span>portal
+
+<span class="c"># Application specific environment</span>
+<span class="nv">PORTAL_CONFIG_DIR</span><span class="o">=</span>/var/<span class="nv">$SERVICE</span>/
+
+<span class="c"># Java options</span>
+<span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-server -DMINIFIED_JS=true -DPORTAL_CONFIG_DIR=</span><span class="nv">$PORTAL_CONFIG_DIR</span><span class="s2"> -Duser.timezone=GMT&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Create the file <code class="docutils literal"><span class="pre">/etc/init.d/ubuntuTomcatRunner.sh</span></code> with this content:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/sh</span>
+<span class="c">#</span>
+<span class="c"># /etc/init.d/tomcat6 -- startup script for the Tomcat 6 servlet engine</span>
+<span class="c">#</span>
+<span class="c"># Written by Miquel van Smoorenburg &lt;miquels@cistron.nl&gt;.</span>
+<span class="c"># Modified for Debian GNU/Linux  by Ian Murdock &lt;imurdock@gnu.ai.mit.edu&gt;.</span>
+<span class="c"># Modified for Tomcat by Stefan Gybas &lt;sgybas@debian.org&gt;.</span>
+<span class="c"># Modified for Tomcat6 by Thierry Carrez &lt;thierry.carrez@ubuntu.com&gt;.</span>
+<span class="c"># Additional improvements by Jason Brittain &lt;jason.brittain@mulesoft.com&gt;.</span>
+<span class="c"># Adapted to run multiple tomcat instances for UN-REDD NFMS platform.</span>
+
+<span class="nb">set</span> -e
+
+<span class="nv">DESC</span><span class="o">=</span><span class="s2">&quot;NFMS4REDD Tomcat&quot;</span>
+<span class="nv">CATALINA_BASE</span><span class="o">=</span>/var/tomcat/<span class="nv">$SERVICE</span>
+<span class="nv">PATH</span><span class="o">=</span>/bin:/usr/bin:/sbin:/usr/sbin
+<span class="nv">DEFAULT</span><span class="o">=</span>/etc/default/<span class="nv">$SERVICE</span>
+<span class="nv">JVM_TMP</span><span class="o">=</span><span class="nv">$CATALINA_BASE</span>/temp
+
+<span class="k">if</span> <span class="o">[</span> -r <span class="nv">$CATALINA_BASE</span>/bin/setenv.sh <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        . <span class="nv">$CATALINA_BASE</span>/bin/setenv.sh
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="sb">`</span>id -u<span class="sb">`</span> -ne <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+   <span class="nb">echo</span> <span class="s2">&quot;You need root privileges to run this script&quot;</span>
+   <span class="nb">exit </span>1
+<span class="k">fi</span>
+
+<span class="c"># Make sure tomcat is started with system locale</span>
+<span class="k">if</span> <span class="o">[</span> -r /etc/default/locale <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+   . /etc/default/locale
+   <span class="nb">export </span>LANG
+<span class="k">fi</span>
+
+. /lib/lsb/init-functions
+
+<span class="k">if</span> <span class="o">[</span> -r /etc/default/rcS <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+   . /etc/default/rcS
+<span class="k">fi</span>
+
+
+<span class="c"># The following variables can be overwritten in $DEFAULT</span>
+
+<span class="c"># Run Tomcat 6 as this user ID and group ID</span>
+<span class="nv">TOMCAT6_USER</span><span class="o">=</span>tomcat6
+<span class="nv">TOMCAT6_GROUP</span><span class="o">=</span>tomcat6
+
+<span class="c"># The first existing directory is used for JAVA_HOME (if JAVA_HOME is not</span>
+<span class="c"># defined in $DEFAULT)</span>
+<span class="nv">JDK_DIRS</span><span class="o">=</span><span class="s2">&quot;/usr/lib/jvm/default-java&quot;</span>
+
+<span class="c"># Look for the right JVM to use</span>
+<span class="k">for</span> jdir in <span class="nv">$JDK_DIRS</span><span class="p">;</span> <span class="k">do</span>
+    <span class="k">if</span> <span class="o">[</span> -r <span class="s2">&quot;</span><span class="nv">$jdir</span><span class="s2">/bin/java&quot;</span> -a -z <span class="s2">&quot;</span><span class="si">${</span><span class="nv">JAVA_HOME</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+   <span class="nv">JAVA_HOME</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$jdir</span><span class="s2">&quot;</span>
+    <span class="k">fi</span>
+<span class="k">done</span>
+<span class="nb">export </span>JAVA_HOME
+
+<span class="c"># Directory where the Tomcat 6 binary distribution resides</span>
+<span class="nv">CATALINA_HOME</span><span class="o">=</span>/opt/tomcat
+
+<span class="c"># Use the Java security manager? (yes/no)</span>
+<span class="nv">TOMCAT6_SECURITY</span><span class="o">=</span>no
+
+<span class="c"># Default Java options</span>
+<span class="c"># Set java.awt.headless=true if JAVA_OPTS is not set so the</span>
+<span class="c"># Xalan XSL transformer can work without X11 display on JDK 1.4+</span>
+<span class="c"># It also looks like the default heap size of 64M is not enough for most cases</span>
+<span class="c"># so the maximum heap size is set to 128M</span>
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$JAVA_OPTS</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+   <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Djava.awt.headless=true -Xmx128M&quot;</span>
+<span class="k">fi</span>
+
+<span class="c"># End of variables that can be overwritten in $DEFAULT</span>
+
+<span class="c"># overwrite settings from default file</span>
+<span class="c">#if [ -f &quot;$DEFAULT&quot; ]; then</span>
+<span class="c">#  . &quot;$DEFAULT&quot;</span>
+<span class="c">#fi</span>
+
+<span class="k">if</span> <span class="o">[</span> ! -f <span class="s2">&quot;</span><span class="nv">$CATALINA_HOME</span><span class="s2">/bin/bootstrap.jar&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+   log_failure_msg <span class="s2">&quot;</span><span class="nv">$SERVICE</span><span class="s2"> is not installed&quot;</span>
+   <span class="nb">exit </span>1
+<span class="k">fi</span>
+
+<span class="nv">POLICY_CACHE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$CATALINA_BASE</span><span class="s2">/work/catalina.policy&quot;</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$CATALINA_TMPDIR</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+   <span class="nv">CATALINA_TMPDIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$JVM_TMP</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+
+<span class="c"># Set the JSP compiler if set in the tomcat6.default file</span>
+<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$JSP_COMPILER</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+   <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$JAVA_OPTS</span><span class="s2"> -Dbuild.compiler=\&quot;</span><span class="nv">$JSP_COMPILER</span><span class="s2">\&quot;&quot;</span>
+<span class="k">fi</span>
+
+<span class="nv">SECURITY</span><span class="o">=</span><span class="s2">&quot;no&quot;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$TOMCAT6_SECURITY</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;yes&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+   <span class="nv">SECURITY</span><span class="o">=</span><span class="s2">&quot;-security&quot;</span>
+<span class="k">fi</span>
+
+<span class="c"># Define other required variables</span>
+<span class="nv">CATALINA_PID</span><span class="o">=</span><span class="s2">&quot;/var/run/</span><span class="nv">$SERVICE</span><span class="s2">.pid&quot;</span>
+<span class="nv">CATALINA_SH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$CATALINA_HOME</span><span class="s2">/bin/catalina.sh&quot;</span>
+
+<span class="c"># Look for Java Secure Sockets Extension (JSSE) JARs</span>
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="si">${</span><span class="nv">JSSE_HOME</span><span class="si">}</span><span class="s2">&quot;</span> -a -r <span class="s2">&quot;</span><span class="si">${</span><span class="nv">JAVA_HOME</span><span class="si">}</span><span class="s2">/jre/lib/jsse.jar&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nv">JSSE_HOME</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">JAVA_HOME</span><span class="si">}</span><span class="s2">/jre/&quot;</span>
+<span class="k">fi</span>
+
+catalina_sh<span class="o">()</span> <span class="o">{</span>
+   <span class="c"># Escape any double quotes in the value of JAVA_OPTS</span>
+   <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$JAVA_OPTS</span> <span class="p">|</span> sed <span class="s1">&#39;s/\&quot;/\\\&quot;/g&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+
+   <span class="nv">AUTHBIND_COMMAND</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+   <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$AUTHBIND</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;yes&quot;</span> -a <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;start&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+      <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$JAVA_OPTS</span><span class="s2"> -Djava.net.preferIPv4Stack=true&quot;</span>
+      <span class="nv">AUTHBIND_COMMAND</span><span class="o">=</span><span class="s2">&quot;/usr/bin/authbind --deep /bin/bash -c &quot;</span>
+   <span class="k">fi</span>
+
+   <span class="c"># Define the command to run Tomcat&#39;s catalina.sh as a daemon</span>
+   <span class="c"># set -a tells sh to export assigned variables to spawned shells.</span>
+   <span class="nv">TOMCAT_SH</span><span class="o">=</span><span class="s2">&quot;set -a; JAVA_HOME=\&quot;</span><span class="nv">$JAVA_HOME</span><span class="s2">\&quot;; source \&quot;</span><span class="nv">$DEFAULT</span><span class="s2">\&quot;; \</span>
+<span class="s2">      CATALINA_HOME=\&quot;</span><span class="nv">$CATALINA_HOME</span><span class="s2">\&quot;; \</span>
+<span class="s2">      CATALINA_BASE=\&quot;</span><span class="nv">$CATALINA_BASE</span><span class="s2">\&quot;; \</span>
+<span class="s2">      JAVA_OPTS=\&quot;</span><span class="nv">$JAVA_OPTS</span><span class="s2">\&quot;; \</span>
+<span class="s2">      CATALINA_PID=\&quot;</span><span class="nv">$CATALINA_PID</span><span class="s2">\&quot;; \</span>
+<span class="s2">      CATALINA_TMPDIR=\&quot;</span><span class="nv">$CATALINA_TMPDIR</span><span class="s2">\&quot;; \</span>
+<span class="s2">      LANG=\&quot;</span><span class="nv">$LANG</span><span class="s2">\&quot;; JSSE_HOME=\&quot;</span><span class="nv">$JSSE_HOME</span><span class="s2">\&quot;; \</span>
+<span class="s2">      cd \&quot;</span><span class="nv">$CATALINA_BASE</span><span class="s2">\&quot;; \</span>
+<span class="s2">      \&quot;</span><span class="nv">$CATALINA_SH</span><span class="s2">\&quot; </span><span class="nv">$@</span><span class="s2">&quot;</span>
+
+   <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$AUTHBIND</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;yes&quot;</span> -a <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;start&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+      <span class="nv">TOMCAT_SH</span><span class="o">=</span><span class="s2">&quot;&#39;</span><span class="nv">$TOMCAT_SH</span><span class="s2">&#39;&quot;</span>
+   <span class="k">fi</span>
+
+   <span class="c"># Run the catalina.sh script as a daemon</span>
+   <span class="nb">set</span> +e
+   touch <span class="s2">&quot;</span><span class="nv">$CATALINA_PID</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$CATALINA_BASE</span><span class="s2">&quot;</span>/logs/catalina.out
+   <span class="c">#chown -R $TOMCAT6_USER:$TOMCAT6_USER $CATALINA_BASE</span>
+   chown <span class="nv">$TOMCAT6_USER</span> <span class="s2">&quot;</span><span class="nv">$CATALINA_PID</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$CATALINA_BASE</span><span class="s2">&quot;</span>/logs/catalina.out
+   start-stop-daemon --start -b -u <span class="s2">&quot;</span><span class="nv">$TOMCAT6_USER</span><span class="s2">&quot;</span> -g <span class="s2">&quot;</span><span class="nv">$TOMCAT6_GROUP</span><span class="s2">&quot;</span> <span class="se">\</span>
+      -c <span class="s2">&quot;</span><span class="nv">$TOMCAT6_USER</span><span class="s2">&quot;</span> -d <span class="s2">&quot;</span><span class="nv">$CATALINA_TMPDIR</span><span class="s2">&quot;</span> -p <span class="s2">&quot;</span><span class="nv">$CATALINA_PID</span><span class="s2">&quot;</span> <span class="se">\</span>
+      -x /bin/bash -- -c <span class="s2">&quot;</span><span class="nv">$AUTHBIND_COMMAND</span><span class="s2"> </span><span class="nv">$TOMCAT_SH</span><span class="s2">&quot;</span>
+   <span class="nv">status</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$?</span><span class="s2">&quot;</span>
+   <span class="nb">set</span> +a -e
+   <span class="k">return</span> <span class="nv">$status</span>
+<span class="o">}</span>
+
+<span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> in
+  start<span class="o">)</span>
+   <span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$JAVA_HOME</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+      log_failure_msg <span class="s2">&quot;no JDK found - please set JAVA_HOME&quot;</span>
+      <span class="nb">exit </span>1
+   <span class="k">fi</span>
+
+   <span class="k">if</span> <span class="o">[</span> ! -d <span class="s2">&quot;</span><span class="nv">$CATALINA_BASE</span><span class="s2">/conf&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+      log_failure_msg <span class="s2">&quot;invalid CATALINA_BASE: </span><span class="nv">$CATALINA_BASE</span><span class="s2">&quot;</span>
+      <span class="nb">exit </span>1
+   <span class="k">fi</span>
+
+   log_daemon_msg <span class="s2">&quot;Starting </span><span class="nv">$DESC</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$SERVICE</span><span class="s2">&quot;</span>
+   <span class="k">if</span> start-stop-daemon --test --start --pidfile <span class="s2">&quot;</span><span class="nv">$CATALINA_PID</span><span class="s2">&quot;</span> <span class="se">\</span>
+      --user <span class="nv">$TOMCAT6_USER</span> --exec <span class="s2">&quot;</span><span class="nv">$JAVA_HOME</span><span class="s2">/bin/java&quot;</span> <span class="se">\</span>
+      &gt;/dev/null<span class="p">;</span> <span class="k">then</span>
+
+      <span class="c"># Regenerate POLICY_CACHE file</span>
+<span class="c">#     umask 022</span>
+<span class="c">#     echo &quot;// AUTO-GENERATED FILE from /etc/tomcat6/policy.d/&quot; \</span>
+<span class="c">#        &gt; &quot;$POLICY_CACHE&quot;</span>
+<span class="c">#     echo &quot;&quot;  &gt;&gt; &quot;$POLICY_CACHE&quot;</span>
+<span class="c">#     cat $CATALINA_BASE/conf/policy.d/*.policy \</span>
+<span class="c">#        &gt;&gt; &quot;$POLICY_CACHE&quot;</span>
+
+      <span class="c"># Remove / recreate JVM_TMP directory</span>
+      rm -rf <span class="s2">&quot;</span><span class="nv">$JVM_TMP</span><span class="s2">&quot;</span>
+      mkdir -p <span class="s2">&quot;</span><span class="nv">$JVM_TMP</span><span class="s2">&quot;</span> <span class="o">||</span> <span class="o">{</span>
+         log_failure_msg <span class="s2">&quot;could not create JVM temporary directory&quot;</span>
+         <span class="nb">exit </span>1
+      <span class="o">}</span>
+      chown <span class="nv">$TOMCAT6_USER</span> <span class="s2">&quot;</span><span class="nv">$JVM_TMP</span><span class="s2">&quot;</span>
+
+      catalina_sh start <span class="nv">$SECURITY</span>
+      sleep 5
+         <span class="k">if</span> start-stop-daemon --test --start --pidfile <span class="s2">&quot;</span><span class="nv">$CATALINA_PID</span><span class="s2">&quot;</span> --user <span class="nv">$TOMCAT6_USER</span> --exec <span class="s2">&quot;</span><span class="nv">$JAVA_HOME</span><span class="s2">/bin/java&quot;</span> <span class="se">\</span>
+         &gt;/dev/null<span class="p">;</span> <span class="k">then</span>
+         <span class="nb">echo</span> <span class="nv">$?</span>
+         <span class="k">if</span> <span class="o">[</span> -f <span class="s2">&quot;</span><span class="nv">$CATALINA_PID</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+            rm -f <span class="s2">&quot;</span><span class="nv">$CATALINA_PID</span><span class="s2">&quot;</span>
+         <span class="k">fi</span>
+         log_end_msg 1
+      <span class="k">else</span>
+         log_end_msg 0
+      <span class="k">fi</span>
+   <span class="k">else</span>
+           log_progress_msg <span class="s2">&quot;(already running)&quot;</span>
+      log_end_msg 0
+   <span class="k">fi</span>
+   <span class="p">;;</span>
+  stop<span class="o">)</span>
+   log_daemon_msg <span class="s2">&quot;Stopping </span><span class="nv">$DESC</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$SERVICE</span><span class="s2">&quot;</span>
+
+   <span class="nb">set</span> +e
+   <span class="k">if</span> <span class="o">[</span> -f <span class="s2">&quot;</span><span class="nv">$CATALINA_PID</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+      start-stop-daemon --stop --pidfile <span class="s2">&quot;</span><span class="nv">$CATALINA_PID</span><span class="s2">&quot;</span> <span class="se">\</span>
+         --user <span class="s2">&quot;</span><span class="nv">$TOMCAT6_USER</span><span class="s2">&quot;</span> <span class="se">\</span>
+         --retry<span class="o">=</span>TERM/20/KILL/5 &gt;/dev/null
+      <span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -eq <span class="m">1</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+         log_progress_msg <span class="s2">&quot;</span><span class="nv">$SERVICE</span><span class="s2"> is not running but pid file exists, cleaning up&quot;</span>
+      <span class="k">elif</span> <span class="o">[</span> <span class="nv">$?</span> -eq <span class="m">3</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+         <span class="nv">PID</span><span class="o">=</span><span class="s2">&quot;`cat </span><span class="nv">$CATALINA_PID</span><span class="s2">`&quot;</span>
+         log_failure_msg <span class="s2">&quot;Failed to stop </span><span class="nv">$SERVICE</span><span class="s2"> (pid </span><span class="nv">$PID</span><span class="s2">)&quot;</span>
+         <span class="nb">exit </span>1
+      <span class="k">fi</span>
+      rm -f <span class="s2">&quot;</span><span class="nv">$CATALINA_PID</span><span class="s2">&quot;</span>
+      rm -rf <span class="s2">&quot;</span><span class="nv">$JVM_TMP</span><span class="s2">&quot;</span>
+   <span class="k">else</span>
+      log_progress_msg <span class="s2">&quot;(not running)&quot;</span>
+   <span class="k">fi</span>
+   log_end_msg 0
+   <span class="nb">set</span> -e
+   <span class="p">;;</span>
+   status<span class="o">)</span>
+   <span class="nb">set</span> +e
+   start-stop-daemon --test --start --pidfile <span class="s2">&quot;</span><span class="nv">$CATALINA_PID</span><span class="s2">&quot;</span> <span class="se">\</span>
+      --user <span class="s2">&quot;</span><span class="nv">$TOMCAT6_USER</span><span class="s2">&quot;</span> <span class="se">\</span>
+      &gt;/dev/null 2&gt;<span class="p">&amp;</span>1
+   <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$?</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+
+      <span class="k">if</span> <span class="o">[</span> -f <span class="s2">&quot;</span><span class="nv">$CATALINA_PID</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+          log_success_msg <span class="s2">&quot;</span><span class="nv">$SERVICE</span><span class="s2"> is not running, but pid file exists.&quot;</span>
+         <span class="nb">exit </span>1
+      <span class="k">else</span>
+          log_success_msg <span class="s2">&quot;</span><span class="nv">$SERVICE</span><span class="s2"> is not running.&quot;</span>
+         <span class="nb">exit </span>3
+      <span class="k">fi</span>
+   <span class="k">else</span>
+      log_success_msg <span class="s2">&quot;</span><span class="nv">$SERVICE</span><span class="s2"> is running with pid `cat </span><span class="nv">$CATALINA_PID</span><span class="s2">`&quot;</span>
+   <span class="k">fi</span>
+   <span class="nb">set</span> -e
+        <span class="p">;;</span>
+  restart<span class="p">|</span>force-reload<span class="o">)</span>
+   <span class="k">if</span> <span class="o">[</span> -f <span class="s2">&quot;</span><span class="nv">$CATALINA_PID</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+      <span class="nv">$0</span> stop
+      sleep 1
+   <span class="k">fi</span>
+   <span class="nv">$0</span> start
+   <span class="p">;;</span>
+  try-restart<span class="o">)</span>
+        <span class="k">if</span> start-stop-daemon --test --start --pidfile <span class="s2">&quot;</span><span class="nv">$CATALINA_PID</span><span class="s2">&quot;</span> <span class="se">\</span>
+      --user <span class="nv">$TOMCAT6_USER</span> --exec <span class="s2">&quot;</span><span class="nv">$JAVA_HOME</span><span class="s2">/bin/java&quot;</span> <span class="se">\</span>
+      &gt;/dev/null<span class="p">;</span> <span class="k">then</span>
+      <span class="nv">$0</span> start
+   <span class="k">fi</span>
+        <span class="p">;;</span>
+  *<span class="o">)</span>
+   log_success_msg <span class="s2">&quot;Usage: </span><span class="nv">$0</span><span class="s2"> {start|stop|restart|try-restart|force-reload|status}&quot;</span>
+   <span class="nb">exit </span>1
+   <span class="p">;;</span>
+<span class="k">esac</span>
+
+<span class="nb">exit </span>0
+</pre></div>
+</div>
+</li>
+<li><p class="first">For each of the instances, create a file under <code class="docutils literal"><span class="pre">/etc/init.d/</span></code>
+named exactly as the correspondig directory under <code class="docutils literal"><span class="pre">/var/tomcat</span></code>.
+It will contain the INIT block, the service name, and a description.
+File contents for portal service woud be (for each file, replace
+<em>portal</em> occurences in this example with the corresponding service
+name):</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/bin/sh</span>
+<span class="c">### BEGIN INIT INFO</span>
+<span class="c"># Provides:          portal</span>
+<span class="c"># Required-Start:    $local_fs $remote_fs $network</span>
+<span class="c"># Required-Stop:     $local_fs $remote_fs $network</span>
+<span class="c"># Should-Start:      $named</span>
+<span class="c"># Should-Stop:       $named</span>
+<span class="c"># Default-Start:     2 3 4 5</span>
+<span class="c"># Default-Stop:      0 1 6</span>
+<span class="c"># Description:       Start portal.</span>
+<span class="c">### END INIT INFO</span>
+
+<span class="nv">SERVICE</span><span class="o">=</span>portal
+. /etc/init.d/ubuntuTomcatRunner.sh
+</pre></div>
+</div>
+</li>
+<li><p class="first">Make all scripts created in <code class="docutils literal"><span class="pre">/etc/init.d/</span></code> executable:</p>
+<div class="highlight-python"><div class="highlight"><pre>chmod +x ubuntuTomcatRunner.sh stg_* diss_* admin portal
+</pre></div>
+</div>
+</li>
+<li><p class="first">Deploy all the applications into <code class="docutils literal"><span class="pre">webapps</span></code>, and create the needed
+configuration and data files under <code class="docutils literal"><span class="pre">/var</span></code>. Read the specific chapters
+on different instances to know what is needed in each case.</p>
+</li>
+<li><p class="first">Launch all tomcat instances running the correspondig <code class="docutils literal"><span class="pre">/etc/init.d</span></code> scripts.</p>
+</li>
+<li><p class="first">Check the applications under the various running instances.</p>
+</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="check-tomcat-running-instances">
+<h2>Check tomcat running instances<a class="headerlink" href="#check-tomcat-running-instances" title="Permalink to this headline">¶</a></h2>
+<p>To see which tomcat instances are running, you can watch the
+<code class="docutils literal"><span class="pre">/var/run/</span></code> directory, which contains one file for each of
+the running instances (inside the file it is stored the PID).</p>
+</div>
+<div class="section" id="make-services-start-at-boot-time">
+<h2>Make services start at boot time<a class="headerlink" href="#make-services-start-at-boot-time" title="Permalink to this headline">¶</a></h2>
+<p>Install <code class="docutils literal"><span class="pre">chkconfig</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre>apt-get install chkconfig
+</pre></div>
+</div>
+<p>Hack to make chkconfig work under ubuntu 12.04:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">insserv</span><span class="o">/</span><span class="n">insserv</span> <span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">insserv</span>
+</pre></div>
+</div>
+<p>Add all of the services:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">chkconfig</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">service_name</span><span class="o">&gt;</span> <span class="n">on</span>
+</pre></div>
+</div>
+<p>Check their status:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">chkconfig</span> <span class="o">--</span><span class="nb">list</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ajp-proxying">
+<h2>AJP proxying<a class="headerlink" href="#ajp-proxying" title="Permalink to this headline">¶</a></h2>
+<p>Configurations to connect to all backend webapp throught AJP are
+in <code class="docutils literal"><span class="pre">/etc/httpd/conf.d/proxy_ajp.conf</span></code>.</p>
+<p>Create the file <code class="docutils literal"><span class="pre">/etc/apache2/mods-available/proxy_ajp.conf</span></code> and define the redirections to the various tomcat instances:</p>
+<div class="highlight-python"><div class="highlight"><pre># Don&#39;t rewrite hostname
+ProxyPreserveHost on
+
+# Proxy rules for the staging area
+ProxyPass        /stg_geostore   ajp://localhost:8100/stg_geostore
+ProxyPassReverse /stg_geostore   ajp://localhost:8100/stg_geostore
+ProxyPassReverse /stg_geostore/  ajp://localhost:8100/stg_geostore/
+
+ProxyPass        /stg_geoserver   ajp://localhost:8101/stg_geoserver
+ProxyPassReverse /stg_geoserver   ajp://localhost:8101/stg_geoserver
+ProxyPassReverse /stg_geoserver/  ajp://localhost:8101/stg_geoserver/
+
+ProxyPass        /stg_geobatch   ajp://localhost:8102/stg_geobatch
+ProxyPassReverse /stg_geobatch   ajp://localhost:8102/stg_geobatch
+ProxyPassReverse /stg_geobatch/  ajp://localhost:8102/stg_geobatch/
+
+ProxyPass        /admin   ajp://localhost:8103/admin
+ProxyPassReverse /admin   ajp://localhost:8103/admin
+ProxyPassReverse /admin/  ajp://localhost:8103/admin/
+
+# Proxy rules for the dissemination area
+ProxyPass        /diss_geostore   ajp://localhost:8104/diss_geostore
+ProxyPassReverse /diss_geostore   ajp://localhost:8104/diss_geostore
+ProxyPassReverse /diss_geostore/  ajp://localhost:8104/diss_geostore/
+
+ProxyPass        /diss_geoserver   ajp://localhost:8105/diss_geoserver
+ProxyPassReverse /diss_geoserver   ajp://localhost:8105/diss_geoserver
+ProxyPassReverse /diss_geoserver/  ajp://localhost:8105/diss_geoserver/
+
+ProxyPass        /portal   ajp://localhost:8106/portal
+ProxyPassReverse /portal   ajp://localhost:8106/portal
+ProxyPassReverse /portal/  ajp://localhost:8106/portal/
+</pre></div>
+</div>
+<p>Create a link in mods-enabled:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apache2</span><span class="o">/</span><span class="n">mods</span><span class="o">-</span><span class="n">available</span><span class="o">/</span><span class="n">proxy_ajp</span><span class="o">.</span><span class="n">conf</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apache2</span><span class="o">/</span><span class="n">mods</span><span class="o">-</span><span class="n">enabled</span><span class="o">/</span><span class="n">proxy_ajp</span><span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+<p>Restart Apache server:</p>
+<blockquote>
+<div>/etc/init.d/apache2 restart</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Preparing multiple tomcat instances</a><ul>
+<li><a class="reference internal" href="#creating-the-tomcat-profiles">Creating the tomcat profiles</a></li>
+<li><a class="reference internal" href="#check-tomcat-running-instances">Check tomcat running instances</a></li>
+<li><a class="reference internal" href="#make-services-start-at-boot-time">Make services start at boot time</a></li>
+<li><a class="reference internal" href="#ajp-proxying">AJP proxying</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sw_prerequisites.html"
+                        title="previous chapter">Software prerequisites</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="geoserver.html"
+                        title="next chapter">Deploy and configure staging and dissemination GeoServer</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="geoserver.html" title="Deploy and configure staging and dissemination GeoServer"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="sw_prerequisites.html" title="Software prerequisites"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Installing NFMS in Production</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

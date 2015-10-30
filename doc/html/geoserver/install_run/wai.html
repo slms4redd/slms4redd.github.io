@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Web Administrator Interface &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="ANNEX. Installing and running GeoServer" href="index.html" />
+    <link rel="next" title="Point of Contact configuration" href="contact_info.html" />
+    <link rel="prev" title="Installing GeoServer" href="gs_install.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../../index.html">
+      <img class="logo" src="../../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="contact_info.html" title="Point of Contact configuration"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gs_install.html" title="Installing GeoServer"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">ANNEX. Installing and running GeoServer</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-geoserver.wai"></span><div class="section" id="web-administrator-interface">
+<span id="geoserver-wai"></span><h1>Web Administrator Interface<a class="headerlink" href="#web-administrator-interface" title="Permalink to this headline">¶</a></h1>
+<p>In this moudule we will get acquainted with the GeoServer Web Administrator Interface.</p>
+<ol class="arabic">
+<li><p class="first">Navigate to the GeoServer <a class="reference external" href="http://localhost:8080/geoserver/">Welcome Page</a>.</p>
+<div class="figure" id="id1">
+<a class="reference internal image-reference" href="../../_images/basic_tour1.jpg"><img alt="../../_images/basic_tour1.jpg" src="../../_images/basic_tour1.jpg" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">GeoServer welcome page</span></p>
+</div>
+<p>Here you can easily distinguish several sections:</p>
+<ul>
+<li><p class="first">The login section; it is used to access the administrator functions. The menu will show more functions when logged in (see below)</p>
+<blockquote>
+<div><div class="figure">
+<a class="reference internal image-reference" href="../../_images/basic_tour2.jpg"><img alt="../../_images/basic_tour2.jpg" src="../../_images/basic_tour2.jpg" style="width: 650px;" /></a>
+</div>
+<p>GeoServer welcome page</p>
+</div></blockquote>
+</li>
+<li><p class="first">The menu section on the left side; this section shows the available functions</p>
+<blockquote>
+<div><div class="figure">
+<a class="reference internal image-reference" href="../../_images/basic_tour3.jpg"><img alt="../../_images/basic_tour3.jpg" src="../../_images/basic_tour3.jpg" style="width: 650px;" /></a>
+</div>
+<p>GeoServer welcome page</p>
+</div></blockquote>
+</li>
+<li><p class="first">The info section on the right; on the welcome page some standard info requests to the enabled OGC services are shown.</p>
+<blockquote>
+<div><div class="figure">
+<a class="reference internal image-reference" href="../../_images/basic_tour4.jpg"><img alt="../../_images/basic_tour4.jpg" src="../../_images/basic_tour4.jpg" style="width: 650px;" /></a>
+</div>
+<p>GeoServer welcome page</p>
+</div></blockquote>
+</li>
+<li><p class="first">By clicking over one of the links in this section you can easily obtain the GetCapabilities document for each enabled Service.</p>
+<blockquote>
+<div><div class="figure">
+<a class="reference internal image-reference" href="../../_images/basic_tour5.jpg"><img alt="../../_images/basic_tour5.jpg" src="../../_images/basic_tour5.jpg" style="width: 650px;" /></a>
+</div>
+<p>WCS GetCapabilities document</p>
+</div></blockquote>
+</li>
+</ul>
+</li>
+<li><p class="first">From the <span class="guilabel">Welcome</span> page, insert in the <span class="guilabel">Login section</span> the credentials user <em>admin</em> and password <em>Geos</em>.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The GeoServer default credentials are user <em>admin</em> and password <em>geoserver</em>. You can add/modify users and passwords from the security section (see below).</p>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="../../_images/basic_tour6.jpg"><img alt="../../_images/basic_tour6.jpg" src="../../_images/basic_tour6.jpg" style="width: 650px;" /></a>
+</div>
+<p>Administrator functions</p>
+</div></blockquote>
+</li>
+</ol>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gs_install.html"
+                        title="previous chapter">Installing GeoServer</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="contact_info.html"
+                        title="next chapter">Point of Contact configuration</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="contact_info.html" title="Point of Contact configuration"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gs_install.html" title="Installing GeoServer"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >ANNEX. Installing and running GeoServer</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

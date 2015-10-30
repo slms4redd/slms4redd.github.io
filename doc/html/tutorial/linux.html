@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Linux &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../index.html" />
+    <link rel="up" title="DRC NFMS Portal training" href="index.html" />
+    <link rel="next" title="Installation" href="install.html" />
+    <link rel="prev" title="Install the virtual machine" href="virtualbox.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../index.html">
+      <img class="logo" src="../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="virtualbox.html" title="Install the virtual machine"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">DRC NFMS Portal training</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="linux">
+<h1>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h1>
+<p>On the command prompt you can use a series of commands available on most Linux systems. But before we see
+these commands it&#8217;s important to know how Linux organizes the file system and how files are referenced using
+relative and absolute paths.</p>
+<p>The Linux file system is organized hierarchically starting from a directory called &#8220;root&#8221; and addressed by
+the forward slash (/). Files in Linux are referenced using paths that can be relative or absolute. The absolute
+paths start with &#8220;/&#8221;, while the rleratives ones start with the name of the subdirectory, with &#8221;.&#8221; (current directory),
+or with &#8221;..&#8221; (parent directory).</p>
+<p>So we can have absolute paths like:</p>
+<div class="highlight-python"><div class="highlight"><pre>/tmp
+/home/unredd
+/home/geo/Desktop
+etc.
+</pre></div>
+</div>
+<p>Absolute paths can be used from any directory. We can list the content of the directories
+above with the following commands, regardless of the directory in which you are:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ls /tmp
+$ ls /home/geo
+$ ls /home/geo/Desktop
+</pre></div>
+</div>
+<p>Relative paths start from the current directory. If for example we are in <em>/home/unredd</em>, we can
+list the content of the above directories with the following commands:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ls ../../tmp
+$ ls .
+$ ls Desktop
+</pre></div>
+</div>
+<p>or &#8220;browsing&#8221; using . and ..:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ls Desktop/../../../tmp
+$ ls ./././././././././././../unredd
+$ ls ../geo/Desktop
+</pre></div>
+</div>
+<p>Below are listed some useful commands in Linux:</p>
+<ul>
+<li><p class="first">less: displays a text file:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ less file_to_visualize
+</pre></div>
+</div>
+<p>The file is visualized in a way that is common to UNIX system. In the lower left corner we can see a
+colon sign (:) followed by the cursor.</p>
+<img alt="../_images/training_postgresql_help.png" src="../_images/training_postgresql_help.png" />
+<p>We can browse the content by pressing the up and down cursor keys, as well and the page up and page down
+keys.</p>
+<p>It is also possible to search using the command /text. Once you press enter, the search results will be highlighted as you
+can see in the following image. To navigate to the next or previous matches you can press &#8216;n&#8217; of Shift + &#8216;n&#8217;.</p>
+<img alt="../_images/training_postgresql_psql_help_search.png" src="../_images/training_postgresql_psql_help_search.png" />
+<p>Press the &#8216;1&#8217; to exit.</p>
+</li>
+<li><p class="first">nano: used to edit text files. At the bottom you can find the commands to save the file, exit, etc.:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ nano file_path
+</pre></div>
+</div>
+</li>
+<li><p class="first">locate: finds files in the file system:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ locate part_of_the_file_name
+</pre></div>
+</div>
+<p>An axpect to consider in the use of locate is that the Operating System periodically scans the file system
+to build an index of existing in order for <em>locate</em> to quickly find files withoud having to go through
+all the file system, which would be time consuming. As a drawback, locate doesn&#8217;t find the latest files created.</p>
+</li>
+<li><p class="first">id: Show the current user:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ id
+</pre></div>
+</div>
+</li>
+<li><p class="first">su: Allows to autenticate with a different user.</p>
+<p>$ su postgres</p>
+</li>
+<li><p class="first">sudo: runs the command that follows with superuser permissions. For example, to run the above command</p>
+</li>
+</ul>
+<p>with root permissions:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo su postgres
+</pre></div>
+</div>
+<ul>
+<li><p class="first">passwd: changes the user password. For example to change the root user passrord:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo passwd root
+</pre></div>
+</div>
+</li>
+<li><p class="first">ssh: remote access by command line. With ssh is possible to access a remote server that enables
+ssh access. To do this you need to specify the server address:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ssh 168.202.48.151
+</pre></div>
+</div>
+<p>The authenticity of host &#8216;168.202.48.151 (168.202.48.151)&#8217; can&#8217;t be established.
+ECDSA key fingerprint is 9f:7c:a8:9c:8b:66:37:68:8b:7f:95:a4:1b:24:06:39.
+Are you sure you want to continue connecting (yes/no)? yes</p>
+<p>In the output above we can see that the system checks the autenticity of the machine you want to connect.
+After answering affermatibely the system tell us that the system we are connecting to is added to the
+list of known hosts, so that the previous message will not appear again the next time a connection is
+apptempted. Then the system asks the user passrord:</p>
+<p>Warning: Permanently added &#8216;168.202.48.151&#8217; (ECDSA) to the list of known hosts.
+<a class="reference external" href="mailto:unredd&#37;&#52;&#48;168&#46;202&#46;48&#46;151's">unredd<span>&#64;</span>168<span>&#46;</span>202<span>&#46;</span>48<span>&#46;</span>151's</a> password:</p>
+<p>If you want to connect as another user you need to prefix the name of the user, followed by the character
+&#8220;&#64;&#8221; before the server address:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ssh other_user@168.202.48.151
+</pre></div>
+</div>
+</li>
+<li><p class="first">scp: copies files to the server:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ scp from_server to_server
+</pre></div>
+</div>
+<p>The directory can be a normal route or an ssh connection string to a remote server. Some example follow.</p>
+<p>Here we copy a local file in the <em>/tmp</em> directory on a remote server:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ scp local_file geo@168.202.48.151:/tmp
+</pre></div>
+</div>
+<p>The following command copies the file back to our host from the remote server:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ scp geo@168.202.48.151:/tmp/local_file .
+</pre></div>
+</div>
+<p>You can see that the format of the remote server URL is similar to the one used to connect to an ssh server.
+The only difference is that in the end, separated by <em>:</em>, there is the path of the file in the remote host.</p>
+</li>
+<li><p class="first">zip: compresses files:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ zip -r zipped_file.zip list_of_files_to_compress
+</pre></div>
+</div>
+<p>The &#8220;-r&#8221; option causes the zip command to travel the directory structure recursively .</p>
+</li>
+<li><p class="first">unzip: decompresses zip files:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ unzip file_path.zip
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="virtualbox.html"
+                        title="previous chapter">Install the virtual machine</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="install.html"
+                        title="next chapter">Installation</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="virtualbox.html" title="Install the virtual machine"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >DRC NFMS Portal training</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

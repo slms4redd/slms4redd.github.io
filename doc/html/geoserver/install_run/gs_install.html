@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installing GeoServer &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="ANNEX. Installing and running GeoServer" href="index.html" />
+    <link rel="next" title="Web Administrator Interface" href="wai.html" />
+    <link rel="prev" title="Installing GeoServer prerequisites" href="gs_prerequisites.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../../index.html">
+      <img class="logo" src="../../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="wai.html" title="Web Administrator Interface"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gs_prerequisites.html" title="Installing GeoServer prerequisites"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">ANNEX. Installing and running GeoServer</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-geoserver.gs_install"></span><div class="section" id="installing-geoserver">
+<span id="geoserver-gs-install"></span><h1>Installing GeoServer<a class="headerlink" href="#installing-geoserver" title="Permalink to this headline">¶</a></h1>
+<p>GeoServer is packaged as a standalone servlet for use with existing servlet container applications such as <a class="reference external" href="http://tomcat.apache.org/">Apache Tomcat</a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">GeoServer has been mostly tested using Tomcat, and therefore these instructions may not work with other container applications.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Navigate to the <a class="reference external" href="http://geoserver.org/display/GEOS/Download">GeoServer Download page</a> and pick the Latest stable version to download.</p>
+</li>
+<li><p class="first">Select <span class="guilabel">Web archive</span> on the download page.</p>
+</li>
+<li><p class="first">Download and unpack the archive.  Copy the file <code class="file docutils literal"><span class="pre">geoserver.war</span></code> to the directory that contains your container application&#8217;s webapps.</p>
+</li>
+<li><p class="first">Your container application should unpack the web archive and automatically set up and run GeoServer.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A restart of your container application may be necessary.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="running">
+<h2>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h2>
+<p>Use your container application&#8217;s method of starting and stopping webapps to run GeoServer.</p>
+<ol class="arabic simple">
+<li>Access Tomcat opening a browser and navigate to <code class="file docutils literal"><span class="pre">http://</span><em><span class="pre">host</span></em><span class="pre">:{}/geoserver</span></code>.  For example, with Tomcat running locally on port 8080 like in this WorkShop, the URL would be <code class="docutils literal"><span class="pre">http://localhost:8080/geoserver</span></code>.</li>
+</ol>
+</div>
+<div class="section" id="uninstallation">
+<h2>Uninstallation<a class="headerlink" href="#uninstallation" title="Permalink to this headline">¶</a></h2>
+<p>In case you need to remove GeoServer (but don&#8217;t do it now) you can use the following steps:</p>
+<ol class="arabic simple">
+<li>Stop the container application.</li>
+<li>Remove the GeoServer webapp from the container application&#8217;s webapps directory.</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installing GeoServer</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#running">Running</a></li>
+<li><a class="reference internal" href="#uninstallation">Uninstallation</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gs_prerequisites.html"
+                        title="previous chapter">Installing GeoServer prerequisites</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="wai.html"
+                        title="next chapter">Web Administrator Interface</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="wai.html" title="Web Administrator Interface"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gs_prerequisites.html" title="Installing GeoServer prerequisites"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >ANNEX. Installing and running GeoServer</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

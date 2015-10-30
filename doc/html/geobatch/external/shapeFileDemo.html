@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ShapeFile Demo HOW-TO &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../../index.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../../index.html">
+      <img class="logo" src="../../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="shapefile-demo-how-to">
+<h1>ShapeFile Demo HOW-TO<a class="headerlink" href="#shapefile-demo-how-to" title="Permalink to this headline">¶</a></h1>
+<p>The <em>geobatch-demo</em> project uses <em>GeoBatch</em> Get a pack of shapefiles (zipped) and ingest them into a <em>GeoServer</em> instance.</p>
+<div class="section" id="installing-demo">
+<h2>Installing <em>geobatch-demo</em><a class="headerlink" href="#installing-demo" title="Permalink to this headline">¶</a></h2>
+<p>if you haven&#8217;t already done, setup the <code class="docutils literal"><span class="pre">GEOBATCH_CONFIG_DIR</span></code> and make sure that you have setted the corresponding environment variable.</p>
+<p>Locate into <em>GeoBatch</em> deployment the folder WEB-INF/data/</p>
+<p>Copy the folder geotiff and the file geotiff.xml and paste into your <code class="docutils literal"><span class="pre">GEOBATCH_CONFIG_DIR</span></code></p>
+<p><a class="reference external" href="https://github.com/geosolutions-it/geoserver-manager/tree/master/src/test/resources/testdata/shapefile">Download the shapefile</a> (all three files) and compress them in a .zip archive called <code class="docutils literal"><span class="pre">cities</span></code></p>
+<p>(OPTIONAL) You can add to that archive also other shapefile, for each shape is necessary provide at most the .dbf .shp .prj files.</p>
+<p>Edit the <em>geobatch-demo</em> flow configuration under <code class="docutils literal"><span class="pre">/GEOBATCH_CONFIG_DIR/geotiff.xml</span></code>. There, edit:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">geoserverURL</span></code>        pointing a running geoserver.</li>
+<li><code class="docutils literal"><span class="pre">defaultStyle</span></code>            with the shapefile linked above set <code class="docutils literal"><span class="pre">point</span></code>. If you leave this field blank the action obtain the geometry type from the shapefile and set the style to a default geoserver style.</li>
+<li><code class="docutils literal"><span class="pre">memoryMappedBuffer</span></code>  set <code class="docutils literal"><span class="pre">true</span></code> if you run geobatch on linux server <code class="docutils literal"><span class="pre">false</span></code> on windows (memoryMappedBuffer is not well supported by windows)</li>
+<li><code class="docutils literal"><span class="pre">defaultNamespace</span></code>    set <code class="docutils literal"><span class="pre">it_geosolutions</span></code></li>
+</ul>
+</div>
+<div class="section" id="running">
+<h2>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Start tomcat via <code class="docutils literal"><span class="pre">startup.sh</span></code>.</li>
+<li>Go to <a class="reference external" href="http://localhost:8080/geobatch/flows.do">http://localhost:8080/geobatch/flows.do</a> You should see a stopped <code class="docutils literal"><span class="pre">geotiff</span></code>. Start it.</li>
+<li>Put the zip archive in <code class="docutils literal"><span class="pre">geobatch_flow_tiff/in</span></code>.</li>
+<li>Check the instances tab to see how they run.</li>
+<li>Access to geoserver and verify that a new shapefile (or many) is published.</li>
+</ol>
+<div class="figure align-center">
+<img alt="../../_images/cities_layer.jpg" src="../../_images/cities_layer.jpg" />
+</div>
+<p>you should see the workspace <code class="docutils literal"><span class="pre">it_geosolutions</span></code> with the layer <code class="docutils literal"><span class="pre">cities</span></code></p>
+<div class="figure align-center">
+<img alt="../../_images/cities_point.jpg" src="../../_images/cities_point.jpg" />
+</div>
+<p>this is the layer you have published through geostore viewed in openlayers</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ShapeFile Demo HOW-TO</a><ul>
+<li><a class="reference internal" href="#installing-demo">Installing <em>geobatch-demo</em></a></li>
+<li><a class="reference internal" href="#running">Running</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

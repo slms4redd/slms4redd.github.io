@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Deploy and configure staging and dissemination GeoStore &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../index.html" />
+    <link rel="up" title="Installing NFMS in Production" href="index.html" />
+    <link rel="next" title="Deploy and configure staging GeoBatch" href="geobatch.html" />
+    <link rel="prev" title="Deploy and configure staging and dissemination GeoServer" href="geoserver.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../index.html">
+      <img class="logo" src="../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="geobatch.html" title="Deploy and configure staging GeoBatch"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="geoserver.html" title="Deploy and configure staging and dissemination GeoServer"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Installing NFMS in Production</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-unredd.install.stg_geostore"></span><div class="section" id="deploy-and-configure-staging-and-dissemination-geostore">
+<h1>Deploy and configure staging and dissemination GeoStore<a class="headerlink" href="#deploy-and-configure-staging-and-dissemination-geostore" title="Permalink to this headline">¶</a></h1>
+<p>Simply copy the application file <code class="docutils literal"><span class="pre">geobatch.war</span></code> to the tomcat webapps directory. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo cp geostore.war /var/tomcat/stg_geostore/webapps/stg_geostore.war
+</pre></div>
+</div>
+<p>Or:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo cp geostore.war /var/tomcat/diss_geostore/webapps/diss_geostore.war
+</pre></div>
+</div>
+<p>This will install and run geoserver instances, accessible in:</p>
+<blockquote>
+<div><a class="reference external" href="http://localhost/stg_geostore/">http://localhost/stg_geostore/</a></div></blockquote>
+<p>Or:</p>
+<blockquote>
+<div><a class="reference external" href="http://localhost/diss_geostore/">http://localhost/diss_geostore/</a></div></blockquote>
+<div class="section" id="initialize-postgresql-database">
+<h2>Initialize PostgreSQL database<a class="headerlink" href="#initialize-postgresql-database" title="Permalink to this headline">¶</a></h2>
+<p>Download the schema creation sql:</p>
+<blockquote>
+<div>wget <a class="reference external" href="https://raw.github.com/geosolutions-it/geostore/1.0.1/doc/sql/002_create_schema_postgres.sql">https://raw.github.com/geosolutions-it/geostore/1.0.1/doc/sql/002_create_schema_postgres.sql</a></div></blockquote>
+<p>And run it:</p>
+<div class="highlight-python"><div class="highlight"><pre>psql -U stg_geostore -f 002_create_schema_postgres.sql stg_geostore
+</pre></div>
+</div>
+<p>Or:</p>
+<div class="highlight-python"><div class="highlight"><pre>psql -U diss_geostore -f 002_create_schema_postgres.sql diss_geostore
+</pre></div>
+</div>
+</div>
+<div class="section" id="geostore-configuration-files">
+<h2>GeoStore configuration files<a class="headerlink" href="#geostore-configuration-files" title="Permalink to this headline">¶</a></h2>
+<p>Three configuration files are needed:</p>
+<ul class="simple">
+<li>The <em>datasource-ovr</em> file, with the database connection parameters and the path for the following files,</li>
+<li>The <em>init_users</em> file, indicating a &#8220;user&#8221; and an &#8220;admin&#8221;, and their corresponding passwords,</li>
+<li>The <em>init_categories</em> file, used to initialize GeoStore with the UNREDD categories.</li>
+</ul>
+<p>The following samples show the contents of these files for the staging area (<em>stg_geostore</em>).
+File contents for the dissemination area (<em>diss_geostore</em>) are almost the same, just replacing the instance name from <code class="docutils literal"><span class="pre">stg_geostore</span></code> to <code class="docutils literal"><span class="pre">diss_geostore</span></code>.</p>
+<div class="section" id="datasource-ovr-file">
+<h3><em>datasource-ovr</em> file<a class="headerlink" href="#datasource-ovr-file" title="Permalink to this headline">¶</a></h3>
+<p>Create the file <code class="docutils literal"><span class="pre">/var/stg_geostore/geostore-datasource-ovr.properties</span></code> with this content:</p>
+<div class="highlight-python"><div class="highlight"><pre>### DB SETUP
+geostoreDataSource.driverClassName=org.postgresql.Driver
+geostoreDataSource.url=jdbc:postgresql://localhost:5432/stg_geostore
+geostoreDataSource.username=stg_geostore
+geostoreDataSource.password=stg_geostore
+geostoreVendorAdapter.databasePlatform=org.hibernate.dialect.PostgreSQLDialect
+geostoreEntityManagerFactory.jpaPropertyMap[hibernate.hbm2ddl.auto]=validate
+geostoreEntityManagerFactory.jpaPropertyMap[hibernate.default_schema]=public
+geostoreVendorAdapter.generateDdl=true
+geostoreVendorAdapter.showSql=false
+
+### USERS INITIALIZAZITION
+geostoreInitializer.userListInitFile=file://var/stg_geostore/init_users.xml
+
+### CATEGORIES INITIALIZATION
+geostoreInitializer.categoryListInitFile=file://var/stg_geostore/init_categories.xml
+</pre></div>
+</div>
+</div>
+<div class="section" id="init-users-file">
+<h3><em>init_users</em> file<a class="headerlink" href="#init-users-file" title="Permalink to this headline">¶</a></h3>
+<p>This configuration will be used only at initialization time, when the GeoStore database is empty.</p>
+<p>Create the file <code class="docutils literal"><span class="pre">/var/stg_geostore/init_users.xml</span></code> file:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</span>
+<span class="nt">&lt;InitUserList&gt;</span>
+  <span class="nt">&lt;User&gt;</span>
+      <span class="nt">&lt;name&gt;</span>admin<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;newPassword&gt;</span>admin<span class="nt">&lt;/newPassword&gt;</span>
+      <span class="nt">&lt;role&gt;</span>ADMIN<span class="nt">&lt;/role&gt;</span>
+  <span class="nt">&lt;/User&gt;</span>
+  <span class="nt">&lt;User&gt;</span>
+      <span class="nt">&lt;name&gt;</span>user<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;newPassword&gt;</span>user<span class="nt">&lt;/newPassword&gt;</span>
+      <span class="nt">&lt;role&gt;</span>USER<span class="nt">&lt;/role&gt;</span>
+  <span class="nt">&lt;/User&gt;</span>
+<span class="nt">&lt;/InitUserList&gt;</span>
+</pre></div>
+</div>
+<p>Change the passwords at will.</p>
+</div>
+<div class="section" id="init-categories-file">
+<h3><em>init_categories</em> file<a class="headerlink" href="#init-categories-file" title="Permalink to this headline">¶</a></h3>
+<p>This configuration will be used only at initialization time, when the GeoStore database is empty.</p>
+<p>Create the file <code class="docutils literal"><span class="pre">/var/stg_geostore/init_categories.xml</span></code>:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</span>
+<span class="nt">&lt;CategoryList&gt;</span>
+  <span class="nt">&lt;Category&gt;</span>
+      <span class="nt">&lt;name&gt;</span>Layer<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;/Category&gt;</span>
+  <span class="nt">&lt;Category&gt;</span>
+      <span class="nt">&lt;name&gt;</span>LayerUpdate<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;/Category&gt;</span>
+  <span class="nt">&lt;Category&gt;</span>
+      <span class="nt">&lt;name&gt;</span>StatsDef<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;/Category&gt;</span>
+  <span class="nt">&lt;Category&gt;</span>
+      <span class="nt">&lt;name&gt;</span>StatsData<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;/Category&gt;</span>
+  <span class="nt">&lt;Category&gt;</span>
+      <span class="nt">&lt;name&gt;</span>ChartScript<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;/Category&gt;</span>
+  <span class="nt">&lt;Category&gt;</span>
+      <span class="nt">&lt;name&gt;</span>ChartData<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;/Category&gt;</span>
+  <span class="nt">&lt;Category&gt;</span>
+      <span class="nt">&lt;name&gt;</span>Feedback<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;/Category&gt;</span>
+  <span class="nt">&lt;Category&gt;</span>
+      <span class="nt">&lt;name&gt;</span>Report<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;/Category&gt;</span>
+<span class="nt">&lt;/CategoryList&gt;</span>
+</pre></div>
+</div>
+<p>More details on the GeoStore data model for UNREDD: <a class="reference internal" href="../geostore/index.html#unredd-geostore"><span>GeoStore</span></a>.</p>
+</div>
+</div>
+<div class="section" id="environment-settings">
+<h2>Environment settings<a class="headerlink" href="#environment-settings" title="Permalink to this headline">¶</a></h2>
+<p>Check the content of the <code class="docutils literal"><span class="pre">setenv.sh</span></code> files:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">SERVICE</span><span class="o">=</span>stg_geostore <span class="c"># OR diss_geostore</span>
+
+<span class="c"># Application specific environment</span>
+<span class="nv">GEOSTORE_OVR_FILE</span><span class="o">=</span>file:/var/<span class="nv">$SERVICE</span>/geostore-datasource-ovr.properties
+
+<span class="c"># Java options</span>
+<span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-server -Xms512m -Xmx512m -Dgeostore-ovr=</span><span class="nv">$GEOSTORE_OVR_FILE</span><span class="s2"> -Duser.timezone=GMT&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Deploy and configure staging and dissemination GeoStore</a><ul>
+<li><a class="reference internal" href="#initialize-postgresql-database">Initialize PostgreSQL database</a></li>
+<li><a class="reference internal" href="#geostore-configuration-files">GeoStore configuration files</a><ul>
+<li><a class="reference internal" href="#datasource-ovr-file"><em>datasource-ovr</em> file</a></li>
+<li><a class="reference internal" href="#init-users-file"><em>init_users</em> file</a></li>
+<li><a class="reference internal" href="#init-categories-file"><em>init_categories</em> file</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#environment-settings">Environment settings</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="geoserver.html"
+                        title="previous chapter">Deploy and configure staging and dissemination GeoServer</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="geobatch.html"
+                        title="next chapter">Deploy and configure staging GeoBatch</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="geobatch.html" title="Deploy and configure staging GeoBatch"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="geoserver.html" title="Deploy and configure staging and dissemination GeoServer"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Installing NFMS in Production</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

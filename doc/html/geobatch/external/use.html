@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Using GeoBatch &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="GeoBatch" href="../index.html" />
+    <link rel="next" title="UNREDD flows" href="../unredd.html" />
+    <link rel="prev" title="Key concepts" href="concepts.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../../index.html">
+      <img class="logo" src="../../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../unredd.html" title="UNREDD flows"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="concepts.html" title="Key concepts"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">GeoBatch</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="using-gb">
+<h1>Using <em>GeoBatch</em><a class="headerlink" href="#using-gb" title="Permalink to this headline">¶</a></h1>
+<p>Go to the <em>GeoBatch</em> web interface:</p>
+<blockquote>
+<div><a class="reference external" href="http://localhost:8080/geobatch/">http://localhost:8080/geobatch/</a></div></blockquote>
+<p>You should see <em>GeoBatch</em>&#8216;s main page:</p>
+<div class="figure align-center">
+<img alt="../../_images/main.png" src="../../_images/main.png" />
+</div>
+<div class="section" id="authentication">
+<h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
+<p>Clicking on any link, login screen appears:</p>
+<div class="figure align-center">
+<img alt="../../_images/login.png" src="../../_images/login.png" />
+</div>
+<p>Default user is <code class="docutils literal"><span class="pre">admin</span></code>, default password is also <code class="docutils literal"><span class="pre">admin</span></code>.</p>
+<p>TODO: How to change.</p>
+</div>
+<div class="section" id="embedded-ftp-server">
+<h2>Embedded FTP server<a class="headerlink" href="#embedded-ftp-server" title="Permalink to this headline">¶</a></h2>
+<p>From main page, click on <em>Manage ftp and users</em>:</p>
+<div class="figure align-center">
+<img alt="../../_images/ftp.png" src="../../_images/ftp.png" />
+</div>
+<p>There you can <img alt="config" src="../../_images/config-icon.png" /> configure the server, or <img alt="start" src="../../_images/start-icon.png" /> start it.</p>
+<p>The configuration options are:</p>
+<div class="figure align-center">
+<img alt="../../_images/ftp_config.png" src="../../_images/ftp_config.png" />
+</div>
+</div>
+<div class="section" id="user-management">
+<h2>User management<a class="headerlink" href="#user-management" title="Permalink to this headline">¶</a></h2>
+<p>To configure or add user click on the user icon near the log out button near the &#8216;Manage FTP server&#8217;.</p>
+</div>
+<div class="section" id="flow-management">
+<h2>Flow management<a class="headerlink" href="#flow-management" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center">
+<img alt="../../_images/flows.png" src="../../_images/flows.png" />
+</div>
+</div>
+<div class="section" id="configuring-vsftpd">
+<h2>Configuring vsftpd<a class="headerlink" href="#configuring-vsftpd" title="Permalink to this headline">¶</a></h2>
+<p>Edit service conf:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ nano /etc/vsftpd/vsftpd.conf
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>-----------------vsftpd.conf----------------
+anonymous_enable=NO
+xferlog_file=/var/log/vsftpd.log
+file_open_mode=0770
+local_umask=007
+...
+#Per user config
+user_config_dir=/etc/vsftpd/users/
+--------------------------------------------
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>$ mkdir /etc/vsftpd/users
+</pre></div>
+</div>
+<p>Edit each user (let&#8217;s call it <code class="docutils literal"><span class="pre">$USER</span></code>), conf:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ nano /etc/vsftpd/users/$USER
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>-----------------$USER------------------
+local_root=/opt/ingestion/
+local_umask=0311
+dirlist_enable=NO
+file_open_mode=0466
+----------------------------------------
+</pre></div>
+</div>
+<p>Restart the service:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ /etc/init.d/vsftpd start
+$ chkconfig vsftpd on
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Using <em>GeoBatch</em></a><ul>
+<li><a class="reference internal" href="#authentication">Authentication</a></li>
+<li><a class="reference internal" href="#embedded-ftp-server">Embedded FTP server</a></li>
+<li><a class="reference internal" href="#user-management">User management</a></li>
+<li><a class="reference internal" href="#flow-management">Flow management</a></li>
+<li><a class="reference internal" href="#configuring-vsftpd">Configuring vsftpd</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="concepts.html"
+                        title="previous chapter">Key concepts</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../unredd.html"
+                        title="next chapter">UNREDD flows</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../unredd.html" title="UNREDD flows"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="concepts.html" title="Key concepts"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoBatch</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

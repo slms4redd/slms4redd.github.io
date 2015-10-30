@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installing the LiveDVD on the system &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../index.html" />
+    <link rel="up" title="Running and installing the Training Machine" href="index.html" />
+    <link rel="next" title="Training Machine Simplified Architecture" href="simplified_architecture.html" />
+    <link rel="prev" title="Running the LiveDVD" href="live_dvd_running.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../index.html">
+      <img class="logo" src="../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="simplified_architecture.html" title="Training Machine Simplified Architecture"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="live_dvd_running.html" title="Running the LiveDVD"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Running and installing the Training Machine</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-geoserver.live_dvd_install"></span><div class="section" id="installing-the-livedvd-on-the-system">
+<span id="geoserver-live-dvd-install"></span><h1>Installing the LiveDVD on the system<a class="headerlink" href="#installing-the-livedvd-on-the-system" title="Permalink to this headline">¶</a></h1>
+<p>In order to increase the system performaces and, in case of live DVD, to have your work persisted for a later session, it is worth to <em>install</em> the LiveDVD on the system. It can be done either by installing the operating system on your local machine or on a Virtual Machine (VM) such as VMWare or VirtualBox.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In order to work smoothly and without issues with GeoServer it is <strong>recommended</strong> to make the <code class="docutils literal"><span class="pre">GEOSERVER_DATA_DIR</span></code> point to a folder on the persistent storage (see next section).</p>
+</div>
+</div></blockquote>
+<ol class="arabic">
+<li><p class="first">Follow the instruction in the <a class="reference internal" href="live_dvd_running.html#geoserver-live-dvd-running"><span>previous</span></a> section in order to start the LiveDVD.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Configuring a brand new VM compatible with Ubuntu, and attaching the LiveDVD to it, also allows you to install the workshop on a virtual environment.</p>
+</div>
+</li>
+<li><p class="first">Once you get the LiveDVD boot screen as shown below, type <strong>install</strong> and press ENTER</p>
+<div class="figure" id="id1">
+<a class="reference internal image-reference" href="../_images/dvd_install0.jpg"><img alt="../_images/dvd_install0.jpg" src="../_images/dvd_install0.jpg" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">LiveDVD boot screen</span></p>
+</div>
+</li>
+<li><p class="first">Choose your language and click <span class="guilabel">Continue</span> on the <span class="guilabel">Welcome</span> screen.</p>
+<div class="figure" id="id2">
+<a class="reference internal image-reference" href="../_images/dvd_install1.jpg"><img alt="../_images/dvd_install1.jpg" src="../_images/dvd_install1.jpg" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">LiveDVD install: language selection</span></p>
+</div>
+</li>
+<li><p class="first">Choose your time-zone and click <span class="guilabel">Continue</span> on the <span class="guilabel">Where are you?</span> screen.</p>
+<div class="figure" id="id3">
+<a class="reference internal image-reference" href="../_images/dvd_install2.jpg"><img alt="../_images/dvd_install2.jpg" src="../_images/dvd_install2.jpg" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">LiveDVD install: time-zone setting</span></p>
+</div>
+</li>
+<li><p class="first">Choose your keyboard layout and click <span class="guilabel">Continue</span> on the <span class="guilabel">Keyboard</span> screen.</p>
+<div class="figure" id="id4">
+<a class="reference internal image-reference" href="../_images/dvd_install3.jpg"><img alt="../_images/dvd_install3.jpg" src="../_images/dvd_install3.jpg" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">LiveDVD install: keyboard layout</span></p>
+</div>
+</li>
+<li><p class="first">Select the partition where to install the system and click <span class="guilabel">Forward</span> on the <span class="guilabel">Prepare disk space</span> screen.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We suggest to not modify the configuration proposed here unless you are an advanced user and know exactly what you are doing.</p>
+</div>
+<div class="figure" id="id5">
+<a class="reference internal image-reference" href="../_images/dvd_install4.jpg"><img alt="../_images/dvd_install4.jpg" src="../_images/dvd_install4.jpg" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">LiveDVD install: Installation Type</span></p>
+</div>
+</li>
+<li><p class="first">Select the username and password and the hostname, then click on <span class="guilabel">Forward</span>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This course envisages the use of a <code class="docutils literal"><span class="pre">username</span></code>:<strong>unredd</strong> with a <code class="docutils literal"><span class="pre">password</span></code>: <strong>unredd</strong>. You can choose any <code class="docutils literal"><span class="pre">hostname</span></code>.</p>
+</div>
+<div class="figure" id="id6">
+<a class="reference internal image-reference" href="../_images/dvd_install5.jpg"><img alt="../_images/dvd_install5.jpg" src="../_images/dvd_install5.jpg" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">LiveDVD install: <code class="docutils literal"><span class="pre">Who</span> <span class="pre">are</span> <span class="pre">you?</span></code> selection</span></p>
+</div>
+</li>
+<li><p class="first">Check the summary and click <span class="guilabel">Install</span>.</p>
+<div class="figure" id="id7">
+<a class="reference internal image-reference" href="../_images/dvd_install6.jpg"><img alt="../_images/dvd_install6.jpg" src="../_images/dvd_install6.jpg" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">LiveDVD install: Ready to install summary.</span></p>
+</div>
+</li>
+<li><p class="first">Wait for installation to finish and then restart the system. Remember to remove the LiveDVD from the DVD-ROM before restarting the computer or VM.</p>
+<div class="figure" id="id8">
+<a class="reference internal image-reference" href="../_images/dvd_install7.jpg"><img alt="../_images/dvd_install7.jpg" src="../_images/dvd_install7.jpg" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">LiveDVD install: installation progress</span></p>
+</div>
+<div class="figure" id="id9">
+<a class="reference internal image-reference" href="../_images/dvd_install8.jpg"><img alt="../_images/dvd_install8.jpg" src="../_images/dvd_install8.jpg" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">LiveDVD install: installation finished</span></p>
+</div>
+<div class="figure" id="id10">
+<a class="reference internal image-reference" href="livedvd\img/dvd_running.jpg"><img alt="livedvd\img/dvd_running.jpg" src="livedvd\img/dvd_running.jpg" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">LiveDVD install: Working system</span></p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The OS user name and password to use for this workshop are:</p>
+<ul class="last simple">
+<li>username: <cite>unredd</cite></li>
+<li>password: <cite>unredd</cite></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For each installed application on the system we used the user <cite>unredd</cite> with password <cite>unredd</cite>.</p>
+</div>
+</li>
+</ol>
+<p>At this point you should have a fully functional environment to run GeoServer, GIS tools and clients on your dataset.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="live_dvd_running.html"
+                        title="previous chapter">Running the LiveDVD</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="simplified_architecture.html"
+                        title="next chapter">Training Machine Simplified Architecture</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="simplified_architecture.html" title="Training Machine Simplified Architecture"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="live_dvd_running.html" title="Running the LiveDVD"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Running and installing the Training Machine</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

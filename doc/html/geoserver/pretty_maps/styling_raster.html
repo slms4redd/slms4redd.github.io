@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Styling Raster data &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Styling with SLD" href="styling.html" />
+    <link rel="next" title="Filtering Maps" href="filtering.html" />
+    <link rel="prev" title="Charting" href="charting.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../../index.html">
+      <img class="logo" src="../../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="filtering.html" title="Filtering Maps"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="charting.html" title="Charting"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Pretty maps with GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="styling.html" accesskey="U">Styling with SLD</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <blockquote>
+<div></div></blockquote>
+<div class="section" id="styling-raster-data">
+<span id="geoserver-styling-raster"></span><h1>Styling Raster data<a class="headerlink" href="#styling-raster-data" title="Permalink to this headline">¶</a></h1>
+<p>In the previous section we have created and optimized some vector styles. In this section we will deal with a styled SRTM raster and we will see how to get a better visualization of that layer by adding hillshade.</p>
+<ol class="arabic">
+<li><p class="first">From the <a class="reference external" href="http://localhost:8080/geoserver">Welcome Page</a> navigate to <span class="menuselection">Layer Preview</span> and select the OpenLayers link for the <code class="docutils literal"><span class="pre">geosolutions:srtm</span></code> layer.</p>
+<div class="figure" id="id2">
+<img alt="../../_images/raster_srtm.png" src="../../_images/raster_srtm.png" />
+<p class="caption"><span class="caption-text">SRTM rendering with DEM style</span></p>
+</div>
+<p>There is a DEM style associated to that SRTM dataset layer, resulting in such a colored rendering.</p>
+</li>
+<li><p class="first">Return to the GeoServer <cite>Welcome Page</cite>, select the <span class="menuselection">Styles</span> and click the <code class="docutils literal"><span class="pre">dem</span></code> style to see which color map is applied.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You have to be logged in as Administrator in order to edit/check styles.</p>
+</div>
+<div class="figure" id="id3">
+<img alt="../../_images/raster_dem_style.png" src="../../_images/raster_dem_style.png" />
+<p class="caption"><span class="caption-text">Style editing</span></p>
+</div>
+<p>Note the entries with <code class="docutils literal"><span class="pre">opacity</span> <span class="pre">=</span> <span class="pre">0.0</span></code> which allow to make no data values as transparent.</p>
+</li>
+</ol>
+<p>The current DEM style allows to get a pleasant rendering of the SRTM dataset but we can get better results by combining it with an hillshade layer which will be created through another GDAL utility (gdaldem).</p>
+<div class="section" id="adding-hillshade">
+<h2>Adding hillshade<a class="headerlink" href="#adding-hillshade" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Open a shell (CTRL+ALT+T) and run:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd /home/unredd/geoserver_data/data/boulder
+
+gdaldem hillshade -z 5 -s 111120 srtm_boulder.tiff srtm_boulder_hs.tiff -co tiled=yes
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <code class="docutils literal"><span class="pre">z</span></code> parameter exxagerates the elevation, the <code class="docutils literal"><span class="pre">s</span></code> parameter provides the ratio between the elevation units and the ground units (degrees in this case), <code class="docutils literal"><span class="pre">-co</span> <span class="pre">tiled=yes</span></code> makes gdaldem generate a TIFF with inner tiling. We&#8217;ll investigate this last option better in the following pages.</p>
+</div>
+</li>
+<li><p class="first">From the <a class="reference external" href="http://localhost:8080/geoserver">Welcome Page</a> navigate to <span class="menuselection">Styles</span> and select <cite>Add a new style</cite> as previously seen in the <a class="reference internal" href="add_style.html#geoserver-add-style"><span>Adding a style</span></a> section.</p>
+</li>
+<li><p class="first">In the <span class="guilabel">SLD Editor</span> enter the following XML:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;sld:StyledLayerDescriptor</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.opengis.net/sld&quot;</span> <span class="na">xmlns:sld=</span><span class="s">&quot;http://www.opengis.net/sld&quot;</span> <span class="na">xmlns:ogc=</span><span class="s">&quot;http://www.opengis.net/ogc&quot;</span> <span class="na">xmlns:gml=</span><span class="s">&quot;http://www.opengis.net/gml&quot;</span> <span class="na">version=</span><span class="s">&quot;1.0.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;sld:UserLayer&gt;</span>
+        <span class="nt">&lt;sld:LayerFeatureConstraints&gt;</span>
+            <span class="nt">&lt;sld:FeatureTypeConstraint/&gt;</span>
+        <span class="nt">&lt;/sld:LayerFeatureConstraints&gt;</span>
+        <span class="nt">&lt;sld:UserStyle&gt;</span>
+            <span class="nt">&lt;sld:Title/&gt;</span>
+            <span class="nt">&lt;sld:FeatureTypeStyle&gt;</span>
+                <span class="nt">&lt;sld:Name&gt;</span>name<span class="nt">&lt;/sld:Name&gt;</span>
+                <span class="nt">&lt;sld:FeatureTypeName&gt;</span>Feature<span class="nt">&lt;/sld:FeatureTypeName&gt;</span>
+                <span class="nt">&lt;sld:Rule&gt;</span>
+                    <span class="nt">&lt;sld:MinScaleDenominator&gt;</span>75000<span class="nt">&lt;/sld:MinScaleDenominator&gt;</span>
+                    <span class="nt">&lt;sld:RasterSymbolizer&gt;</span>
+                        <span class="nt">&lt;sld:Geometry&gt;</span>
+                            <span class="nt">&lt;ogc:PropertyName&gt;</span>grid<span class="nt">&lt;/ogc:PropertyName&gt;</span>
+                        <span class="nt">&lt;/sld:Geometry&gt;</span>
+                        <span class="nt">&lt;sld:ColorMap&gt;</span>
+                            <span class="nt">&lt;sld:ColorMapEntry</span> <span class="na">color=</span><span class="s">&quot;#000000&quot;</span> <span class="na">opacity=</span><span class="s">&quot;0.0&quot;</span> <span class="na">quantity=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+                            <span class="nt">&lt;sld:ColorMapEntry</span> <span class="na">color=</span><span class="s">&quot;#999999&quot;</span> <span class="na">opacity=</span><span class="s">&quot;0.7&quot;</span> <span class="na">quantity=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
+                            <span class="nt">&lt;sld:ColorMapEntry</span> <span class="na">color=</span><span class="s">&quot;#FFFFFF&quot;</span> <span class="na">opacity=</span><span class="s">&quot;0.7&quot;</span> <span class="na">quantity=</span><span class="s">&quot;256.0&quot;</span><span class="nt">/&gt;</span>
+                        <span class="nt">&lt;/sld:ColorMap&gt;</span>
+                    <span class="nt">&lt;/sld:RasterSymbolizer&gt;</span>
+                <span class="nt">&lt;/sld:Rule&gt;</span>
+            <span class="nt">&lt;/sld:FeatureTypeStyle&gt;</span>
+        <span class="nt">&lt;/sld:UserStyle&gt;</span>
+    <span class="nt">&lt;/sld:UserLayer&gt;</span>
+<span class="nt">&lt;/sld:StyledLayerDescriptor&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Note the opacity values being less than 1, in order to made it partially transparent which will allows to do overlaying on other layers</p>
+</div>
+</li>
+<li><p class="first">Set <code class="file docutils literal"><span class="pre">hillshade</span></code> as name and then click the <span class="guilabel">Submit</span> button.</p>
+</li>
+<li><p class="first">Select <span class="guilabel">Add stores</span> from the GeoServer <cite>Welcome Page</cite> to add the previously created <code class="docutils literal"><span class="pre">hillshade</span></code> raster.</p>
+</li>
+<li><p class="first">Select <span class="guilabel">GeoTIFF - Tagged Image File Format with Geographic information</span> from the set of available Raster Data Sources.</p>
+</li>
+<li><p class="first">Specify <code class="file docutils literal"><span class="pre">hillshade</span></code> as name in the <span class="guilabel">Data Source Name</span> field of the interface.</p>
+</li>
+<li><p class="first">Click on  <span class="guilabel">browse</span> link in order to set the GeoTIFF location in the <span class="guilabel">URL</span> field.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">make sure to specify the <code class="file docutils literal"><span class="pre">srtm_boulder_hs.tiff</span></code> previously created with gdaldem, which should be located at <code class="file docutils literal"><span class="pre">/home/unredd/geoserver_data/data/boulder</span></code></p>
+</div>
+</li>
+<li><p class="first">Click <span class="guilabel">Save</span>.</p>
+</li>
+<li><p class="first">Publish the layer by clicking on the <span class="guilabel">publish</span> link.</p>
+<div class="figure" id="id4">
+<img alt="../../_images/raster_hillshade.png" src="../../_images/raster_hillshade.png" />
+<p class="caption"><span class="caption-text">Publishing Raster Layer</span></p>
+</div>
+</li>
+<li><p class="first">Set <code class="file docutils literal"><span class="pre">SRTM</span> <span class="pre">Hillshade</span></code> as Title</p>
+</li>
+<li><p class="first">Switch to <cite>Publishing</cite> tab</p>
+<div class="figure">
+<img alt="../../_images/raster_hillshade_publishing.png" src="../../_images/raster_hillshade_publishing.png" />
+</div>
+</li>
+<li><p class="first">Make sure to set the default style to <code class="docutils literal"><span class="pre">hillshade</span></code> on the <cite>Publishing &#8211;&gt; Default Style</cite> section.</p>
+<div class="figure" id="id5">
+<img alt="../../_images/raster_hillshade_defaultstyle.png" src="../../_images/raster_hillshade_defaultstyle.png" />
+<p class="caption"><span class="caption-text">Editing Raster Publishing info</span></p>
+</div>
+</li>
+<li><p class="first">Click <span class="guilabel">Save</span> to create the new layer.</p>
+</li>
+<li><p class="first">Use the <strong>Layer Preview</strong> to preview the new layer with the hillshade style.</p>
+<div class="figure" id="id6">
+<img alt="../../_images/raster_hillshade_preview.png" src="../../_images/raster_hillshade_preview.png" />
+<p class="caption"><span class="caption-text">Previewing the new raster layer with the hillshade style applied</span></p>
+</div>
+</li>
+<li><p class="first">Edit the Layer Preview URL in your browser by locating the <cite>layers</cite> parameter</p>
+<blockquote>
+<div><div class="figure">
+<img alt="../../_images/raster_overlay_url.png" src="../../_images/raster_overlay_url.png" />
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Insert the <cite>geosolutions:srtm,</cite> additional layer (note the final comma) before the <cite>geosolutions:hillshade</cite> one</p>
+<blockquote>
+<div><div class="figure">
+<img alt="../../_images/raster_overlay_2layers.png" src="../../_images/raster_overlay_2layers.png" />
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Press Enter to send the updated request. The Layer Preview should change like this where you can see both the srtm and hillshade layers.</p>
+<blockquote>
+<div><div class="figure" id="id7">
+<img alt="../../_images/raster_overlay.png" src="../../_images/raster_overlay.png" />
+<p class="caption"><span class="caption-text">Layer preview with srtm and hillshade being overlaid</span></p>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Styling Raster data</a><ul>
+<li><a class="reference internal" href="#adding-hillshade">Adding hillshade</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="charting.html"
+                        title="previous chapter">Charting</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="filtering.html"
+                        title="next chapter">Filtering Maps</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="filtering.html" title="Filtering Maps"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="charting.html" title="Charting"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Pretty maps with GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="styling.html" >Styling with SLD</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

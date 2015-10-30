@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Layer level security &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="GeoServer Security" href="index.html" />
+    <link rel="next" title="Advanced GeoServer Configuration" href="../adv_gsconfig/index.html" />
+    <link rel="prev" title="Service Level Security" href="service_level.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../../index.html">
+      <img class="logo" src="../../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../adv_gsconfig/index.html" title="Advanced GeoServer Configuration"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="service_level.html" title="Service Level Security"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">GeoServer Security</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-geoserver.layer_level"></span><div class="section" id="layer-level-security">
+<span id="geoserver-layer-level"></span><h1>Layer level security<a class="headerlink" href="#layer-level-security" title="Permalink to this headline">¶</a></h1>
+<p>GeoServer allows access to be determined on a per-layer basis. Access to layers are linked to roles. Layers and roles are linked in a file called layers.properties, which is located in the security directory in your $GEOSERVER_DATA_DIR.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The syntax for setting security is as follows.  (Parameters in brackets [] are optional):</p>
+<div class="highlight-python"><div class="highlight"><pre>namespace.layer.permission=role[,role2,...]
+</pre></div>
+</div>
+<p>where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>namespace</strong> is the name of the namespace. The wildcard * is used to indicate all namespaces.</li>
+<li><strong>layer</strong> is the name of a featuretype or coverage. The wildcard * is used to indicate all layers.</li>
+<li><strong>permission</strong> is the type of access permission (<strong>r</strong> for read access, <strong>w</strong> for write access).</li>
+<li><strong>role[,role2,...]</strong> is the name(s) of predefined roles. The wildcard * is used to indicate the permission is applied to all users, including anonymous users.</li>
+</ul>
+</div></blockquote>
+<p class="last">Layer-level security and <a class="reference internal" href="service_level.html#geoserver-service-level"><span>Service Level Security</span></a> cannot be combined.  For example, it is not possible to specify access to a specific OGC service on one specific layer.</p>
+</div>
+</div></blockquote>
+<ol class="arabic">
+<li><p class="first">From the <span class="guilabel">Welcome</span> page click the <span class="guilabel">Data security</span> link on the <span class="guilabel">Menu</span> Security section.</p>
+<div class="figure" id="id2">
+<img alt="../../_images/data1.png" src="../../_images/data1.png" />
+<p class="caption"><span class="caption-text">The Data access rules list</span></p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You have to be logged in as Administrator in order to activate this function.</p>
+</div>
+</li>
+<li><p class="first">Click <span class="guilabel">Add new rule</span> in the top menu and enter the following configuration:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Select <code class="docutils literal"><span class="pre">geosolutions</span></code> from <code class="docutils literal"><span class="pre">Workspace</span></code> combo box.</li>
+<li>Select <code class="docutils literal"><span class="pre">ccounties</span></code> from <code class="docutils literal"><span class="pre">Layer</span></code> combo box.</li>
+<li>Select <code class="docutils literal"><span class="pre">Read</span></code> from <code class="docutils literal"><span class="pre">Access</span> <span class="pre">mode</span></code> combo box.</li>
+<li>Select the <span class="guilabel">ROLE_WS</span> created in <a class="reference internal" href="users_roles.html#geoserver-users-roles"><span>Maganing Users and Roles</span></a> section and pressing the right arrow on center of the window.</li>
+</ul>
+</div></blockquote>
+<div class="figure" id="id3">
+<img alt="../../_images/data2.png" src="../../_images/data2.png" />
+<p class="caption"><span class="caption-text">The new data access read rule for ROLE_WS</span></p>
+</div>
+</li>
+<li><p class="first">Click the <span class="guilabel">Save</span> button.</p>
+<div class="figure" id="id4">
+<img alt="../../_images/data3.png" src="../../_images/data3.png" />
+<p class="caption"><span class="caption-text">The new Data access rules list</span></p>
+</div>
+</li>
+<li><p class="first">Click <span class="guilabel">Add new rule</span> in the top menu and enter the following configuration:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Select <code class="docutils literal"><span class="pre">geosolutions</span></code> from <code class="docutils literal"><span class="pre">Workspace</span></code> combo box.</li>
+<li>Select <code class="docutils literal"><span class="pre">ccounties</span></code> from <code class="docutils literal"><span class="pre">Layer</span></code> combo box.</li>
+<li>Select <code class="docutils literal"><span class="pre">Write</span></code> from <code class="docutils literal"><span class="pre">Access</span> <span class="pre">mode</span></code> combo box.</li>
+<li>Select the <span class="guilabel">ROLE_WS</span> created in <a class="reference internal" href="users_roles.html#geoserver-users-roles"><span>Maganing Users and Roles</span></a> section and pressing the right arrow on center of the window.</li>
+</ul>
+</div></blockquote>
+<div class="figure" id="id5">
+<img alt="../../_images/data4.png" src="../../_images/data4.png" />
+<p class="caption"><span class="caption-text">The new data access write rule for ROLE_WS</span></p>
+</div>
+</li>
+<li><p class="first">Click the <span class="guilabel">Save</span> button.</p>
+<div class="figure" id="id6">
+<img alt="../../_images/data5.png" src="../../_images/data5.png" />
+<p class="caption"><span class="caption-text">The new Data access rules list</span></p>
+</div>
+</li>
+</ol>
+<p>With this setup most of the layers are generally accessible read/write from all users, but the <code class="docutils literal"><span class="pre">ccounties</span></code> one can now be
+accessed only by users having the ROLE_WS, or the administrator (which is all powerful): the system works pretty much
+like CSS selectors in HTML, the most specific rule wins.</p>
+<div class="section" id="id1">
+<h2>Layer level security<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">layers.properties</span></code> file may contain a further directive that specifies the way in which GeoServer will advertise secured layers and behave when a secured layer is accessed without the necessary privileges. The line is:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mode</span><span class="o">=</span><span class="n">option</span>
+</pre></div>
+</div>
+<p>where <strong>option</strong> can be one of three values:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>Option</strong></th>
+<th class="head"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">hide</span></code> <em>(default)</em></td>
+<td>Hides layers that the user does not have read access to, and behaves as if a layer is read only if the user does not have write permissions. The capabilities documents will not contain the layers the current user cannot access. This is the highest security mode.  Because of this, it can sometimes not work very well with clients such as uDig or Google Earth.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">challenge</span></code></td>
+<td>Allows free access to metadata, but any attempt at accessing actual data is met by a HTTP 401 code (which forces most client to show an authentication dialog). The capabilities documents contain the full list of layers.  DescribeFeatureType and DescribeCoverage work fine.  This mode works fine with clients such as uDig or Google Earth.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">mixed</span></code></td>
+<td>Hides the layers the user cannot read from the capabilities documents, but triggers authentication for any other attempt to access the data or the metadata. This option is useful if you don&#8217;t want the world to see the existence of some of your data, but you still want selected people to whom you give direct data access links to get the data after authentication.</td>
+</tr>
+</tbody>
+</table>
+<p>The catalog level security can be set using the <code class="docutils literal"><span class="pre">Catalog</span> <span class="pre">security</span></code> page:</p>
+<blockquote>
+<div><div class="figure" id="id7">
+<img alt="../../_images/data6.png" src="../../_images/data6.png" />
+<p class="caption"><span class="caption-text">Catalog level security</span></p>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Layer level security</a><ul>
+<li><a class="reference internal" href="#id1">Layer level security</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="service_level.html"
+                        title="previous chapter">Service Level Security</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../adv_gsconfig/index.html"
+                        title="next chapter">Advanced GeoServer Configuration</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../adv_gsconfig/index.html" title="Advanced GeoServer Configuration"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="service_level.html" title="Service Level Security"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >GeoServer Security</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

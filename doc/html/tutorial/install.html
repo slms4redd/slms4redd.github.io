@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installation &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../index.html" />
+    <link rel="up" title="DRC NFMS Portal training" href="index.html" />
+    <link rel="next" title="Web services" href="webservices.html" />
+    <link rel="prev" title="Linux" href="linux.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../index.html">
+      <img class="logo" src="../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="webservices.html" title="Web services"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="linux.html" title="Linux"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">DRC NFMS Portal training</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="install-the-10-18-2-version-of-chef-solo">
+<h2>Install the 10.18.2 version of chef-solo<a class="headerlink" href="#install-the-10-18-2-version-of-chef-solo" title="Permalink to this headline">¶</a></h2>
+<p>To install chef-solo 10.18.2 run the following commands. The lines beginning with # are comments, the ones that begin with $ should be copied on the Linux command line. The $ symbolizes the command line so you do not have to include it:</p>
+<div class="highlight-python"><div class="highlight"><pre># Add  &quot;deb http://apt.opscode.com/ precise-0.10 main&quot;
+# (Without the quotes) at the end of the cild /etc/apt/sources.list
+$ sudo gedit /etc/apt/sources.list
+$ gpg --keyserver keys.gnupg.net --recv-keys 83EF826A
+$ gpg --export packages@opscode.com | sudo tee /etc/apt/trusted.gpg.d/opscode-keyring.gpg &gt; /dev/null
+$ sudo apt-get update
+$ sudo apt-get install opscode-keyring
+
+# During the next step you will be asked for a parameter that is not used, you can leave it blank.
+
+$ sudo apt-get install chef
+$ chef-solo -version
+</pre></div>
+</div>
+</div>
+<div class="section" id="run-chef-solo">
+<h2>Run chef-solo<a class="headerlink" href="#run-chef-solo" title="Permalink to this headline">¶</a></h2>
+<p>Execute the following command:</p>
+<blockquote>
+<div>$ sudo mkdir /var/chef-solo</div></blockquote>
+<p>Copy the cookbooks and the files solo.rb and dna.json in the directory we just created. The final result should be:</p>
+<div class="highlight-python"><div class="highlight"><pre>/
+\- var
+    \- chef-solo
+        |- dna.json
+        |- solo.rb
+        \- cookbooks
+            |- apache2
+            |- apt
+            |- ark
+            |- build-essential
+            |- database
+            |- gis
+            |- java
+            |- logrotate
+            |- omnibus_updater
+            |- openssl
+            |- postgresql
+            |- tomcat
+            \- unredd-nfms-portal
+</pre></div>
+</div>
+<p>Execute the following command from the directory /var/chef-solo:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo chef-solo -c solo.rb -j dna.json
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#install-the-10-18-2-version-of-chef-solo">Install the 10.18.2 version of chef-solo</a></li>
+<li><a class="reference internal" href="#run-chef-solo">Run chef-solo</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="linux.html"
+                        title="previous chapter">Linux</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="webservices.html"
+                        title="next chapter">Web services</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="webservices.html" title="Web services"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="linux.html" title="Linux"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >DRC NFMS Portal training</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

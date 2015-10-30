@@ -1,0 +1,497 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Image Mosaic Action &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../../index.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../../index.html">
+      <img class="logo" src="../../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="image-mosaic-action">
+<h1>Image Mosaic Action<a class="headerlink" href="#image-mosaic-action" title="Permalink to this headline">¶</a></h1>
+<p>The image mosaic flow can be used to publish or update an <a class="reference external" href="http://docs.geoserver.org/stable/en/user/tutorials/image_mosaic_plugin/imagemosaic.html">http://docs.geoserver.org/stable/en/user/tutorials/image_mosaic_plugin/imagemosaic.html</a>
+ImageMosaic up to a single instance of the <a class="reference external" href="http://docs.geoserver.org/2.0.0/user/">http://docs.geoserver.org/2.0.0/user/</a> GeoServer.</p>
+<p>It is fundamentally based on the <a class="reference external" href="http://geotools.org/">http://geotools.org/</a> GeoTools
+<a class="reference external" href="http://docs.geoserver.org/stable/en/user/tutorials/image_mosaic_plugin/imagemosaic.html">http://docs.geoserver.org/stable/en/user/tutorials/image_mosaic_plugin/imagemosaic.html</a>
+ImageMosaic library and make use of a series of <a class="reference external" href="http://docs.geoserver.org/2.0.0/user/extensions/rest/index.html">http://docs.geoserver.org/2.0.0/user/extensions/rest/index.html</a> REST calls to perform remote GeoServer update and queries.</p>
+<div class="section" id="input">
+<h2>Input<a class="headerlink" href="#input" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>A writeable directory (with readable geotiff)</li>
+</ul>
+<p>OR</p>
+<ul class="simple">
+<li>An ImageMosaicCommand file:</li>
+</ul>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;ImageMosaic&gt;</span>
+  <span class="nt">&lt;base&gt;</span>/path/to/destination/layer/<span class="nt">&lt;/base&gt;</span>
+  <span class="nt">&lt;add&gt;</span>/path/of/file/to/add/geoN.tif<span class="nt">&lt;/add&gt;</span>
+   ...
+  <span class="nt">&lt;add&gt;</span>/path/of/file/to/add/geo.tif<span class="nt">&lt;/add&gt;</span>
+  <span class="nt">&lt;del&gt;</span>/path/of/file/to/delete/geo.tif<span class="nt">&lt;/del&gt;</span>
+   ...
+  <span class="nt">&lt;del&gt;</span>/path/of/file/to/delete/geoM.tif<span class="nt">&lt;/del&gt;</span>
+   ...
+  <span class="nt">&lt;backgroundValue&gt;</span>-9999<span class="nt">&lt;/backgroundValue&gt;</span>
+  <span class="nt">&lt;outputTransparentColor&gt;&lt;/outputTransparentColor&gt;</span>
+  <span class="nt">&lt;inputTransparentColor&gt;&lt;/inputTransparentColor&gt;</span>
+  <span class="nt">&lt;allowMultithreading&gt;</span>true<span class="nt">&lt;/allowMultithreading&gt;</span>
+  <span class="nt">&lt;useJaiImageRead&gt;</span>false<span class="nt">&lt;/useJaiImageRead&gt;</span>
+  <span class="nt">&lt;tileSizeH&gt;</span>256<span class="nt">&lt;/tileSizeH&gt;</span>
+  <span class="nt">&lt;tileSizeW&gt;</span>256<span class="nt">&lt;/tileSizeW&gt;</span>
+  <span class="c">&lt;!--NONE, REPROJECT_TO_DECLARED, FORCE_DECLARED--&gt;</span>
+  <span class="nt">&lt;projectionPolicy&gt;</span>NONE<span class="nt">&lt;/projectionPolicy&gt;</span>
+  ...
+  <span class="nt">&lt;styles/&gt;</span>
+
+  <span class="nt">&lt;datastorePropertiesPath&gt;</span>imagemosaic_work/config/datastore.properties<span class="nt">&lt;/datastorePropertiesPath&gt;</span>
+
+  <span class="c">&lt;!-- METADATA --&gt;</span>
+
+  <span class="c">&lt;!-- TIME --&gt;</span>
+  <span class="nt">&lt;timeDimEnabled&gt;</span>false<span class="nt">&lt;/timeDimEnabled&gt;</span>
+  <span class="c">&lt;!-- LIST, CONTINUOUS_INTERVAL, DISCRETE_INTERVAL --&gt;</span>
+  <span class="nt">&lt;timePresentationMode&gt;</span>LIST<span class="nt">&lt;/timePresentationMode&gt;</span>
+  <span class="nt">&lt;timeRegex&gt;</span>[0-9]{8}T[0-9]{9}Z(\?!.\*[0-9]{8}T[0-9]{9}Z.\*)<span class="nt">&lt;/timeRegex&gt;</span>
+
+  <span class="c">&lt;!-- ELEVATION --&gt;</span>
+  <span class="nt">&lt;elevDimEnabled&gt;</span>false<span class="nt">&lt;/elevDimEnabled&gt;</span>
+  <span class="nt">&lt;elevationPresentationMode&gt;</span>LIST<span class="nt">&lt;/elevationPresentationMode&gt;</span>
+  <span class="nt">&lt;elevationRegex&gt;</span><span class="cp">&lt;![CDATA[(?&lt;=_)(\\d{4}\\.\\d{3})(?=_)]]&gt;</span><span class="nt">&lt;/elevationRegex&gt;</span>
+
+  ...
+<span class="nt">&lt;/ImageMosaic&gt;</span>
+</pre></div>
+</div>
+<p><em>NOTE:</em></p>
+<ul class="simple">
+<li>07/10/2011 -&gt; ImageMosaicCommand is now able to <em>override</em> statically defined (into configuration) mosaic parameters</li>
+<li>08/04/2011 -&gt; delete operations are still not complete, do not use those functionalities</li>
+</ul>
+<p>If you use shape file as datastore and you need time support (with hours minutes and seconds) be shure to set:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="o">-</span><span class="n">Dorg</span><span class="o">.</span><span class="n">geotools</span><span class="o">.</span><span class="n">shapefile</span><span class="o">.</span><span class="n">datetime</span><span class="o">=</span><span class="n">true</span>
+</pre></div>
+</div>
+<p>into the:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">JAVA_OPTS</span>
+</pre></div>
+</div>
+<p>of the <em>GeoServer</em> instance which may build the mosaic.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>A file (queue) representing the output layer (if successfully configured)</li>
+<li>A null object (if something goes wrong)</li>
+</ul>
+<p>Referring to the below Flow Chart Image you can see:</p>
+<ol class="arabic simple">
+<li>Using the ImageMosaicCommand you can perform complex operation on the layer:</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>Creation</li>
+<li>Update (adding or removing images)</li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li>using the directory as input the only supported operation is:</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>Creation</li>
+</ul>
+</div></blockquote>
+<p><em>References</em></p>
+<p><a class="reference external" href="http://java.net/projects/imageio-ext">http://java.net/projects/imageio-ext</a> ImageIO-EXT</p>
+<p><a class="reference external" href="http://docs.geotools.org/latest/userguide/guide/library/coverage/index.html">http://docs.geotools.org/latest/userguide/guide/library/coverage/index.html</a> Coverage</p>
+<p><a class="reference external" href="http://docs.geoserver.org/stable/en/user/tutorials/image_mosaic_plugin/imagemosaic.html">http://docs.geoserver.org/stable/en/user/tutorials/image_mosaic_plugin/imagemosaic.html</a> ImageMosaic</p>
+</div>
+<div class="section" id="the-flow-chart">
+<h2>The Flow Chart<a class="headerlink" href="#the-flow-chart" title="Permalink to this headline">¶</a></h2>
+<p>[[Image(ImageMosaicAction.jpg, align=center, nolink)]]</p>
+</div>
+<div class="section" id="imagemosaiccommand-options">
+<h2>ImageMosaicCommand options<a class="headerlink" href="#imagemosaiccommand-options" title="Permalink to this headline">¶</a></h2>
+<p>Passing an ImageMosaicCommand to the GeoBatch ImageMosaicAction you could define on the fly most of the ImageMosaicAction options to use (passed options will override the flow configuration):</p>
+</div>
+<div class="section" id="inputs">
+<h2>Inputs<a class="headerlink" href="#inputs" title="Permalink to this headline">¶</a></h2>
+<p>The set of granules to add/remove or the entire mosaic:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;base&gt;</span>/path/to/destination/layer/<span class="nt">&lt;/base&gt;</span>
+<span class="nt">&lt;add&gt;</span>/path/of/file/to/add/geoN.tif<span class="nt">&lt;/add&gt;</span>
+ ...
+<span class="nt">&lt;add&gt;</span>/path/of/file/to/add/geo.tif<span class="nt">&lt;/add&gt;</span>
+<span class="nt">&lt;del&gt;</span>/path/of/file/to/delete/geo.tif<span class="nt">&lt;/del&gt;</span>
+ ...
+<span class="nt">&lt;del&gt;</span>/path/of/file/to/delete/geoM.tif<span class="nt">&lt;/del&gt;</span>
+</pre></div>
+</div>
+<p>Where &#8216;base&#8217; represents the target directory to place the mosaic (if you are creating it); If you are updating a mosaic the &#8216;base&#8217; folder may exists so all the files in that directory will be used to create the mosaic.</p>
+<p>The &#8216;add&#8217; and &#8216;del&#8217; file list is used to add or remove granules from an existing (or during creation) of an imagemosaic.</p>
+</div>
+<div class="section" id="the-target-geoserver">
+<h2>The target Geoserver<a class="headerlink" href="#the-target-geoserver" title="Permalink to this headline">¶</a></h2>
+<p>You could change on the fly the target geoserver passing GeoServer URL, user and password.</p>
+</div>
+<div class="section" id="the-options-used-to-configure-the-coveragestore-resource-layer">
+<h2>The options used to configure the coverageStore/resource/layer<a class="headerlink" href="#the-options-used-to-configure-the-coveragestore-resource-layer" title="Permalink to this headline">¶</a></h2>
+<p>To understand most of the following parameters please read the official GeoServer documentation ( <a class="reference external" href="http://docs.geoserver.org/latest/en/user/tutorials/image_mosaic_plugin/imagemosaic.html">http://docs.geoserver.org/latest/en/user/tutorials/image_mosaic_plugin/imagemosaic.html</a> )</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;backgroundValue&gt;</span>-9999<span class="nt">&lt;/backgroundValue&gt;</span>
+<span class="nt">&lt;outputTransparentColor&gt;&lt;/outputTransparentColor&gt;</span>
+<span class="nt">&lt;inputTransparentColor&gt;&lt;/inputTransparentColor&gt;</span>
+<span class="nt">&lt;allowMultithreading&gt;</span>true<span class="nt">&lt;/allowMultithreading&gt;</span>
+<span class="nt">&lt;useJaiImageRead&gt;</span>false<span class="nt">&lt;/useJaiImageRead&gt;</span>
+<span class="nt">&lt;tileSizeH&gt;</span>256<span class="nt">&lt;/tileSizeH&gt;</span>
+<span class="nt">&lt;tileSizeW&gt;</span>256<span class="nt">&lt;/tileSizeW&gt;</span>
+<span class="c">&lt;!--NONE, REPROJECT_TO_DECLARED, FORCE_DECLARED--&gt;</span>
+<span class="nt">&lt;projectionPolicy&gt;</span>NONE<span class="nt">&lt;/projectionPolicy&gt;</span>
+...
+<span class="nt">&lt;styles/&gt;</span>
+</pre></div>
+</div>
+<p>Since GeoServer 2.2.x Elevation and Time metadata settings are supported:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- METADATA --&gt;</span>
+
+<span class="c">&lt;!-- TIME --&gt;</span>
+<span class="nt">&lt;timeDimEnabled&gt;</span>false<span class="nt">&lt;/timeDimEnabled&gt;</span>
+<span class="c">&lt;!-- LIST, CONTINUOUS_INTERVAL, DISCRETE_INTERVAL --&gt;</span>
+<span class="nt">&lt;timePresentationMode&gt;</span>LIST<span class="nt">&lt;/timePresentationMode&gt;</span>
+<span class="nt">&lt;timeRegex&gt;</span>[0-9]{8}T[0-9]{9}Z(\?!.\*[0-9]{8}T[0-9]{9}Z.\*)<span class="nt">&lt;/timeRegex&gt;</span>
+
+<span class="c">&lt;!-- ELEVATION --&gt;</span>
+<span class="nt">&lt;elevDimEnabled&gt;</span>false<span class="nt">&lt;/elevDimEnabled&gt;</span>
+<span class="nt">&lt;elevationPresentationMode&gt;</span>LIST<span class="nt">&lt;/elevationPresentationMode&gt;</span>
+<span class="nt">&lt;elevationRegex&gt;</span><span class="cp">&lt;![CDATA[(?&lt;=_)(\\d{4}\\.\\d{3})(?=_)]]&gt;</span><span class="nt">&lt;/elevationRegex&gt;</span>
+</pre></div>
+</div>
+<p>Essentially the above settings enables the metadata (time and/or elevation) support on the store you are going to create on the target GeoServer.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;timeDimEnabled&gt;</span>true<span class="nt">&lt;/timeDimEnabled&gt;</span>
+...
+<span class="nt">&lt;elevDimEnabled&gt;</span>true<span class="nt">&lt;/elevDimEnabled&gt;</span>
+...
+</pre></div>
+</div>
+<p>The <em>presentation mode</em> sets the representation of the metadata:</p>
+<p>For example for elevation:</p>
+<div class="highlight-python"><div class="highlight"><pre>LIST:
+  0, 1, 10,
+CONTINUOUS_INTERVAL:
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+DISCRETE_INTERVAL:
+  0:1:10
+  starts from 0 with step 1 ends at 10
+</pre></div>
+</div>
+<p>The <em>regex</em> (elevation and time) are used by the geotools imagemosaic plugin to parse the file name and recognize the elevation and time. Each file of the mosaic infacts should be named following a convention (as specified into these regex).
+For example using:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;timeRegex&gt;</span>[0-9]{8}T[0-9]{9}Z(\?!.\*[0-9]{8}T[0-9]{9}Z.\*)<span class="nt">&lt;/timeRegex&gt;</span>
+...
+<span class="nt">&lt;elevationRegex&gt;</span><span class="cp">&lt;![CDATA[(?&lt;=_)(\\d{4}\\.\\d{3})(?=_)]]&gt;</span><span class="nt">&lt;/elevationRegex&gt;</span>
+</pre></div>
+</div>
+<p>Your mosaic should contains files named as following:</p>
+<div class="highlight-python"><div class="highlight"><pre>FILENAME_20121231T235959_0001.000.tif
+</pre></div>
+</div>
+<p>Which represents a granule with date 2012-12-31 23:59:59 and elevation 1.0.</p>
+</div>
+<div class="section" id="datastore">
+<h2>Datastore<a class="headerlink" href="#datastore" title="Permalink to this headline">¶</a></h2>
+<p>The Datastore is a properties file which is used by the ImageMosaic to update the metadata store which is used by the GeoServer.</p>
+<p>Here a complete example with all the acceptable options:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;datastorePropertiesPath&gt;</span>imagemosaic/config/datastore.properties<span class="nt">&lt;/datastorePropertiesPath&gt;</span>
+</pre></div>
+</div>
+<p><em>datastore.properties</em>:</p>
+<div class="highlight-python"><div class="highlight"><pre>#String
+# database type
+dbtype=
+
+#String
+# host
+host=
+
+#Integer
+# database server port
+port=
+
+#String
+# database
+database=
+
+#String
+# schema
+schema=
+
+#String
+# user name to login as
+user=
+
+#String
+# password used to login
+passwd=
+
+#String
+# namespace prefix
+namespace=
+
+#DataSource
+# data source
+Data\ Source=
+
+#Integer
+# maximum number of open connections
+# Default 10
+max\ connections=
+
+#Integer
+# minimum number of pooled connection
+# default 1
+min\ connections=
+
+#Boolean
+# check connection is alive before using it
+# Default Boolean.FALSE
+validate\ connections=
+
+#Integer
+# Number of records read with each iteraction with the dbms.
+# Defatul 1000
+fetch\ size=
+
+#Integer
+# number of seconds the connection pool will wait before
+# timing out attempting to get a new connection
+# Default 20 seconds
+Connection\ timeout=
+
+#String
+# The optional table containing primary key structure and
+# sequence associations. Can be expressed as &#39;schema.name&#39;
+# or just &#39;name&#39;.
+Primary\ key\ metadata\ table=
+
+#Integer
+# Maximum number of prepared statements kept open and
+# cached for each connection in the pool.
+# Set to 0 to have unbounded caching, to -1 to disable caching.
+# Default 50.
+Max\ open\ prepared\ statements=
+
+#boolean
+# Expose primary key columns as attributes of the feature type
+# defatul false.
+Expose\ primary\ keys=
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-postgis">
+<h2>Using PostGis<a class="headerlink" href="#using-postgis" title="Permalink to this headline">¶</a></h2>
+<p>If you are using the PostGis (PostgreSQL) API:
+In addition to the above options you can use the below one.
+Note the &#8216;SPI&#8217; key can substitute the &#8216;dbtype&#8217;:</p>
+<div class="highlight-python"><div class="highlight"><pre>#######################
+# PostgreSQL specific #
+#dbtype=postgis
+SPI=org.geotools.data.postgis.PostgisNGDataStoreFactory
+#Boolean
+# perform only primary filter on bbox
+# Default Boolean.TRUE
+Loose\ bbox=true
+
+#Boolean
+# use the spatial index information to quickly get an estimate of the data bounds
+# Default Boolean.TRUE
+Estimated\ extends=false
+
+#Boolean
+# use prepared statements
+#Default Boolean.FALSE
+preparedStatements=false
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-jndi-on-postgis">
+<h2>Using JNDI on PostGis<a class="headerlink" href="#using-jndi-on-postgis" title="Permalink to this headline">¶</a></h2>
+<p>If you are using the API for the JNDI:</p>
+<div class="highlight-python"><div class="highlight"><pre>#################
+# JNDI specific #
+#dbtype=
+SPI=org.geotools.data.postgis.PostgisNGJNDIDataStoreFactory
+#String
+# JNDI data source
+# Default &quot;java:comp/env/&quot;+&quot;jdbc/mydatabase&quot;
+jndiReferenceName=
+
+#Boolean
+# perform only primary filter on bbox
+# Default Boolean.TRUE
+Loose\ bbox=true
+
+#Boolean
+# use prepared statements
+#Default Boolean.FALSE
+preparedStatements=false
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-the-imagemosaicaction-works">
+<h2>How the ImageMosaicAction works<a class="headerlink" href="#how-the-imagemosaicaction-works" title="Permalink to this headline">¶</a></h2>
+<p>If you pass an ImageMosaicCommand (IMC) to the imagemosaic action (you can also pass a queue of IMCs), geobatch will proceed with the following steps:</p>
+<ol class="arabic simple">
+<li>check for the &#8216;base&#8217; directory (if not exists create it)</li>
+<li>copy all the files in the &#8216;add&#8217; list to the base folder</li>
+<li>remove all the files in the &#8216;del&#8217; list from the base folder (if the mosaic exists otherwise this step is skipped with warning)</li>
+<li>If the mosaic does not exists:</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>copy a datastore.properties to the base directory (which tells to the GeoTools ImageMosaic pluging where to store/update the datastore)</li>
+<li>create the indexer.properties into the base directory (which tells to the GeoTools ImageMosaic pluging how the read and handle mosaic metadata such as time and elevation)</li>
+<li>create the timeregex.properites into the base directory (the time regex)</li>
+<li>create the elevationregex.properites into the base directory (the elevation regex)</li>
+<li>Using GeoServer Manager create the ImageMosaic on the target geoserver using specified (from IMC or flow configuration) options</li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li>If the mosaic exists:</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>connect to the target datastore using the datastore.properties from the base dir (if itsn&#8217;t present the ImageMosaic uses a shape file, in this case the action will exit with error)</li>
+<li>Generate a query to select granules to remove</li>
+<li>Remove the selected granules from the datastore</li>
+<li>Generate a query to update the granules to add to the datastore</li>
+<li>Add the granules to the datastore</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Image Mosaic Action</a><ul>
+<li><a class="reference internal" href="#input">Input</a></li>
+<li><a class="reference internal" href="#output">Output</a></li>
+<li><a class="reference internal" href="#the-flow-chart">The Flow Chart</a></li>
+<li><a class="reference internal" href="#imagemosaiccommand-options">ImageMosaicCommand options</a></li>
+<li><a class="reference internal" href="#inputs">Inputs</a></li>
+<li><a class="reference internal" href="#the-target-geoserver">The target Geoserver</a></li>
+<li><a class="reference internal" href="#the-options-used-to-configure-the-coveragestore-resource-layer">The options used to configure the coverageStore/resource/layer</a></li>
+<li><a class="reference internal" href="#datastore">Datastore</a></li>
+<li><a class="reference internal" href="#using-postgis">Using PostGis</a></li>
+<li><a class="reference internal" href="#using-jndi-on-postgis">Using JNDI on PostGis</a></li>
+<li><a class="reference internal" href="#how-the-imagemosaicaction-works">How the ImageMosaicAction works</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

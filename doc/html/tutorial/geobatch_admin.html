@@ -1,0 +1,680 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>GeoBatch administration &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../index.html" />
+    <link rel="up" title="DRC NFMS Portal training" href="index.html" />
+    <link rel="next" title="Portal: Adding Ingested Layer and Statistics Charts" href="portal_ingestion_config.html" />
+    <link rel="prev" title="Portal: Initial Configuratiion" href="portal_configuration.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../index.html">
+      <img class="logo" src="../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="portal_ingestion_config.html" title="Portal: Adding Ingested Layer and Statistics Charts"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="portal_configuration.html" title="Portal: Initial Configuratiion"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">DRC NFMS Portal training</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="geobatch-administration">
+<h1>GeoBatch administration<a class="headerlink" href="#geobatch-administration" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The following exercises will show how to configure the ingestion and processing of the data produced by the analysis system (TerraAmazon) on the web portal.</p>
+<p>The GeoBatch ingestion and reprocess flows will preform care of the following tasks:</p>
+<ul class="simple">
+<li>Publication of spatial data on GeoServer<ul>
+<li>Data optimization</li>
+<li>Creation of a GeoServer ImageMosaik store when the ingestion of the first time instance for a given layer occurs</li>
+<li>Creation of a time dependent layer each time a layer comes from the analysis software</li>
+</ul>
+</li>
+<li>Calculation of the statistical data</li>
+<li>Creation of the carts</li>
+</ul>
+<p>Going through this lesson you will see how to perform the following administration tasks:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#layer"><span>Define a new layer</span></a> - Layer resource on GeoStore</li>
+<li><a class="reference internal" href="#layerupdate"><span>Ingest a new time instance for the layer</span></a> - LayerUpdate resource on GeoStore (as we are not using the analysis software we will simulate its behavior by manually moving files in the ingest directory that triggers the ingestion</li>
+<li><span class="xref std std-ref">Configure the portal ``layers.json`</span> file to add the ingested map &lt;add_layer_to_portal&gt;`</li>
+<li><a class="reference internal" href="#statsdef"><span>Define new statistics</span></a> - StatsDef resource on GeoStore</li>
+<li><a class="reference internal" href="#reprocess-flow"><span>Launch the reprocess flow to calculate the statistics</span></a> - StatsData resource on GeoStore</li>
+<li><a class="reference internal" href="#chartscript"><span>Define a new chart</span></a> - ChartScript resource on GeoStore</li>
+<li><a class="reference internal" href="#reprocess-flow-2"><span>Launch the reprocess flow to create the charts</span></a> - ChartData</li>
+</ul>
+</div>
+<div class="section" id="define-a-new-layer">
+<span id="layer"></span><h2>Define a new layer<a class="headerlink" href="#define-a-new-layer" title="Permalink to this headline">¶</a></h2>
+<p>In this exercise we will learn how to define a new layer resource on GeoStore.</p>
+<p>Open the web browser and browse to the URL</p>
+<p><a class="reference external" href="http://localhost/stg_frontend">http://localhost/stg_frontend</a></p>
+<p>and type the user name and password for the GeoBatch administration interface:</p>
+<ul class="simple">
+<li>User: <cite>admin</cite></li>
+<li>Password: <cite>Unr3dd</cite></li>
+</ul>
+<p>You will be shown a screen containing the layers already stored on GeoStore (none in our case)</p>
+<p>Click on the <em>[raster]</em> link on the bottom of the page to add a new raster Layer. The following Layer resource editing mask will be shown.</p>
+<ul class="simple">
+<li>The <cite>Staging mosaic path</cite> is the path of the directory where the staging geoserver will store the data for the mosaic that will be created.</li>
+<li>The <cite>Dissemination mosaic path</cite> is the path of the directory where the staging geoserver will store the data for the mosaic that will be created.</li>
+</ul>
+<p>The <cite>Destination original data absolute path</cite> contains the directory where the original data, if ingested from the analysis system (TerraAmazon) will be stored. It is not used in this training so we can put any value.</p>
+<p>The system needs to know the size and extent of the map that will be ingested to make sure that it will be able to calculate the statistics on them, so it requests you to enter the following parameters:</p>
+<ul class="simple">
+<li>Pixel width - the width of the raster map in pixels</li>
+<li>Pixel eight - the height of the raster map in pixels</li>
+<li>Min x - the West bound of the map in EPSG:4326 srs</li>
+<li>Max x - the East bound of the map in EPSG:4326 srs</li>
+<li>Min y - the South bound of the map in EPSG:4326 srs</li>
+<li>Max y - the North bound of the map in EPSG:4326 srs</li>
+</ul>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/edit_mask_empty.png"><img alt="../_images/edit_mask_empty.png" src="../_images/edit_mask_empty.png" style="width: 800px;" /></a>
+</div>
+<p>Fill it in with the following values:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="39%" />
+<col width="61%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Field</td>
+<td>Value</td>
+</tr>
+<tr class="row-even"><td>Staging mosaic path</td>
+<td><code class="docutils literal"><span class="pre">/var/stg_geoserver/extdata/forest_mask</span></code></td>
+</tr>
+<tr class="row-odd"><td>Dissemination mosaic path</td>
+<td><code class="docutils literal"><span class="pre">/var/diss_geoserver/extdata/forest_mask</span></code></td>
+</tr>
+<tr class="row-even"><td>Destination original data absolute path</td>
+<td><code class="docutils literal"><span class="pre">/</span></code></td>
+</tr>
+<tr class="row-odd"><td>Pixel width</td>
+<td><code class="docutils literal"><span class="pre">3876</span></code></td>
+</tr>
+<tr class="row-even"><td>Pixel height</td>
+<td><code class="docutils literal"><span class="pre">3563</span></code></td>
+</tr>
+<tr class="row-odd"><td>Min x</td>
+<td><code class="docutils literal"><span class="pre">11.1010654</span></code></td>
+</tr>
+<tr class="row-even"><td>Max x</td>
+<td><code class="docutils literal"><span class="pre">32.2335506</span></code></td>
+</tr>
+<tr class="row-odd"><td>Min y</td>
+<td><code class="docutils literal"><span class="pre">-14.0300339</span></code></td>
+</tr>
+<tr class="row-even"><td>Max y</td>
+<td><code class="docutils literal"><span class="pre">5.3959322</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>At the end of the process the mask should appear like this:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/edit_mask_forest_mask.png"><img alt="../_images/edit_mask_forest_mask.png" src="../_images/edit_mask_forest_mask.png" /></a>
+</div>
+<p>You can leave the data textbox empty.</p>
+<p>When you have finished entering the data click <code class="docutils literal"><span class="pre">Submit</span></code> to add the Layer resource. You will be redirected to a page showing the data you just entered. Click on the <em>Layers</em> link to access the layers list page, that will now contain the layer you just entered:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/layers_forest_mask.png"><img alt="../_images/layers_forest_mask.png" src="../_images/layers_forest_mask.png" /></a>
+</div>
+<p>If you click on the <em>layer updates</em> link you will notice that it&#8217;s empty. That means that we have created the layer resource that will be linked to the time instances (LayerUpdates) coming from the analysis system, but none has been ingested yet.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/layer_updates_empty.png"><img alt="../_images/layer_updates_empty.png" src="../_images/layer_updates_empty.png" /></a>
+</div>
+</div>
+<div class="section" id="ingest-a-new-time-instance-for-the-layer">
+<span id="layerupdate"></span><h2>Ingest a new time instance for the layer<a class="headerlink" href="#ingest-a-new-time-instance-for-the-layer" title="Permalink to this headline">¶</a></h2>
+<p>We are now going to learn how a new <code class="docutils literal"><span class="pre">LayerUpdate</span></code> is ingested on the portal by GeoBatch. We will manually simulate the behavior of the analysis software by copying the zip files containing the spatial data and XML definition into the GeoBatch <code class="docutils literal"><span class="pre">ingest</span></code> directory, thus triggering the GeoBatch ingestion flow.</p>
+<p>But before we go on with the ingestion flow, let&#8217;s have a look of the content of the zip files. If you unzip one of them, or browse to <code class="docutils literal"><span class="pre">/Desktop/flowTestData/unzipped/forest_mask_1990</span></code>, you will notice that it contains a XML file (<code class="docutils literal"><span class="pre">info.xml</span></code>) and two directories (<code class="docutils literal"><span class="pre">data</span></code> and <code class="docutils literal"><span class="pre">original</span></code>).</p>
+<ul>
+<li><p class="first">The directory <code class="docutils literal"><span class="pre">data</span></code> contains the data to be published in the dissemination system, and used to compute statistics.</p>
+</li>
+<li><p class="first">The content of the file <code class="docutils literal"><span class="pre">info.xml</span></code> is:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;info&gt;</span>
+  <span class="nt">&lt;layername&gt;</span>forest_mask<span class="nt">&lt;/layername&gt;</span>
+  <span class="nt">&lt;format&gt;</span>raster<span class="nt">&lt;/format&gt;</span>
+  <span class="nt">&lt;year&gt;</span>2000<span class="nt">&lt;/year&gt;</span>
+<span class="nt">&lt;/info&gt;</span>
+</pre></div>
+</div>
+<p>where</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">&lt;layername&gt;</span></code> is the name of the layer this update should be appended to</li>
+<li><code class="docutils literal"><span class="pre">&lt;year&gt;</span></code> is a mandatory element in a 4 digit format representing the year this update should be referenced to</li>
+<li><code class="docutils literal"><span class="pre">&lt;format&gt;</span></code> may be raster or vector</li>
+<li><code class="docutils literal"><span class="pre">&lt;month&gt;</span></code> (not used here) is a optional element in a 2 digit representing the month this update should be referenced to</li>
+</ul>
+</li>
+<li><p class="first">The <code class="docutils literal"><span class="pre">original</span></code> directory contains the original data used in the analysis step to produce the processed data. It may contain data in whatever format. This data will not be processed by the system, but will be made available for dissemination to authorized users</p>
+</li>
+</ul>
+<p>You can now copy the file <code class="docutils literal"><span class="pre">/home/unredd/Training</span> <span class="pre">data/statistics/forest_mask_2000.zip</span></code> into <code class="docutils literal"><span class="pre">/var/stg_geobatch/input/ingestion/</span></code> to start the ingestion flow:</p>
+<p><code class="docutils literal"><span class="pre">sudo</span> <span class="pre">-u</span> <span class="pre">tomcat6</span> <span class="pre">cp</span> <span class="pre">/home/unredd/Training</span> <span class="pre">data/statistics/forest_mask_2000.zip</span> <span class="pre">/var/stg_geobatch/input/ingest/</span></code></p>
+<p>You can view the status of the ingestion flow on the GeoBatch admin interface:</p>
+<ul class="simple">
+<li>Browse to <code class="docutils literal"><span class="pre">http://localhost/stg_geobatch/</span></code></li>
+<li>Click on <em>Manage flows</em></li>
+<li>Insert user name and password (admin/unredd) and click <em>Submit</em></li>
+<li>Click on <em>IngestionFlow</em></li>
+<li>Click on <em>Instances</em></li>
+</ul>
+<p>You should have one instance running or completed:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/ingestion_flow_11.png"><img alt="../_images/ingestion_flow_11.png" src="../_images/ingestion_flow_11.png" /></a>
+</div>
+<p>You can also view the log for the ingestion you just did by clicking on the <em>instance logs</em> icon.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/ingestion_flow_1_log1.png"><img alt="../_images/ingestion_flow_1_log1.png" src="../_images/ingestion_flow_1_log1.png" /></a>
+</div>
+<p>You can also check that the store and layer have been created on GeoServer by GeoBatch:</p>
+<ul>
+<li><p class="first">Browse to <code class="docutils literal"><span class="pre">http://localhost/stg_geoserver/</span></code></p>
+</li>
+<li><p class="first">Insert user name and password (admin/Unr3dd) and click <em>Submit</em></p>
+</li>
+<li><p class="first">Click on <em>Stores</em></p>
+</li>
+<li><p class="first">Check that the forest_mask store is there</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/geoserver_check_ingestion_11.png"><img alt="../_images/geoserver_check_ingestion_11.png" src="../_images/geoserver_check_ingestion_11.png" /></a>
+</div>
+</li>
+<li><p class="first">Click on <em>Layers</em></p>
+</li>
+<li><p class="first">Check that the forest_mask layer is there</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/geoserver_check_ingestion_21.png"><img alt="../_images/geoserver_check_ingestion_21.png" src="../_images/geoserver_check_ingestion_21.png" /></a>
+</div>
+</li>
+</ul>
+<p>You now have to set the style and the time dependency for the layer that GeoBatch just created.</p>
+<p>Repeat the following operations both in <code class="docutils literal"><span class="pre">http://localhost/diss_geoserver</span></code> and in <code class="docutils literal"><span class="pre">http://localhost/diss_geoserver</span></code>:</p>
+<ul>
+<li><p class="first">Click on <em>Styles</em></p>
+</li>
+<li><p class="first">Click on <em>Add a new styles</em></p>
+</li>
+<li><p class="first">Type <cite>forest_mask</cite> in the <code class="docutils literal"><span class="pre">name</span></code> field</p>
+</li>
+<li><p class="first">Insert the following xml in the text area:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;</span>
+<span class="nt">&lt;StyledLayerDescriptor</span> <span class="na">version=</span><span class="s">&quot;1.0.0&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.opengis.net/sld&quot;</span> <span class="na">xmlns:ogc=</span><span class="s">&quot;http://www.opengis.net/ogc&quot;</span>
+  <span class="na">xmlns:xlink=</span><span class="s">&quot;http://www.w3.org/1999/xlink&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="na">xmlns:gml=</span><span class="s">&quot;http://www.opengis.net/gml&quot;</span>
+  <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;NamedLayer&gt;</span>
+    <span class="nt">&lt;Name&gt;</span>forest_mask<span class="nt">&lt;/Name&gt;</span>
+    <span class="nt">&lt;UserStyle&gt;</span>
+      <span class="nt">&lt;Name&gt;</span>Forest Mask<span class="nt">&lt;/Name&gt;</span>
+      <span class="nt">&lt;Title&gt;</span>Forest Mask<span class="nt">&lt;/Title&gt;</span>
+      <span class="nt">&lt;FeatureTypeStyle&gt;</span>
+        <span class="nt">&lt;Rule&gt;</span>
+          <span class="nt">&lt;RasterSymbolizer&gt;</span>
+            <span class="nt">&lt;ColorMap</span> <span class="na">type=</span><span class="s">&quot;values&quot;</span><span class="nt">&gt;</span>
+              <span class="nt">&lt;ColorMapEntry</span> <span class="na">color=</span><span class="s">&quot;#005700&quot;</span> <span class="na">quantity=</span><span class="s">&quot;1&quot;</span> <span class="na">opacity=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/ColorMap&gt;</span>
+          <span class="nt">&lt;/RasterSymbolizer&gt;</span>
+        <span class="nt">&lt;/Rule&gt;</span>
+      <span class="nt">&lt;/FeatureTypeStyle&gt;</span>
+    <span class="nt">&lt;/UserStyle&gt;</span>
+  <span class="nt">&lt;/NamedLayer&gt;</span>
+<span class="nt">&lt;/StyledLayerDescriptor&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Assign the new style to the <cite>forest_mask</cite> layer on <code class="docutils literal"><span class="pre">http://localhost/stg_geoserver</span></code>:</p>
+<ul class="simple">
+<li>Click on <em>Layers</em></li>
+<li>Click on <em>forest_mask</em></li>
+<li>Click on the <em>Publishing</em> tab</li>
+<li>Under the <em>Default style</em> menu choose <em>forest_mask</em></li>
+</ul>
+</div>
+<div class="section" id="configure-the-portal-layers-json-file-to-add-the-ingested-map">
+<span id="add-layer-to-portal"></span><h2>Configure the portal <code class="docutils literal"><span class="pre">layers.json</span></code> file to add the ingested map<a class="headerlink" href="#configure-the-portal-layers-json-file-to-add-the-ingested-map" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have created an ImageMosaik store on Geoserver and have published one time instance for the forest mask map, we want to make it available on the portal.</p>
+<p>To do this we will need to manually edit the layers.json file and:</p>
+<ul class="simple">
+<li>add a new <code class="docutils literal"><span class="pre">layer</span></code> object</li>
+<li>add a new <code class="docutils literal"><span class="pre">context</span></code> object</li>
+<li>modify one of the <code class="docutils literal"><span class="pre">layerGroup</span></code> objects and add the new context</li>
+</ul>
+<div class="section" id="add-a-new-layer-object">
+<h3>Add a new layer object<a class="headerlink" href="#add-a-new-layer-object" title="Permalink to this headline">¶</a></h3>
+<p>Open the file <code class="docutils literal"><span class="pre">/home/unredd/Desktop/portal_config/layers.json</span></code> on a text editor</p>
+<p>Paste the following JSON structure under the <code class="docutils literal"><span class="pre">forestCover</span></code> layer:</p>
+<blockquote>
+<div><div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;forestMask&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;baseUrl&quot;</span><span class="p">:</span> <span class="s2">&quot;/diss_geoserver/wms&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;wmsName&quot;</span><span class="p">:</span> <span class="s2">&quot;unredd:forest_mask&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;wmsTime&quot;</span><span class="p">:</span> <span class="s2">&quot;${time.forest_mask}&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;imageFormat&quot;</span><span class="p">:</span> <span class="s2">&quot;image/png8&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;visible&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;legend&quot;</span><span class="p">:</span> <span class="s2">&quot;forest_mask.png&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>So that the <code class="docutils literal"><span class="pre">layers.json</span></code> file looks like this:</p>
+<blockquote>
+<div><div class="highlight-json"><div class="highlight"><pre>...
+{
+  &quot;id&quot;: &quot;countryBoundaries&quot;,
+  &quot;baseUrl&quot;: &quot;http://demo1.geo-solutions.it/diss_geoserver/gwc/service/wms&quot;,
+  &quot;wmsName&quot;: &quot;unredd:drc_boundary&quot;,
+  &quot;imageFormat&quot;: &quot;image/png8&quot;,
+  &quot;visible&quot;: true,
+  &quot;sourceLink&quot;: &quot;http://www.wri.org/publication/interactive-forest-atlas-democratic-republic-of-congo&quot;,
+  &quot;sourceLabel&quot;: &quot;WRI&quot;
+},
+{
+  &quot;id&quot;: &quot;provinces&quot;,
+  &quot;baseUrl&quot;: &quot;diss_geoserver/gwc/service/wms&quot;,
+  &quot;wmsName&quot;: &quot;unredd:provinces&quot;,
+  &quot;imageFormat&quot;: &quot;image/png&quot;,
+  &quot;visible&quot;: true
+},
+{
+  &quot;id&quot;: &quot;forestMask&quot;,
+  &quot;baseUrl&quot;: &quot;/diss_geoserver/wms&quot;,
+  &quot;wmsName&quot;: &quot;unredd:forest_mask&quot;,
+  &quot;wmsTime&quot;: &quot;${time.forest_mask}&quot;,
+  &quot;imageFormat&quot;: &quot;image/png8&quot;,
+  &quot;visible&quot;: true,
+  &quot;legend&quot;: &quot;forest_mask.png&quot;
+}
+...
+</pre></div>
+</div>
+</div></blockquote>
+<p>Note that the <code class="docutils literal"><span class="pre">forestMask</span></code> layer object has a <code class="docutils literal"><span class="pre">&quot;wmsTime&quot;:</span> <span class="pre">&quot;${time.forest_mask}&quot;</span></code>, meaning that the time instances available will be fetched from GeoStore.</p>
+</div>
+<div class="section" id="add-a-new-context-object">
+<span id="statsdef"></span><h3>Add a new context object<a class="headerlink" href="#add-a-new-context-object" title="Permalink to this headline">¶</a></h3>
+<p>On the <code class="docutils literal"><span class="pre">layers.json</span></code> file, the following json structure under the <code class="docutils literal"><span class="pre">forestCover</span></code> context:</p>
+<blockquote>
+<div><div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;forestMask&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;active&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;${forest_mask}&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;layers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;forestMask&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;inlineLegendUrl&quot;</span><span class="p">:</span> <span class="s2">&quot;/diss_geoserver/wms?REQUEST=GetLegendGraphic&amp;VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=unredd:forest_mask&amp;TRANSPARENT=true&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="modify-the-layergroup-objects-and-add-the-new-context">
+<h3>Modify the <code class="docutils literal"><span class="pre">layerGroup</span></code> objects and add the new context<a class="headerlink" href="#modify-the-layergroup-objects-and-add-the-new-context" title="Permalink to this headline">¶</a></h3>
+<p>Add the line</p>
+<blockquote>
+<div><div class="highlight-json"><div class="highlight"><pre><span class="p">{</span> <span class="nt">&quot;context&quot;</span><span class="p">:</span> <span class="s2">&quot;forestMask&quot;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>to the following empty group in <code class="docutils literal"><span class="pre">layers.json</span></code></p>
+<blockquote>
+<div><div class="highlight-json"><div class="highlight"><pre>...
+&quot;group&quot;: {
+  &quot;label&quot;: &quot;Forest area and forest area change&quot;,
+  &quot;items&quot;: [
+  ]
+}
+...
+</pre></div>
+</div>
+</div></blockquote>
+<p>so that it will become like this:</p>
+<blockquote>
+<div><div class="highlight-json"><div class="highlight"><pre>...
+&quot;group&quot;: {
+  &quot;label&quot;: &quot;Forest area and forest area change&quot;,
+  &quot;items&quot;: [
+    { &quot;context&quot;: &quot;forestMask&quot; }
+  ]
+}
+...
+</pre></div>
+</div>
+</div></blockquote>
+<p>If you now open the portal you will see that there&#8217;s a new time dependent layer in the <em>Superficie Forestal y Cambio en la Superficie Forestal</em> group.</p>
+<p>Singe the new layers have been published only on <cite>stg_geoserver</cite>, if we try to enable the layer in the portal main page we&#8217;ll see pink placeholders indicating that the map tile could not be find. This happens because when we defined the layer we connected it to the <cite>stg_geoserver</cite> instance.</p>
+<p>As an exercise, try to connect the new layer to the <cite>stg_geoserver</cite> instance and then back to the <cite>diss_geoserver</cite> one and see how it affects the portal behaviour when enabling the new <cite>forest_mask</cite> layer.</p>
+</div>
+</div>
+<div class="section" id="publish-the-new-layer">
+<h2>Publish the new layer<a class="headerlink" href="#publish-the-new-layer" title="Permalink to this headline">¶</a></h2>
+<p>As we saw at the end of the last chapter, the new layer has not yet been published on the dissemination system. To do that, go to the admin interface, click on the <cite>[layer updates]</cite> link and click on <cite>[publish]</cite>.</p>
+<p>Now open the portal page and notice that the new map is available when enabling the <cite>forest_mask</cite> layer.</p>
+<p>Assign the new style to the <cite>forest_mask</cite> layer on <code class="docutils literal"><span class="pre">http://localhost/stg_geoserver</span></code>:</p>
+<ul class="simple">
+<li>Click on <em>Layers</em></li>
+<li>Click on <em>forest_mask</em></li>
+<li>Click on the <em>Publishing</em> tab</li>
+<li>Under the <em>Default style</em> menu choose <em>forest_mask</em></li>
+</ul>
+</div>
+<div class="section" id="define-new-statistics">
+<h2>Define new statistics<a class="headerlink" href="#define-new-statistics" title="Permalink to this headline">¶</a></h2>
+<p>We are now going to add a new statistics definition XML that will be used by the GeoBatch reprocess flow to calculate the statistics in the form of CSV data. The data will be stored in a <code class="docutils literal"><span class="pre">StatsData</span></code> resource.</p>
+<p>On the web browser, browse to the URL <a class="reference external" href="http://localhost/admin">http://localhost/admin</a>.</p>
+<p>Click on the <em>stats def</em> link on the top of the page. You&#8217;ll get a list of the preexisting StatsDef resources on GeoStore (none in our case).</p>
+<p>Click on <em>Add stats def</em> to add a new stats def resource.</p>
+<p>Fill the form with the following values:</p>
+<dl class="docutils">
+<dt><em>name</em></dt>
+<dd><code class="docutils literal"><span class="pre">deforestation</span></code></dd>
+<dt><em>layers</em></dt>
+<dd><code class="docutils literal"><span class="pre">forest_mask</span></code></dd>
+</dl>
+<p><em>XML</em></p>
+<blockquote>
+<div><div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</span>
+<span class="nt">&lt;statisticConfiguration&gt;</span>
+    <span class="c">&lt;!-- internal name, used as key --&gt;</span>
+    <span class="nt">&lt;name&gt;</span>area_admin1_deforestation<span class="nt">&lt;/name&gt;</span>
+
+    <span class="c">&lt;!-- descriptive title to be presented to the user --&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Forest change in regions<span class="nt">&lt;/title&gt;</span>
+
+    <span class="c">&lt;!-- detailed info about this stat, for presentation --&gt;</span>
+    <span class="nt">&lt;description&gt;</span>Compute the forest and not forest area for the administrative areas<span class="nt">&lt;/description&gt;</span>
+
+
+    <span class="c">&lt;!-- 0..n topics</span>
+<span class="c">         a topic is a simple string, and will be only used on client side</span>
+<span class="c">         to find out whether a stat is related to a given topic --&gt;</span>
+    <span class="nt">&lt;topic&gt;</span>DRC<span class="nt">&lt;/topic&gt;</span>
+    <span class="nt">&lt;topic&gt;</span>area<span class="nt">&lt;/topic&gt;</span>
+    <span class="nt">&lt;topic&gt;</span>regions<span class="nt">&lt;/topic&gt;</span>
+    <span class="nt">&lt;topic&gt;</span>forest mask<span class="nt">&lt;/topic&gt;</span>
+
+    <span class="c">&lt;!-- the requested stats (SUM, COUNT, MIN, MAX) --&gt;</span>
+    <span class="nt">&lt;stats&gt;</span>
+        <span class="nt">&lt;stat&gt;</span>SUM<span class="nt">&lt;/stat&gt;</span>
+    <span class="nt">&lt;/stats&gt;</span>
+
+    <span class="nt">&lt;deferredMode&gt;</span>true<span class="nt">&lt;/deferredMode&gt;</span>
+
+    <span class="c">&lt;!-- The name of the layer holding the data that will be used in statistics --&gt;</span>
+    <span class="nt">&lt;dataLayer&gt;</span>
+        <span class="nt">&lt;file&gt;</span>/var/stg_geoserver/extdata/stats/area.tif<span class="nt">&lt;/file&gt;</span>
+    <span class="nt">&lt;/dataLayer&gt;</span>
+
+    <span class="c">&lt;!-- 0..n classification layers --&gt;</span>
+    <span class="nt">&lt;classificationLayer</span> <span class="na">zonal=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;file&gt;</span>/var/stg_geoserver/extdata/stats/provinces.tif<span class="nt">&lt;/file&gt;</span>
+        <span class="nt">&lt;nodata&gt;</span>255<span class="nt">&lt;/nodata&gt;</span>
+    <span class="nt">&lt;/classificationLayer&gt;</span>
+
+    <span class="nt">&lt;classificationLayer&gt;</span>
+        <span class="nt">&lt;file&gt;</span>{FILEPATH}<span class="nt">&lt;/file&gt;</span>
+        <span class="nt">&lt;pivot&gt;</span>
+            <span class="nt">&lt;value&gt;</span>0<span class="nt">&lt;/value&gt;</span> <span class="c">&lt;!-- not forest --&gt;</span>
+            <span class="nt">&lt;value&gt;</span>1<span class="nt">&lt;/value&gt;</span> <span class="c">&lt;!-- forest --&gt;</span>
+        <span class="nt">&lt;/pivot&gt;</span>
+        <span class="nt">&lt;nodata&gt;</span>255<span class="nt">&lt;/nodata&gt;</span>
+    <span class="nt">&lt;/classificationLayer&gt;</span>
+
+    <span class="nt">&lt;output&gt;</span>
+        <span class="nt">&lt;format&gt;</span>CSV<span class="nt">&lt;/format&gt;</span>
+        <span class="nt">&lt;separator&gt;</span>;<span class="nt">&lt;/separator&gt;</span>
+        <span class="nt">&lt;missingValue&gt;</span>0<span class="nt">&lt;/missingValue&gt;</span>
+        <span class="nt">&lt;NaNValue&gt;</span>0<span class="nt">&lt;/NaNValue&gt;</span>
+    <span class="nt">&lt;/output&gt;</span>
+
+<span class="nt">&lt;/statisticConfiguration&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/statsDef_edit_mask.png"><img alt="../_images/statsDef_edit_mask.png" src="../_images/statsDef_edit_mask.png" /></a>
+</div>
+<p>Click <code class="docutils literal"><span class="pre">Submit</span></code> to add the StatsDef resource.</p>
+<p>If you go back to the stats def list and click <em>[stats data list]</em> you will notice that the list is empty. The <code class="docutils literal"><span class="pre">StatsData</span></code> resources, containing the forest and non-forest areas for each province, will be created by the GeoBatch reprocess flow that we are going to launch in the next exercise.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/statsData_list_empty.png"><img alt="../_images/statsData_list_empty.png" src="../_images/statsData_list_empty.png" /></a>
+</div>
+</div>
+<div class="section" id="launch-the-reprocess-flow-to-calculate-the-statistics">
+<span id="reprocess-flow"></span><h2>Launch the reprocess flow to calculate the statistics<a class="headerlink" href="#launch-the-reprocess-flow-to-calculate-the-statistics" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have created a new <code class="docutils literal"><span class="pre">StatsDef</span></code> resource we can start the reprocess flow to make GeoBatch calculate the statistics data and store the result as a <code class="docutils literal"><span class="pre">StatsData</span></code> resource on GeoStore.</p>
+<p>Click <em>stats def</em> on the top of the page to get a list of the available <code class="docutils literal"><span class="pre">StatsDef</span></code> resources.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/statsDef_list.png"><img alt="../_images/statsDef_list.png" src="../_images/statsDef_list.png" /></a>
+</div>
+<p>Click on the <em>[reprocess]</em> button for the <code class="docutils literal"><span class="pre">forest_mask_stats</span></code> resource. This will start the GeoBatch reprocess flow.</p>
+<p>You can view the status of the reprocess flow on the GeoBatch admin interface:</p>
+<ul class="simple">
+<li>Browse to <code class="docutils literal"><span class="pre">http://localhost/stg_geobatch/</span></code></li>
+<li>Click on <em>Manage flows</em></li>
+<li>Insert user name and password (admin/unredd) and click <em>Submit</em></li>
+<li>Click on <em>ReprocessFlow</em></li>
+<li>Click on <em>Instances</em></li>
+</ul>
+<p>You should have one instance running or completed:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/reprocess_flow_1.png"><img alt="../_images/reprocess_flow_1.png" src="../_images/reprocess_flow_1.png" /></a>
+</div>
+<p>You can also view the log for the reprocess flow you just started by clicking on the <em>instance logs</em> icon.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/reprocess_flow_2.png"><img alt="../_images/reprocess_flow_2.png" src="../_images/reprocess_flow_2.png" /></a>
+</div>
+</div>
+<div class="section" id="define-a-new-chart">
+<span id="chartscript"></span><h2>Define a new chart<a class="headerlink" href="#define-a-new-chart" title="Permalink to this headline">¶</a></h2>
+<p>The data produced with the StatsDef XML definition is in CSV format, not ready yet to be presented on the web. We need to render the data we just created as charts to be shown on the web portal, and to do this we will create two files:</p>
+<ul class="simple">
+<li>a Groovy script that will fetch the <code class="docutils literal"><span class="pre">StatsData</span></code> CSV from GeoStore and parse it</li>
+<li>a html template that will be used by the Groovy script to create an html file for each line (or group of lines) in the CSV.</li>
+</ul>
+<div class="section" id="create-a-new-chartscript-record">
+<h3>Create a new ChartScript record<a class="headerlink" href="#create-a-new-chartscript-record" title="Permalink to this headline">¶</a></h3>
+<p>On the administration interface <a class="reference external" href="http://localhost/stg_frontend">http://localhost/stg_frontend</a> click on <em>chart scripts</em> and then on <em>Add Chart Script</em>.</p>
+<p>Enter the following data:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Field</td>
+<td>Value</td>
+</tr>
+<tr class="row-even"><td>Name</td>
+<td><code class="docutils literal"><span class="pre">deforestation_script</span></code></td>
+</tr>
+<tr class="row-odd"><td>StatsDef</td>
+<td><code class="docutils literal"><span class="pre">forest_mask_stats</span></code></td>
+</tr>
+<tr class="row-even"><td>Script path</td>
+<td><code class="docutils literal"><span class="pre">/var/stg_geobatch/config/chartscripts/deforestation_stats.groovy</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="figure align-center">
+<img alt="../_images/chart_script_edit_mask.png" src="../_images/chart_script_edit_mask.png" />
+</div>
+<p>Click the <code class="docutils literal"><span class="pre">Submit</span></code> button to add the ChartScript resource.</p>
+<p>If you go back to <em>chart scripts</em> and click <em>[chart data]</em> for the chart script resource we just created, you will noticed that there&#8217;s no chart there. Charts will be created by GeoBatch when running again the reprocess flow.</p>
+<p>Before we start the reprocess flow again, we should create the html template that will be used by the Groovy script to create the charts. The file is already stored in <code class="docutils literal"><span class="pre">Desktop/pry_workshop_data/groovy_script/deforestation_chart_template.html</span></code> so we are not going to manually create it, but we will modify it in order to create a new chart from the deforestation data.</p>
+</div>
+</div>
+<div class="section" id="launch-the-reprocess-flow-to-create-the-charts">
+<span id="reprocess-flow-2"></span><h2>Launch the reprocess flow to create the charts<a class="headerlink" href="#launch-the-reprocess-flow-to-create-the-charts" title="Permalink to this headline">¶</a></h2>
+<p>Once we have the Groovy script and the html template set up, we can run the reprocess flow again and let GeoBatch create the charts.</p>
+<p>In order to do that, on the administation page click <em>chart scripts</em> and then the <em>run</em> button for the <code class="docutils literal"><span class="pre">deforestation_script</span></code> resource. This time the calculation takes some time as the script is running a raster processing procedure. You can view the status of the ingestion flow on the GeoBatch admin interface:</p>
+<ul class="simple">
+<li>Browse to <code class="docutils literal"><span class="pre">http://localhost/stg_geobatch/</span></code></li>
+<li>Click on <em>Manage flows</em></li>
+<li>Insert user name and password (admin/unredd) and click <em>Submit</em></li>
+<li>Click on <em>ReprocessFlow</em></li>
+<li>Click on <em>Instances</em></li>
+</ul>
+<p>You should have one instance running or completed:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/reprocess_flow_3.png"><img alt="../_images/reprocess_flow_3.png" src="../_images/reprocess_flow_3.png" /></a>
+</div>
+<p>You can also view the log for the reprocess flow you just started by clicking on the <em>instance logs</em> icon.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/reprocess_flow_4.png"><img alt="../_images/reprocess_flow_4.png" src="../_images/reprocess_flow_4.png" /></a>
+</div>
+<p>Once the reprocess flow has finished you can browse to the <em>chart script list</em> page to see the list of charts created:</p>
+<ul class="simple">
+<li>click on <em>chart script list</em></li>
+<li>click on the <em>chart data</em> button for the <code class="docutils literal"><span class="pre">deforestation_script</span></code> resource</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">GeoBatch administration</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#define-a-new-layer">Define a new layer</a></li>
+<li><a class="reference internal" href="#ingest-a-new-time-instance-for-the-layer">Ingest a new time instance for the layer</a></li>
+<li><a class="reference internal" href="#configure-the-portal-layers-json-file-to-add-the-ingested-map">Configure the portal <code class="docutils literal"><span class="pre">layers.json</span></code> file to add the ingested map</a><ul>
+<li><a class="reference internal" href="#add-a-new-layer-object">Add a new layer object</a></li>
+<li><a class="reference internal" href="#add-a-new-context-object">Add a new context object</a></li>
+<li><a class="reference internal" href="#modify-the-layergroup-objects-and-add-the-new-context">Modify the <code class="docutils literal"><span class="pre">layerGroup</span></code> objects and add the new context</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#publish-the-new-layer">Publish the new layer</a></li>
+<li><a class="reference internal" href="#define-new-statistics">Define new statistics</a></li>
+<li><a class="reference internal" href="#launch-the-reprocess-flow-to-calculate-the-statistics">Launch the reprocess flow to calculate the statistics</a></li>
+<li><a class="reference internal" href="#define-a-new-chart">Define a new chart</a><ul>
+<li><a class="reference internal" href="#create-a-new-chartscript-record">Create a new ChartScript record</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#launch-the-reprocess-flow-to-create-the-charts">Launch the reprocess flow to create the charts</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="portal_configuration.html"
+                        title="previous chapter">Portal: Initial Configuratiion</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="portal_ingestion_config.html"
+                        title="next chapter">Portal: Adding Ingested Layer and Statistics Charts</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="portal_ingestion_config.html" title="Portal: Adding Ingested Layer and Statistics Charts"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="portal_configuration.html" title="Portal: Initial Configuratiion"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >DRC NFMS Portal training</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

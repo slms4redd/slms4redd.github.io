@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Sample datasets &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../index.html" />
+    <link rel="next" title="Running and installing the Training Machine" href="../livedvd/index.html" />
+    <link rel="prev" title="Introduction" href="../introduction/index.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../index.html">
+      <img class="logo" src="../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../livedvd/index.html" title="Running and installing the Training Machine"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../introduction/index.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="sample-datasets">
+<h1>Sample datasets<a class="headerlink" href="#sample-datasets" title="Permalink to this headline">¶</a></h1>
+<p>Following is the description of the sample data provided for the training exercices.</p>
+<p>This dataset is a simplified version from a real use case, the <a class="reference external" href="http://www.rdc-snsf.org">DRC portal</a>, and is a minimal set which will cover all the cases that the system administrator may face when configuring the portal:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Publication of base layers on GeoServer for visualization,</li>
+<li>Configuration of GeoStore for time varying layers,</li>
+<li>Calculation of statistics based on regions (polygons).</li>
+</ul>
+</div></blockquote>
+<div class="section" id="drc-boundaries">
+<h2>DRC boundaries<a class="headerlink" href="#drc-boundaries" title="Permalink to this headline">¶</a></h2>
+<p>DRC boundaries are used for visualization. This vector layer will be published directly on GeoServer, and the portal will be configured to use it as a base layer, or as an overlay.</p>
+<p>Shapefile can be found in: <code class="file docutils literal"><span class="pre">/var/geoserver/shared/shapefiles</span></code></p>
+</div>
+<div class="section" id="drc-provinces">
+<h2>DRC provinces<a class="headerlink" href="#drc-provinces" title="Permalink to this headline">¶</a></h2>
+<p>DRC provinces layer will be used to calculate statistics and charts on province areas based on Forest classification and Forest change data.</p>
+<p>A rasterized version for statistics calculation can be found here: <code class="file docutils literal"><span class="pre">/var/geoserver/stg_geoserver/extdata/stats</span></code></p>
+</div>
+<div class="section" id="forest-classification">
+<h2>Forest classification<a class="headerlink" href="#forest-classification" title="Permalink to this headline">¶</a></h2>
+<p>UCL Forest Classification, year 2010. It has 20 classes and it will be used to generate charts comparing the areas of different forest types by province.</p>
+<p>File can be found here: <code class="file docutils literal"><span class="pre">/var/geoserver/shared/geotiff</span></code></p>
+</div>
+<div class="section" id="forest-mask">
+<h2>Forest mask<a class="headerlink" href="#forest-mask" title="Permalink to this headline">¶</a></h2>
+<p>Forest masks, years 2000, 2005 and 2010. This data will be used to generate time series charts showing deforestation.</p>
+<p>In an advanced scenario, it could be combined with UCL classification to plot changes for different forest types.</p>
+<p>Files can be found here: <code class="file docutils literal"><span class="pre">/var/geoserver/stg_geoserver/extdata/forest_mask_mosaic</span></code></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Sample datasets</a><ul>
+<li><a class="reference internal" href="#drc-boundaries">DRC boundaries</a></li>
+<li><a class="reference internal" href="#drc-provinces">DRC provinces</a></li>
+<li><a class="reference internal" href="#forest-classification">Forest classification</a></li>
+<li><a class="reference internal" href="#forest-mask">Forest mask</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../introduction/index.html"
+                        title="previous chapter">Introduction</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../livedvd/index.html"
+                        title="next chapter">Running and installing the Training Machine</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../livedvd/index.html" title="Running and installing the Training Machine"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../introduction/index.html" title="Introduction"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

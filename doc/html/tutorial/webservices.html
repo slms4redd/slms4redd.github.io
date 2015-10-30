@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Web services &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../index.html" />
+    <link rel="up" title="DRC NFMS Portal training" href="index.html" />
+    <link rel="next" title="Portal: Initial Configuratiion" href="portal_configuration.html" />
+    <link rel="prev" title="Installation" href="install.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../index.html">
+      <img class="logo" src="../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="portal_configuration.html" title="Portal: Initial Configuratiion"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">DRC NFMS Portal training</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="web-services">
+<h1>Web services<a class="headerlink" href="#web-services" title="Permalink to this headline">¶</a></h1>
+<p>There are many definitions of Web service, as it is a very general concept. In our case, with <em>web services</em> we
+refer to services available on the network that can be accessed using the HTTP protocol, specifying some parameters
+and getting an output as a result. These services are exposed components that perform a specific task and
+can be combined to build more complex services.</p>
+<p>Unlike monolithic applications in which the components are strongly coupled, the systems based on
+web services promote the indipendence of the different elements forming the application. Thus, the components are
+services that expose an API for collaborating in the context of the application and can be exchanged
+easily with other services that offer the same API.</p>
+<div class="section" id="http">
+<h2>HTTP<a class="headerlink" href="#http" title="Permalink to this headline">¶</a></h2>
+<p>The services that will be consumed are built on the HyperText Transfer Protocol (HTTP).</p>
+<p>HTTP interactions occur when a client sends requests to a server. These requests include a header with
+descriptive information about the request and optional message body. Among the headers there is the
+required method: GET, PUT, PUSH, etc.. It is beyond the scope of this documentation to explain the semantics of the different HTTP methods.
+We just note as an example that the web bowsers make use of he GET method to download the resource specified by the web URL.</p>
+<p>Continuing with the same example, with the address bar we can download different types of content: HTML pages, files
+plain text, XML files, images, videos, etc.. Some of the contents are directly interpreted by the browser while
+for others it provides to download of the resource. How does the browser make these decision?</p>
+<p>Each response from the server also has a header which specifies the <em>Content-Type</em> of the data. The <em>Content-Type</em> can be for example:</p>
+<ul class="simple">
+<li>text/html</li>
+<li>text/plain</li>
+<li>text/xml</li>
+<li>image/gif</li>
+<li>video/mpeg</li>
+<li>application/zip</li>
+</ul>
+<p>Finally, the response includes a code with additional information about what happened on the server when processing the request from the browser. For example the 200 means that the request was succesfully processed. Another very common code also is 404, which
+indicates that the resource being requested does not exist on the server.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Sample HTTP Exchange (taken from <a class="reference external" href="http://www.jmarshall.com/easy/http/">http://www.jmarshall.com/easy/http/</a>)</p>
+<p>To retrieve the file at the URL</p>
+<p><code class="docutils literal"><span class="pre">http://www.somehost.com/path/file.html</span></code></p>
+<p>first open a socket to the host www.somehost.com, port 80 (use the default port of 80 because none is specified in the URL). Then, send something  like the following through the socket:</p>
+<div class="highlight-python"><div class="highlight"><pre>GET /path/file.html HTTP/1.0
+From: someuser@jmarshall.com
+User-Agent: HTTPTool/1.0
+[blank line here]
+</pre></div>
+</div>
+<p>The server should respond with something like the following, sent back through the same socket:</p>
+<div class="last highlight-python"><div class="highlight"><pre>HTTP/1.0 200 OK
+Date: Fri, 31 Dec 1999 23:59:59 GMT
+Content-Type: text/html
+Content-Length: 1354
+
+&lt;html&gt;
+&lt;body&gt;
+&lt;h1&gt;Happy New Millennium!&lt;/h1&gt;
+(more file contents)
+  .
+  .
+  .
+&lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="open-geospatial-consortium-ogc-services">
+<h2>Open Geospatial Consortium (OGC) services<a class="headerlink" href="#open-geospatial-consortium-ogc-services" title="Permalink to this headline">¶</a></h2>
+<p>The Open Geospatial Consirtium is a international industrial consortium that joins hundreds of companies, governamental agencies and universities who participate in the creation of public standards.</p>
+<p>In the context of the web services, OGC defines the OGC Web Services (OWS), which are standards built over the HTTP protocol that define the content of the various requests and responses, and the relationship between them.</p>
+<p>Among the advantage of the use of these standards we can include:</p>
+<ul class="simple">
+<li>You can consume the services offered by other providers, independently on how they are implemented.</li>
+<li>There are OpenSource projects that implement these standards thus easily allowing the publication of data with standard interfaces.</li>
+<li>There are many OpenSource software that allow to consume data published using these interface.</li>
+</ul>
+<p>Two of the most representative OWS services are Web Map Service (WMS) and Web Feature Services (WFS), that we&#8217;ll see later.</p>
+<p>The WMS standard defines basically three types of requests: <em>GetCapabilities</em>, <em>GetMap</em>, and <em>GetFeatureInfo</em>. The first one is common to all the OWS and returns an XML document that contains information on the layers published by the server, the coordinate system (CRS, Coordinate Reference System) supported, etc.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>http://www.cartociudad.es/wms/CARTOCIUDAD/CARTOCIUDAD?REQUEST=GetCapabilities
+</pre></div>
+</div>
+<p>The <em>GetMap</em> request obtains a graphical representation of the spatial data server:</p>
+<div class="highlight-python"><div class="highlight"><pre>http://www.cartociudad.es/wms/CARTOCIUDAD/CARTOCIUDAD?REQUEST=GetMap&amp;SERVICE=WMS&amp;VERSION=1.3.0&amp;LAYERS=DivisionTerritorial&amp;
+        CRS=EPSG:25830&amp;BBOX=718563.200906236,4363954.866694199,735300.5071689372,4377201.249079251&amp;WIDTH=701&amp;
+        HEIGHT=555&amp;FORMAT=image/png&amp;STYLES=municipio&amp;TRANSPARENT=TRUE
+</pre></div>
+</div>
+<p>And finally, with the <em>GetFeatureInfo</em> request you can obtain information on a particular location (point) on a map:</p>
+<div class="highlight-python"><div class="highlight"><pre>http://www.cartociudad.es/wms/CARTOCIUDAD/CARTOCIUDAD?REQUEST=GetFeatureInfo&amp;SERVICE=WMS&amp;QUERY_LAYERS=CodigoPostal&amp;
+        VERSION=1.3.0&amp;INFO_FORMAT=application/vnd.ogc.gml&amp;LAYERS=CodigoPostal&amp;CRS=EPSG:25830&amp;
+        BBOX=665656.9561496238,4410190.54853407,690496.231896245,4427113.624503085&amp;WIDTH=706&amp;HEIGHT=481&amp;
+        FORMAT=image/png&amp;STYLES=codigo_postal&amp;TRANSPARENT=TRUE&amp;I=475&amp;J=204&amp;FEATURE_COUNT=10000&amp;EXCEPTIONS=XML
+</pre></div>
+</div>
+<p>The WFS standard instead, doesn&#8217;t serve graphical representation of the data, but the data itself. It defines the following requests:</p>
+<ul class="simple">
+<li><em>GetCapabilities</em>: Like all OWS services, WFS accepts the GetCapabilities request to obtain a list of the layers and other features offered by the service.</li>
+<li><em>DescribeFeatureType</em>: Returns a document with the data structure.</li>
+<li><em>GetFeature</em>: Allows to query the system for data that meet a given criteria.</li>
+</ul>
+<p>As an example, we can see which layers are in a WFS service:</p>
+<div class="highlight-python"><div class="highlight"><pre>http://www.cartociudad.es/wfs-comunidad/services?request=GetCapabilities&amp;service=WFS
+</pre></div>
+</div>
+<p>Query the structure of one of them:</p>
+<div class="highlight-python"><div class="highlight"><pre>http://www.cartociudad.es/wfs-comunidad/services?request=DescribeFeatureType&amp;service=WFS&amp;VERSION=1.0.0&amp;
+        TypeName=app:entidadLocal_&amp;outputformat=text/xml;%20subtype=gml/3.1.1
+</pre></div>
+</div>
+<p>And actually download some data:</p>
+<div class="highlight-python"><div class="highlight"><pre>http://www.cartociudad.es/wfs-comunidad/services?REQUEST=GetFeature&amp;SERVICE=WFS&amp;TYPENAME=app:entidadLocal_&amp;
+        NAMESPACE=xmlns%28app=http://www.deegree.org/app%29&amp;VERSION=1.1.0&amp;EXCEPTIONS=XML&amp;MAXFEATURES=10
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Web services</a><ul>
+<li><a class="reference internal" href="#http">HTTP</a></li>
+<li><a class="reference internal" href="#open-geospatial-consortium-ogc-services">Open Geospatial Consortium (OGC) services</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="install.html"
+                        title="previous chapter">Installation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="portal_configuration.html"
+                        title="next chapter">Portal: Initial Configuratiion</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="portal_configuration.html" title="Portal: Initial Configuratiion"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >DRC NFMS Portal training</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

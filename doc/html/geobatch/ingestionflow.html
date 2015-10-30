@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Ingestion flow configuration &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../index.html" />
+    <link rel="up" title="GeoBatch" href="index.html" />
+    <link rel="next" title="Reprocess flow configuration" href="reprocessflow.html" />
+    <link rel="prev" title="UNREDD flows" href="unredd.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../index.html">
+      <img class="logo" src="../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="reprocessflow.html" title="Reprocess flow configuration"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="unredd.html" title="UNREDD flows"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">GeoBatch</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ingestion-flow-configuration">
+<h1>Ingestion flow configuration<a class="headerlink" href="#ingestion-flow-configuration" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="flow-diagram">
+<h2>Flow diagram<a class="headerlink" href="#flow-diagram" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/UN-REDD_GB_ingestion_flow.png"><img alt="../_images/UN-REDD_GB_ingestion_flow.png" src="../_images/UN-REDD_GB_ingestion_flow.png" style="width: 1024.0px;" /></a>
+<p class="caption"><span class="caption-text">Ingestion flow</span></p>
+</div>
+</div>
+<div class="section" id="some-insights-on-the-ingestion-flow">
+<h2>Some insights on the ingestion flow<a class="headerlink" href="#some-insights-on-the-ingestion-flow" title="Permalink to this headline">¶</a></h2>
+<p>The Ingestion flow is quite complex, so it does not rely on GeoBatch internal Action chaining.</p>
+<p>It has been implemented as a single Action which internally invokes other existing standard Actions (such as the Unzip action, the GeoStore action, the Scripting Action).</p>
+</div>
+<div class="section" id="flow-configuration-file">
+<h2>Flow configuration file<a class="headerlink" href="#flow-configuration-file" title="Permalink to this headline">¶</a></h2>
+<p>The Ingestion flow interacts with many external objects, such as PostGres, GeoStore, GeoServer.
+Configuration customizations will be mainly related to how the flow will connect with such external peers.</p>
+<p>Here&#8217;s a sample flow definition for the data ingestion:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;FlowConfiguration&gt;
+  &lt;id&gt;ingestionFlow&lt;/id&gt;
+  &lt;name&gt;UNREDD ingestion flow&lt;/name&gt;
+  &lt;description&gt;UNREDD - Ingest time granules for predefined raster or vector layers and process data&lt;/description&gt;
+
+  &lt;!-- &lt;overrideTempDir&gt;/var/geobatch/drc/temp&lt;/overrideTempDir&gt; --&gt;
+  &lt;autorun&gt;true&lt;/autorun&gt;
+
+  &lt;EventGeneratorConfiguration&gt;
+     &lt;id&gt;ingestEGC&lt;/id&gt;
+     &lt;serviceID&gt;fsEventGeneratorService&lt;/serviceID&gt;
+</pre></div>
+</div>
+<p>Next directory definition can be customized: it&#8217;s the directory that GeoBatch monitors for new files:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;watchDirectory&gt;/var/geobatch/input/ingestion&lt;/watchDirectory&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>    &lt;wildCard&gt;*.zip&lt;/wildCard&gt;
+
+    &lt;osType&gt;OS_UNDEFINED&lt;/osType&gt;
+    &lt;eventType&gt;FILE_ADDED&lt;/eventType&gt;
+&lt;/EventGeneratorConfiguration&gt;
+
+&lt;EventConsumerConfiguration&gt;
+    &lt;id&gt;ingestionECC&lt;/id&gt;
+
+    &lt;listenerId&gt;IngestionConsumerLogger0&lt;/listenerId&gt;
+    &lt;listenerId&gt;IngestionCumulator0&lt;/listenerId&gt;
+    &lt;listenerId&gt;IngestionStatusActionLogger0&lt;/listenerId&gt;
+
+    &lt;performBackup&gt;false&lt;/performBackup&gt;
+
+    &lt;!-- First and only Action configuration  --&gt;
+    &lt;IngestionConfiguration&gt;
+        &lt;serviceID&gt;IngestionGeneratorService&lt;/serviceID&gt;
+
+        &lt;id&gt;ingestionFlow&lt;/id&gt;
+        &lt;name&gt;UNREDD ingestion flow&lt;/name&gt;
+        &lt;description&gt;UNREDD - Ingest time granules for raster or vector layers and process data&lt;/description&gt;
+
+        &lt;listenerId&gt;IngestionConsumerLogger0&lt;/listenerId&gt;
+        &lt;listenerId&gt;IngestionCumulator0&lt;/listenerId&gt;
+        &lt;listenerId&gt;IngestionStatusActionLogger0&lt;/listenerId&gt;
+
+        &lt;failIgnored&gt;false&lt;/failIgnored&gt;
+        &lt;!-- &lt;overrideConfigDir&gt;/var/geobatch/config&lt;/overrideConfigDir&gt; --&gt;
+</pre></div>
+</div>
+<p>Next directory definition can be customized: This is the dir where original files will be put into:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;!-- todo: review, this dir may be set in a per-layer basis --&gt;
+&lt;originalDataTargetDir&gt;/var/geobatch/config/ingestion/orig&lt;/originalDataTargetDir&gt;
+</pre></div>
+</div>
+<p>This is the staging GeoStore</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;geoStoreConfig&gt;
+      &lt;url&gt;http://localhost:8200/geostore/rest&lt;/url&gt;
+      &lt;username&gt;admin&lt;/username&gt;
+      &lt;password&gt;secret!&lt;/password&gt;
+&lt;/geoStoreConfig&gt;
+</pre></div>
+</div>
+<p>This is the PostGIS DB where vector layer features are stored:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;postGisConfig&gt;
+    &lt;host&gt;localhost&lt;/host&gt;
+    &lt;port&gt;5432&lt;/port&gt;
+    &lt;database&gt;test_staging_features&lt;/database&gt;
+    &lt;schema&gt;public&lt;/schema&gt;
+    &lt;username&gt;admin&lt;/username&gt;
+    &lt;password&gt;secret!&lt;/password&gt;
+&lt;/postGisConfig&gt;
+</pre></div>
+</div>
+<p>This is the staging GeoServer:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;geoServerConfig&gt;
+    &lt;id&gt;gsacId&lt;/id&gt;
+    &lt;name&gt;gsacName&lt;/name&gt;
+    &lt;description&gt;gsacDesc&lt;/description&gt;
+
+    &lt;failIgnored&gt;false&lt;/failIgnored&gt;
+
+    &lt;!-- Editable part: staging GeoServer --&gt;
+    &lt;geoserverURL&gt;http://localhost:8201/geoserver&lt;/geoserverURL&gt;
+    &lt;geoserverUID&gt;admin&lt;/geoserverUID&gt;
+    &lt;geoserverPWD&gt;secret!&lt;/geoserverPWD&gt;
+
+    &lt;!-- Editable part: geoserver workspace for all layers --&gt;
+    &lt;workspace&gt;unredd&lt;/workspace&gt;
+&lt;/geoServerConfig&gt;
+</pre></div>
+</div>
+<p>The final flow configuration lines can be left as they are</p>
+<div class="highlight-python"><div class="highlight"><pre>        &lt;rasterizeConfig&gt;
+           &lt;executable&gt;gdal_rasterize&lt;/executable&gt;
+           &lt;taskExecutorXslFileName&gt;gdalrasterize.xsl&lt;/taskExecutorXslFileName&gt;
+           &lt;freeMarkerTemplate&gt;gdalrasterize.xml&lt;/freeMarkerTemplate&gt;
+        &lt;/rasterizeConfig&gt;
+
+        &lt;overviewsEmbedderConfiguration&gt;
+            &lt;id&gt;id&lt;/id&gt;
+            &lt;name&gt;name&lt;/name&gt;
+            &lt;description&gt;descr&lt;/description&gt;
+
+            &lt;failIgnored&gt;false&lt;/failIgnored&gt;
+
+            &lt;JAICapacity&gt;0&lt;/JAICapacity&gt;
+            &lt;compressionRatio&gt;0.75&lt;/compressionRatio&gt;
+            &lt;compressionScheme&gt;Nearest&lt;/compressionScheme&gt; &lt;!-- Nearest, Bilinear, Bicubic, Average, Filtered; --&gt;
+            &lt;downsampleStep&gt;2&lt;/downsampleStep&gt;
+            &lt;numSteps&gt;42&lt;/numSteps&gt;
+            &lt;tileH&gt;512&lt;/tileH&gt;
+            &lt;tileW&gt;512&lt;/tileW&gt;
+            &lt;wildcardString&gt;*.*&lt;/wildcardString&gt;
+            &lt;logNotification&gt;true&lt;/logNotification&gt;
+            &lt;interp&gt;0&lt;/interp&gt;
+        &lt;/overviewsEmbedderConfiguration&gt;
+
+        &lt;retilerConfiguration&gt;
+            &lt;id&gt;grcId&lt;/id&gt;
+            &lt;name&gt;grcN&lt;/name&gt;
+            &lt;description&gt;grcD&lt;/description&gt;
+            &lt;failIgnored&gt;false&lt;/failIgnored&gt;
+
+            &lt;JAICapacity&gt;0&lt;/JAICapacity&gt;
+            &lt;compressionRatio&gt;NaN&lt;/compressionRatio&gt;
+            &lt;compressionScheme&gt;LZW&lt;/compressionScheme&gt;
+            &lt;tileH&gt;256&lt;/tileH&gt;
+            &lt;tileW&gt;256&lt;/tileW&gt;
+            &lt;forceToBigTiff&gt;false&lt;/forceToBigTiff&gt;
+        &lt;/retilerConfiguration&gt;
+
+    &lt;/IngestionConfiguration&gt;
+&lt;/EventConsumerConfiguration&gt;
+
+&lt;ListenerConfigurations&gt;
+    &lt;StatusProgressListener&gt;
+        &lt;serviceID&gt;statusListenerService&lt;/serviceID&gt;
+        &lt;id&gt;IngestionStatusActionLogger0&lt;/id&gt;
+    &lt;/StatusProgressListener&gt;
+
+    &lt;LoggingProgressListener&gt;
+        &lt;serviceID&gt;loggingListenerService&lt;/serviceID&gt;
+        &lt;id&gt;IngestionActionLogger0&lt;/id&gt;
+        &lt;loggerName&gt;IngestionActionLogger0&lt;/loggerName&gt;
+    &lt;/LoggingProgressListener&gt;
+
+    &lt;LoggingProgressListener&gt;
+        &lt;serviceID&gt;loggingListenerService&lt;/serviceID&gt;
+        &lt;id&gt;IngestionConsumerLogger0&lt;/id&gt;
+        &lt;loggerName&gt;IngestionConsumerLogger0&lt;/loggerName&gt;
+    &lt;/LoggingProgressListener&gt;
+
+    &lt;CumulatingProgressListener&gt;
+        &lt;serviceID&gt;cumulatingListenerService&lt;/serviceID&gt;
+        &lt;id&gt;IngestionCumulator0&lt;/id&gt;
+    &lt;/CumulatingProgressListener&gt;
+&lt;/ListenerConfigurations&gt;
+
+&lt;/FlowConfiguration&gt;
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Ingestion flow configuration</a><ul>
+<li><a class="reference internal" href="#flow-diagram">Flow diagram</a></li>
+<li><a class="reference internal" href="#some-insights-on-the-ingestion-flow">Some insights on the ingestion flow</a></li>
+<li><a class="reference internal" href="#flow-configuration-file">Flow configuration file</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="unredd.html"
+                        title="previous chapter">UNREDD flows</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="reprocessflow.html"
+                        title="next chapter">Reprocess flow configuration</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="reprocessflow.html" title="Reprocess flow configuration"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="unredd.html" title="UNREDD flows"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >GeoBatch</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

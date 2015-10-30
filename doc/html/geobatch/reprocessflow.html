@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Reprocess flow configuration &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../index.html" />
+    <link rel="up" title="GeoBatch" href="index.html" />
+    <link rel="next" title="Publish flow configuration" href="publishflow.html" />
+    <link rel="prev" title="Ingestion flow configuration" href="ingestionflow.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../index.html">
+      <img class="logo" src="../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="publishflow.html" title="Publish flow configuration"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ingestionflow.html" title="Ingestion flow configuration"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">GeoBatch</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="reprocess-flow-configuration">
+<h1>Reprocess flow configuration<a class="headerlink" href="#reprocess-flow-configuration" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="reprocess-flow">
+<h2>Reprocess flow<a class="headerlink" href="#reprocess-flow" title="Permalink to this headline">¶</a></h2>
+<p>Here&#8217;s a semple flow definition for the data reprocessing:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;FlowConfiguration&gt;
+    &lt;id&gt;reprocessFlow&lt;/id&gt;
+    &lt;name&gt;UNREDD reprocessing flow&lt;/name&gt;
+    &lt;description&gt;UNREDD - Reprocess layers, stats and charts on the staging system.&lt;/description&gt;
+</pre></div>
+</div>
+<p>Editable part: flow temp dir; refer to geobatch doc:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;overrideTempDir&gt;/var/geobatch/drc/temp&lt;/overrideTempDir&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>&lt;autorun&gt;true&lt;/autorun&gt;
+&lt;EventGeneratorConfiguration&gt;
+        &lt;id&gt;reprocessEGC&lt;/id&gt;
+        &lt;serviceID&gt;fsEventGeneratorService&lt;/serviceID&gt;
+</pre></div>
+</div>
+<p>Editable part: this is the directory that GeoBatch monitors for new files:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;watchDirectory&gt;/var/geobatch/drc/input/reprocess&lt;/watchDirectory&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>        &lt;wildCard&gt;*.xml&lt;/wildCard&gt;
+
+        &lt;osType&gt;OS_UNDEFINED&lt;/osType&gt;
+        &lt;eventType&gt;FILE_ADDED&lt;/eventType&gt;
+&lt;/EventGeneratorConfiguration&gt;
+
+&lt;EventConsumerConfiguration&gt;
+        &lt;id&gt;reprocessECC&lt;/id&gt;
+
+        &lt;listenerId&gt;ReprocessConsumerLogger0&lt;/listenerId&gt;
+        &lt;listenerId&gt;ReprocessCumulator0&lt;/listenerId&gt;
+        &lt;listenerId&gt;ReprocessStatusActionLogger0&lt;/listenerId&gt;
+
+        &lt;performBackup&gt;false&lt;/performBackup&gt;
+
+        &lt;!-- First and only Action configuration  --&gt;
+        &lt;ReprocessConfiguration&gt;
+                &lt;serviceID&gt;ReprocessGeneratorService&lt;/serviceID&gt;
+
+                &lt;id&gt;ReprocessActionConfiguration&lt;/id&gt;
+                &lt;name&gt;Reprocess Action&lt;/name&gt;
+                &lt;description&gt;Single-step action for reprocessing layers, stats, charts&lt;/description&gt;
+
+                &lt;listenerId&gt;ReprocessConsumerLogger0&lt;/listenerId&gt;
+                &lt;listenerId&gt;ReprocessCumulator0&lt;/listenerId&gt;
+                &lt;listenerId&gt;ReprocessStatusActionLogger0&lt;/listenerId&gt;
+
+                &lt;failIgnored&gt;false&lt;/failIgnored&gt;
+                &lt;!--&lt;overrideConfigDir&gt;reprocess/&lt;/overrideConfigDir&gt;--&gt;
+</pre></div>
+</div>
+<p>Editable part: action config dir; refer to geobatch doc:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;overrideConfigDir&gt;/var/geobatch/drc/config/reprocessFlow&lt;/overrideConfigDir&gt;
+</pre></div>
+</div>
+<p>Editable part: GeoStore config:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;geoStoreConfig&gt;
+    &lt;url&gt;http://localhost:9094/geostore/rest&lt;/url&gt;
+    &lt;username&gt;admin&lt;/username&gt;
+    &lt;password&gt;secret!&lt;/password&gt;
+ &lt;/geoStoreConfig&gt;
+</pre></div>
+</div>
+<p>Editable part: PostGis config for vectorial layer features:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;postGisConfig&gt;
+    &lt;host&gt;localhost&lt;/host&gt;
+    &lt;port&gt;5432&lt;/port&gt;
+    &lt;database&gt;drc&lt;/database&gt;
+    &lt;schema&gt;public&lt;/schema&gt;
+    &lt;username&gt;dummy&lt;/username&gt;
+    &lt;password&gt;dummy&lt;/password&gt;
+&lt;/postGisConfig&gt;
+</pre></div>
+</div>
+<p>The final flow configuration lines can be left as they are</p>
+<div class="highlight-python"><div class="highlight"><pre>             &lt;rasterizeConfig&gt;
+                  &lt;executable&gt;gdal_rasterize&lt;/executable&gt;
+                  &lt;taskExecutorXslFileName&gt;taskexec.xsl&lt;/taskExecutorXslFileName&gt;
+                  &lt;freeMarkerTemplate&gt;freemarkertemplate.xml&lt;/freeMarkerTemplate&gt;
+             &lt;/rasterizeConfig&gt;
+
+
+             &lt;overviewsEmbedderConfiguration&gt;
+                  &lt;dirty&gt;false&lt;/dirty&gt;
+                  &lt;listenerConfigurations/&gt;
+                  &lt;failIgnored&gt;false&lt;/failIgnored&gt;
+                  &lt;JAICapacity&gt;0&lt;/JAICapacity&gt;
+                  &lt;compressionRatio&gt;0.75&lt;/compressionRatio&gt;
+                  &lt;compressionScheme&gt;LZW&lt;/compressionScheme&gt;
+                  &lt;downsampleStep&gt;0&lt;/downsampleStep&gt;
+                  &lt;numSteps&gt;42&lt;/numSteps&gt;
+                  &lt;tileH&gt;512&lt;/tileH&gt;
+                  &lt;tileW&gt;512&lt;/tileW&gt;
+                  &lt;wildcardString&gt;*.*&lt;/wildcardString&gt;
+                  &lt;logNotification&gt;true&lt;/logNotification&gt;
+                  &lt;interp&gt;0&lt;/interp&gt;
+             &lt;/overviewsEmbedderConfiguration&gt;
+        &lt;/ReprocessConfiguration&gt;
+
+
+   &lt;/EventConsumerConfiguration&gt;
+
+&lt;ListenerConfigurations&gt;
+   &lt;StatusProgressListener&gt;
+       &lt;serviceID&gt;statusListenerService&lt;/serviceID&gt;
+       &lt;id&gt;ReprocessStatusActionLogger0&lt;/id&gt;
+   &lt;/StatusProgressListener&gt;
+
+   &lt;LoggingProgressListener&gt;
+       &lt;serviceID&gt;loggingListenerService&lt;/serviceID&gt;
+       &lt;id&gt;ReprocessActionLogger0&lt;/id&gt;
+
+       &lt;loggerName&gt;ReprocessActionLogger0&lt;/loggerName&gt;
+   &lt;/LoggingProgressListener&gt;
+
+   &lt;LoggingProgressListener&gt;
+       &lt;serviceID&gt;loggingListenerService&lt;/serviceID&gt;
+       &lt;id&gt;ReprocessConsumerLogger0&lt;/id&gt;
+
+       &lt;loggerName&gt;ReprocessConsumerLogger0&lt;/loggerName&gt;
+   &lt;/LoggingProgressListener&gt;
+
+   &lt;CumulatingProgressListener&gt;
+       &lt;serviceID&gt;cumulatingListenerService&lt;/serviceID&gt;
+       &lt;id&gt;ReprocessCumulator0&lt;/id&gt;
+   &lt;/CumulatingProgressListener&gt;
+&lt;/ListenerConfigurations&gt;
+</pre></div>
+</div>
+<p>&lt;/FlowConfiguration&gt;</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Reprocess flow configuration</a><ul>
+<li><a class="reference internal" href="#reprocess-flow">Reprocess flow</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ingestionflow.html"
+                        title="previous chapter">Ingestion flow configuration</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="publishflow.html"
+                        title="next chapter">Publish flow configuration</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="publishflow.html" title="Publish flow configuration"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ingestionflow.html" title="Ingestion flow configuration"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >GeoBatch</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

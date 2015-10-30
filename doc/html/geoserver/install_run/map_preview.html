@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Layer Preview &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="ANNEX. Installing and running GeoServer" href="index.html" />
+    <link rel="next" title="GeoBatch" href="../../geobatch/index.html" />
+    <link rel="prev" title="Server Status" href="server_status.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../../index.html">
+      <img class="logo" src="../../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../../geobatch/index.html" title="GeoBatch"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="server_status.html" title="Server Status"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">ANNEX. Installing and running GeoServer</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-geoserver.layer_preview"></span><div class="section" id="layer-preview">
+<span id="geoserver-layer-preview"></span><h1>Layer Preview<a class="headerlink" href="#layer-preview" title="Permalink to this headline">¶</a></h1>
+<p>The Map Preview tool is used to quickly preview a layer that has been configured in GeoServer. It is based on the <a class="reference external" href="http://openlayers.org">OpenLayers</a> library which is a great tool for visualizing layers via WMS. This section covers the use of the Map Preview.</p>
+<ol class="arabic">
+<li><p class="first">Navigate to the GeoServer <a class="reference external" href="http://localhost:8080/geoserver/">Welcome Page</a>.</p>
+</li>
+<li><p class="first">From the <span class="guilabel">Welcome</span> page navigate to the <span class="guilabel">Map Preview</span> by clicking the <span class="guilabel">Layer Preview</span> link.</p>
+<div class="figure" id="id1">
+<a class="reference internal image-reference" href="../../_images/map_preview1.jpg"><img alt="../../_images/map_preview1.jpg" src="../../_images/map_preview1.jpg" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">Viewing the demo page</span></p>
+</div>
+</li>
+<li><p class="first">From the <span class="guilabel">Map Preview</span> page, preview the <span class="guilabel">states</span> layer by clicking the <span class="guilabel">geosolutions:states</span> link.</p>
+<div class="figure" id="id2">
+<a class="reference internal image-reference" href="../../_images/map_preview2.jpg"><img alt="../../_images/map_preview2.jpg" src="../../_images/map_preview2.jpg" style="width: 650px;" /></a>
+<p class="caption"><span class="caption-text">Viewing the OpenLayers map preview</span></p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <strong>Map Preview</strong> contains a list of all layers currently published by GeoServer. A layer can be previewed in a variety of formats like KML and GeoRSS. The default is an OpenLayers map.</p>
+</div>
+<div class="figure" id="id3">
+<img alt="../../_images/map_preview3.jpg" src="../../_images/map_preview3.jpg" />
+<p class="caption"><span class="caption-text">Previewing the states layer</span></p>
+</div>
+</li>
+</ol>
+<p>At this point we finished the basic tour of GeoServer and we&#8217;re going to data configuration.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="server_status.html"
+                        title="previous chapter">Server Status</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../geobatch/index.html"
+                        title="next chapter">GeoBatch</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../../geobatch/index.html" title="GeoBatch"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="server_status.html" title="Server Status"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >ANNEX. Installing and running GeoServer</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

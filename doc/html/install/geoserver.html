@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Deploy and configure staging and dissemination GeoServer &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../index.html" />
+    <link rel="up" title="Installing NFMS in Production" href="index.html" />
+    <link rel="next" title="Deploy and configure staging and dissemination GeoStore" href="geostore.html" />
+    <link rel="prev" title="Preparing multiple tomcat instances" href="tomcat.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../index.html">
+      <img class="logo" src="../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="geostore.html" title="Deploy and configure staging and dissemination GeoStore"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tomcat.html" title="Preparing multiple tomcat instances"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Installing NFMS in Production</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="deploy-and-configure-staging-and-dissemination-geoserver">
+<span id="unredd-install-stg-geoserver"></span><h1>Deploy and configure staging and dissemination GeoServer<a class="headerlink" href="#deploy-and-configure-staging-and-dissemination-geoserver" title="Permalink to this headline">¶</a></h1>
+<p>Simply copy the application file <code class="docutils literal"><span class="pre">geoserver.war</span></code> to the tomcat webapps directory. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo cp geoserver.war /var/tomcat/stg_geoserver/webapps/stg_geoserver.war
+</pre></div>
+</div>
+<p>Or:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo cp geoserver.war /var/tomcat/diss_geoserver/webapps/diss_geoserver.war
+</pre></div>
+</div>
+<p>This will install and run geoserver instances, accessible in:</p>
+<blockquote>
+<div><a class="reference external" href="http://localhost/stg_geoserver/">http://localhost/stg_geoserver/</a></div></blockquote>
+<p>Or:</p>
+<blockquote>
+<div><a class="reference external" href="http://localhost/diss_geoserver/">http://localhost/diss_geoserver/</a></div></blockquote>
+<div class="section" id="geoserver-data-directory">
+<h2>GeoServer data directory<a class="headerlink" href="#geoserver-data-directory" title="Permalink to this headline">¶</a></h2>
+<p>We are going to put geoserver related data inside the directory <code class="docutils literal"><span class="pre">/var/???_geoserver</span></code>.</p>
+<p>Each geoserver instance will have its own dir within that one:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">/var/stg_geoserver</span></code>: for the staging geoserver instance</li>
+<li><code class="docutils literal"><span class="pre">/var/diss_geoserver</span></code>: for the dissemination geoserver instance</li>
+</ul>
+<p><em>Please note that if you are installing staging and dissemination area on different servers,
+the above two directories will be installed each inside its own server.</em></p>
+<p>The directory structure inside is as follows:</p>
+<ul class="simple">
+<li><strong>data</strong>: geoserver configuration files</li>
+<li><strong>logs</strong>: geoserver logs, outside of the datadir, since it needs no backup.</li>
+</ul>
+<p>Further details on customization are found in <a class="reference internal" href="../geoserver/index.html#geoserver"><span>GeoServer</span></a>.</p>
+</div>
+<div class="section" id="onlinestats-wps">
+<h2>Onlinestats (WPS)<a class="headerlink" href="#onlinestats-wps" title="Permalink to this headline">¶</a></h2>
+<p>Needed in dissemination area to run custom statistics.</p>
+<ol class="arabic">
+<li><p class="first">Install GeoServer&#8217;s official WPS Extension.</p>
+</li>
+<li><p class="first">Clone the utils project from <cite>https://github.com/nfms4redd/nfms-utils/</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd onlinestats
+mvn install
+</pre></div>
+</div>
+</li>
+<li><p class="first">Get its dependencies, running:</p>
+<div class="highlight-python"><div class="highlight"><pre>mvn dependency:copy-dependencies
+</pre></div>
+</div>
+</li>
+<li><p class="first">Copy from <code class="docutils literal"><span class="pre">target/dependency</span></code> to GeoServer&#8217;s <code class="docutils literal"><span class="pre">WEB-INF/lib</span></code> the jars that aren&#8217;t already there:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">commons</span><span class="o">-</span><span class="n">cli</span><span class="o">-</span><span class="mf">1.2</span><span class="o">.</span><span class="n">jar</span>
+<span class="n">gt</span><span class="o">-</span><span class="n">sample</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="mf">8.0</span><span class="o">.</span><span class="n">jar</span>
+<span class="n">hamcrest</span><span class="o">-</span><span class="n">core</span><span class="o">-</span><span class="mf">1.1</span><span class="o">.</span><span class="n">jar</span>
+<span class="n">junit</span><span class="o">-</span><span class="mf">4.10</span><span class="o">.</span><span class="n">jar</span>
+<span class="n">jt</span><span class="o">-</span><span class="n">classifiedstats</span><span class="o">-</span><span class="mf">1.2</span><span class="o">-</span><span class="n">GAEZM15092011</span><span class="o">.</span><span class="n">jar</span>
+<span class="n">jt</span><span class="o">-</span><span class="n">utils</span><span class="o">-</span><span class="mf">1.2</span><span class="o">-</span><span class="n">GAEZM15092011</span><span class="o">.</span><span class="n">jar</span>
+<span class="n">teststats</span><span class="o">-</span><span class="mf">1.1</span><span class="o">-</span><span class="n">SNAPSHOT</span><span class="o">.</span><span class="n">jar</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This dependency list can change if onlinestats project evolves; <code class="docutils literal"><span class="pre">diff</span></code> command will help sorting out the needed ones.</p>
+</div>
+<ol class="arabic" start="5">
+<li><p class="first">Copy also the onlinestats code from <code class="docutils literal"><span class="pre">target</span></code> to <code class="docutils literal"><span class="pre">WEB-INF/lib</span></code>:</p>
+<p>onlinestats-1.1-SNAPSHOT.jar</p>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>The following files could conflict. Delete the original one from GeoServer, if needed:</p>
+<ul class="last simple">
+<li>GeoServer: jt-utils-1.2.0.jar</li>
+<li>AppStats: jt-utils-1.2-GAEZM15092011.jar</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Custom chart rendering will need an <code class="docutils literal"><span class="pre">htmlChart</span></code> function in the groovy ChartScript. This function receives a Map
+whose keys are dates (in string format), and values are a matrix of <code class="docutils literal"><span class="pre">double</span></code> values with stats data. The return value must
+be the report contents. See an example in: <a class="reference external" href="https://gist.github.com/4389382#file-deforestation_stats-groovy-L45">https://gist.github.com/4389382#file-deforestation_stats-groovy-L45</a></p>
+</div>
+</div>
+<div class="section" id="environment-settings">
+<h2>Environment settings<a class="headerlink" href="#environment-settings" title="Permalink to this headline">¶</a></h2>
+<p>Check the content of the <code class="docutils literal"><span class="pre">setenv.sh</span></code> files:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">SERVICE</span><span class="o">=</span>stg_geoserver <span class="c"># OR diss_geoserver</span>
+
+<span class="c"># Application specific environment</span>
+<span class="nv">GEOSERVER_DATA_DIR</span><span class="o">=</span>/var/<span class="nv">$SERVICE</span>/data
+<span class="nv">GEOSERVER_LOG_LOCATION</span><span class="o">=</span>/var/<span class="nv">$SERVICE</span>/logs/geoserver.log
+
+<span class="c"># Java options</span>
+<span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-server -Xms1024m -Xmx1024m -XX:MaxPermSize=128m -XX:PermSize=64m -XX:+UseConcMarkSweepGC -XX:NewSize=48m -Dorg.geotools.shapefile.datetime=true -DGEOSERVER_DATA_DIR=</span><span class="nv">$GEOSERVER_DATA_DIR</span><span class="s2"> -DGEOSERVER_LOG_LOCATION=</span><span class="nv">$GEOSERVER_LOG_LOCATION</span><span class="s2"> -Duser.timezone=GMT&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Deploy and configure staging and dissemination GeoServer</a><ul>
+<li><a class="reference internal" href="#geoserver-data-directory">GeoServer data directory</a></li>
+<li><a class="reference internal" href="#onlinestats-wps">Onlinestats (WPS)</a></li>
+<li><a class="reference internal" href="#environment-settings">Environment settings</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tomcat.html"
+                        title="previous chapter">Preparing multiple tomcat instances</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="geostore.html"
+                        title="next chapter">Deploy and configure staging and dissemination GeoStore</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="geostore.html" title="Deploy and configure staging and dissemination GeoStore"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tomcat.html" title="Preparing multiple tomcat instances"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Installing NFMS in Production</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

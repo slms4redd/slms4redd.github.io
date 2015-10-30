@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Developer’s guide &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../index.html" />
+    <link rel="up" title="Dissemination Portal" href="index.html" />
+    <link rel="next" title="DRC NFMS Portal training" href="../tutorial/index.html" />
+    <link rel="prev" title="Customize" href="customize.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../index.html">
+      <img class="logo" src="../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../tutorial/index.html" title="DRC NFMS Portal training"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="customize.html" title="Customize"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Dissemination Portal</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="developer-s-guide">
+<h1>Developer&#8217;s guide<a class="headerlink" href="#developer-s-guide" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="getting-the-code">
+<h2>Getting the code<a class="headerlink" href="#getting-the-code" title="Permalink to this headline">¶</a></h2>
+<p>The nfms4redd portal code is hosted on github. To get a local copy using git, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/nfms4redd/nfms-portal.git
+</pre></div>
+</div>
+</div>
+<div class="section" id="building-the-portal">
+<h2>Building the portal<a class="headerlink" href="#building-the-portal" title="Permalink to this headline">¶</a></h2>
+<p>Project build process is managed by Maven 2. Use this command to build, test and create the deployment web archive (war file):</p>
+<div class="highlight-python"><div class="highlight"><pre>mvn install
+</pre></div>
+</div>
+<p>Then get the file in <code class="file docutils literal"><span class="pre">target/unredd-portal.war</span></code>.</p>
+<p>Maven can be used also to run the portal. Use:</p>
+<div class="highlight-python"><div class="highlight"><pre>mvn jetty:run
+</pre></div>
+</div>
+<p>The portal will be accessible at:</p>
+<blockquote>
+<div><a class="reference external" href="http://localhost:8181/portal/">http://localhost:8181/portal/</a></div></blockquote>
+<p>To use a custom configuration, edit the <code class="file docutils literal"><span class="pre">pom.xml</span></code> file, and change the <code class="docutils literal"><span class="pre">&lt;portal_config_dir&gt;</span></code> property before running jetty.</p>
+</div>
+<div class="section" id="debugging-in-eclipse">
+<span id="debugging-portal-eclipse"></span><h2>Debugging in eclipse<a class="headerlink" href="#debugging-in-eclipse" title="Permalink to this headline">¶</a></h2>
+<p>In order to start the application in a J2EE container from eclipse, and therefore being able to debug, it is just necessary to
+specify the -Dwtpversion=2.0 in the mvn eclipse:eclipse command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ mvn eclipse:eclipse -Dwtpversion=2.0
+</pre></div>
+</div>
+<p>After it, on an eclipse with support for J2EE applications it is possible to right-click the project and
+select &#8220;Debug as&#8221; &gt; &#8220;Debug on server&#8221;.</p>
+<p>I&#8217;ve experienced some ClassNotFoundExceptions about classes existing on projects referenced by this one. Similar issues has been
+reported here:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.eclipse.org/forums/index.php/t/248873/">http://www.eclipse.org/forums/index.php/t/248873/</a></li>
+</ul>
+<p>With no solution yet: <a class="reference external" href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=370839">https://bugs.eclipse.org/bugs/show_bug.cgi?id=370839</a></p>
+<p>Removing and adding again the dependent project in the &#8220;Deployment Assembly&#8221; tab of the project properties fixes the issue. I wanted
+to compare the files in .settings to see the differences before and after, but no luck, the bug is no longer reproducible
+even after a &#8220;mvn eclipse:clean eclipse:eclipse&#8221; or after removing the .settings folder.</p>
+</div>
+<div class="section" id="running-tests">
+<h2>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
+<p>Two profiles are configured in the pom.xml, one is &#8220;unit&#8221; and is active by default, excludes the tests
+marked with the category &#8220;org.fao.test.FunctionalTestSuite&#8221;. This is an interface
+defined in the nfms-utils/common-tests with the only purpose of marking tests as &#8220;functional&#8221;, this is, as
+using the system from a functional point of view and probably requiring interaction with other components of
+the system (geoserver, geobatch, etc.).</p>
+<p>Therefore, by issuing:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ mvn test
+</pre></div>
+</div>
+<p>Only the tests that does not require external applications will be run.</p>
+<p>The other profile is &#8220;all-tests&#8221; and does not exclude any test from the build. In order to activate this profile, it
+is possible to issue the command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ mvn test -P all-tests
+</pre></div>
+</div>
+</div>
+<div class="section" id="background-technologies">
+<h2>Background technologies<a class="headerlink" href="#background-technologies" title="Permalink to this headline">¶</a></h2>
+<p>The following technologies are used in the portal software:</p>
+<ul class="simple">
+<li>HTML</li>
+<li>JavaScript (Ajax)</li>
+<li>CSS</li>
+<li>Java</li>
+<li>Spring MVC</li>
+</ul>
+<p>In this section we mainly will focus on the first three in the list, needed to customize the look and feel, the layer list and, to a certain extent, the features of the portal.</p>
+<div class="section" id="java-and-spring-framework">
+<h3>Java and Spring framework<a class="headerlink" href="#java-and-spring-framework" title="Permalink to this headline">¶</a></h3>
+<p>Server side Java is currently very limited and only used for localizing the text and to add time information to the layers JSON description.</p>
+<p>The portal has a server-side back end that manages text localization and the creation of the <code class="docutils literal"><span class="pre">layers.json</span></code> file that defines the connection between elements in the layer list in the User Interface, and the actual WMS layers managed by GeoServer.</p>
+<p>It makes use of the Spring MVC framework. The logic is implemented in ApplicationController.java. It manages the connection to the underlying GeoStore server and builds the localized <code class="docutils literal"><span class="pre">layers.json</span></code> page, through the use of the <code class="docutils literal"><span class="pre">WEB-INF/jsp/layers.json</span></code> file.</p>
+<p>Spring MVC also manages the localization of the index page (<code class="docutils literal"><span class="pre">index.do</span></code>, internally redirected from the default page <code class="docutils literal"><span class="pre">index.jsp</span></code>).</p>
+</div>
+<div class="section" id="javascript-libraries">
+<h3>JavaScript libraries<a class="headerlink" href="#javascript-libraries" title="Permalink to this headline">¶</a></h3>
+<p>The main User Interface functionality is implemented in the <cite>unredd.js</cite> JavaScript file. There is also a <cite>custom.js</cite> used for customization of the statistics chart popup on the client side.</p>
+<p>The portal makes use of the following open-source libraries:</p>
+<ul class="simple">
+<li>JQuery</li>
+<li>OpenLayers</li>
+<li>JQuery UI</li>
+<li>Highcharts JS</li>
+<li>Fancybox</li>
+</ul>
+<p>Let’s see in details each of them and explain how they are used.</p>
+<div class="section" id="openlayers">
+<h4>OpenLayers<a class="headerlink" href="#openlayers" title="Permalink to this headline">¶</a></h4>
+<p><strong>Version: 2.12</strong></p>
+<p>To keep JavaScript overload to a minimum, a custom profile is used to build the OpenLayers javascript file.</p>
+<p>The build config file, where the selected OL classes are listed, can be found on nfms-portal github project,
+under <code class="file docutils literal"><span class="pre">lib/ol-unredd.cfg</span></code>. The OpenLayers source files are linked as a GitHub Submodule pointing to
+the official OpenLayers GitHub repository.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If new OpenLayers classes are needed, add them manually to the build config file, and rebuild.
+The <code class="file docutils literal"><span class="pre">lib/ol-build.sh</span></code> helper script will build and copy the file to the final location.</p>
+</div>
+<p>The javascript file is built uncompressed (not <em>minified</em>), so it can be used for debugging.
+The <em>minification</em> process and other load time optimizations will be performed automatically at runtime,
+via <a class="reference external" href="http://sourceforge.net/projects/packtag/">packtag</a>.</p>
+<p>OpenLayers is used to implement the following mapping capabilities:</p>
+<ul class="simple">
+<li>Show map layers</li>
+<li>Pan and zoom map</li>
+<li>Query - get statistics about a selected polygon</li>
+<li>Draw and retrieve polygons on feedback</li>
+<li>Real-time statistics</li>
+<li>Set layer transparency</li>
+</ul>
+</div>
+<div class="section" id="jquery">
+<h4>JQuery<a class="headerlink" href="#jquery" title="Permalink to this headline">¶</a></h4>
+<p><strong>Version: 1.8.16</strong></p>
+<p>JQuery is used as the infrastructure to build the dynamic content of the site (mainly to create and manage the map layers - we’ll see this later in the layers.jsp section), and indirectly by JQuery UI.</p>
+</div>
+<div class="section" id="jquery-ui">
+<h4>JQuery UI<a class="headerlink" href="#jquery-ui" title="Permalink to this headline">¶</a></h4>
+<p><strong>Version: 1.8.16</strong></p>
+<p>JQuery UI is used for some of the UI widget (Buttons, layers accordion menu, legend dialog) of the portal.</p>
+</div>
+<div class="section" id="highcharts">
+<h4>Highcharts<a class="headerlink" href="#highcharts" title="Permalink to this headline">¶</a></h4>
+<p><strong>Version: 2.1.5</strong></p>
+<p>Highcharts is used to create statistics (charts) related to the selected polygon. The Highcharts library is only loaded when a chart is shown, thus reducing the amount of data that needs to be loaded by the browser before the rendering of the main page starts.</p>
+</div>
+<div class="section" id="fancybox">
+<h4>Fancybox<a class="headerlink" href="#fancybox" title="Permalink to this headline">¶</a></h4>
+<p><strong>Version: 2.0.5</strong></p>
+<p>Used for modal dialogs (show charts and layer info).</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Developer&#8217;s guide</a><ul>
+<li><a class="reference internal" href="#getting-the-code">Getting the code</a></li>
+<li><a class="reference internal" href="#building-the-portal">Building the portal</a></li>
+<li><a class="reference internal" href="#debugging-in-eclipse">Debugging in eclipse</a></li>
+<li><a class="reference internal" href="#running-tests">Running tests</a></li>
+<li><a class="reference internal" href="#background-technologies">Background technologies</a><ul>
+<li><a class="reference internal" href="#java-and-spring-framework">Java and Spring framework</a></li>
+<li><a class="reference internal" href="#javascript-libraries">JavaScript libraries</a><ul>
+<li><a class="reference internal" href="#openlayers">OpenLayers</a></li>
+<li><a class="reference internal" href="#jquery">JQuery</a></li>
+<li><a class="reference internal" href="#jquery-ui">JQuery UI</a></li>
+<li><a class="reference internal" href="#highcharts">Highcharts</a></li>
+<li><a class="reference internal" href="#fancybox">Fancybox</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="customize.html"
+                        title="previous chapter">Customize</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../tutorial/index.html"
+                        title="next chapter">DRC NFMS Portal training</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../tutorial/index.html" title="DRC NFMS Portal training"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="customize.html" title="Customize"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Dissemination Portal</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Training Machine Simplified Architecture &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../index.html" />
+    <link rel="up" title="Running and installing the Training Machine" href="index.html" />
+    <link rel="next" title="Starting and stopping the tomcat instances" href="run_tomcat.html" />
+    <link rel="prev" title="Installing the LiveDVD on the system" href="live_dvd_install.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../index.html">
+      <img class="logo" src="../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="run_tomcat.html" title="Starting and stopping the tomcat instances"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="live_dvd_install.html" title="Installing the LiveDVD on the system"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Running and installing the Training Machine</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="training-machine-simplified-architecture">
+<h1>Training Machine Simplified Architecture<a class="headerlink" href="#training-machine-simplified-architecture" title="Permalink to this headline">¶</a></h1>
+<p>The UNREDD NMFS platform provides both a <em>staging</em> and a <em>dissemination</em> areas,
+so the data can be reviewed and prior to its definite publication.</p>
+<div class="figure" id="id1">
+<a class="reference internal image-reference" href="../_images/simplified_architecture.png"><img alt="../_images/simplified_architecture.png" src="../_images/simplified_architecture.png" style="width: 1200px;" /></a>
+<p class="caption"><span class="caption-text">LiveDVD simplified architecture</span></p>
+</div>
+<p>components not present in the Training machine have been grayed out in the figure.
+Mainly, the dissemination block has been removed. This simplified version
+contains all the building blocks needed to fully understand the platform, while
+reducing the complexities needed only in real production environments.</p>
+<p>In this case, both staging and dissemination areas share the same geoserver instance,
+so the publishing flow, is copying the data from the <em>staging</em> workspace to tne
+<em>dissemination</em> one in the same machine.</p>
+<div class="section" id="tomcat-instances">
+<h2>Tomcat instances<a class="headerlink" href="#tomcat-instances" title="Permalink to this headline">¶</a></h2>
+<p>All of the UNREDD NFMS applications run on Apache Tomcat.
+They are split into multiple Tomcat instances, so they can be run separately.
+In the LiveDVD, you will find four Tomcat instances:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="8%" />
+<col width="8%" />
+<col width="53%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Instance name</th>
+<th class="head">HTTP</th>
+<th class="head">AJP</th>
+<th class="head">Instance location</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>staging</td>
+<td>8200</td>
+<td>8100</td>
+<td>/var/tomcat/staging</td>
+</tr>
+<tr class="row-odd"><td>geoserver</td>
+<td>8201</td>
+<td>8101</td>
+<td>/var/tomcat/geoserver</td>
+</tr>
+<tr class="row-even"><td>geobatch</td>
+<td>8202</td>
+<td>8102</td>
+<td>/var/tomcat/geobatch</td>
+</tr>
+<tr class="row-odd"><td>dissemination</td>
+<td>8203</td>
+<td>8103</td>
+<td>/var/tomcat/dissemination</td>
+</tr>
+</tbody>
+</table>
+<p>These are the web applications contained in each instance:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="22%" />
+<col width="24%" />
+<col width="41%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Tomcat instance</th>
+<th class="head">Contained applications</th>
+<th class="head">Configuration dir</th>
+<th class="head">Access URL</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>staging</td>
+<td><div class="first last line-block">
+<div class="line">stg_geostore</div>
+<div class="line">admin</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">/var/geostore/stg_config</div>
+<div class="line">[not needed]</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line"><a class="reference external" href="http://localhost/stg_geostore/rest">http://localhost/stg_geostore/rest</a></div>
+<div class="line"><a class="reference external" href="http://localhost/admin/">http://localhost/admin/</a></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>geoserver</td>
+<td><div class="first last line-block">
+<div class="line">geoserver</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">/var/geoserver</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line"><a class="reference external" href="http://localhost/geoserver/">http://localhost/geoserver/</a></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>geobatch</td>
+<td><div class="first last line-block">
+<div class="line">geobatch</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">/var/geobatch</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line"><a class="reference external" href="http://localhost/geobatch/">http://localhost/geobatch/</a></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>dissemination</td>
+<td><div class="first last line-block">
+<div class="line">diss_geostore</div>
+<div class="line">portal</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">/var/geostore/diss_config</div>
+<div class="line">/var/portal</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line"><a class="reference external" href="http://localhost/diss_geostore/rest">http://localhost/diss_geostore/rest</a></div>
+<div class="line"><a class="reference external" href="http://localhost/portal/">http://localhost/portal/</a></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="sample-data">
+<h2>Sample data<a class="headerlink" href="#sample-data" title="Permalink to this headline">¶</a></h2>
+<p>Sample data is accessible from a Desktop shorcut to <code class="file docutils literal"><span class="pre">/var/sample_data/[xxx]</span></code>, where <code class="docutils literal"><span class="pre">[xxx]</span></code>
+is a specific country name.</p>
+<p>A sample data bundle will usually include:</p>
+<ul class="simple">
+<li><em>vector</em>: Static vector shapefiles to be published in GeoServer.</li>
+<li><em>raster</em>: Static raster files to be published in GeoServer.</li>
+<li><em>mosaic</em>: Properties files needed by GeoServer to create a time-dependant raster mosaic.</li>
+<li><em>styles</em>: SLD styles for all published data.</li>
+<li><em>ingest</em>: Sample ingestable zip files.</li>
+<li><em>stats</em>: Additional data used in statistics computation, such as area per pixel or rasterized provinces.</li>
+<li><em>chartscripts</em>: Sample groovy scripts, html templates and translation strings to build charts from statistical data.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Training Machine Simplified Architecture</a><ul>
+<li><a class="reference internal" href="#tomcat-instances">Tomcat instances</a></li>
+<li><a class="reference internal" href="#sample-data">Sample data</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="live_dvd_install.html"
+                        title="previous chapter">Installing the LiveDVD on the system</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="run_tomcat.html"
+                        title="next chapter">Starting and stopping the tomcat instances</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="run_tomcat.html" title="Starting and stopping the tomcat instances"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="live_dvd_install.html" title="Installing the LiveDVD on the system"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Running and installing the Training Machine</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

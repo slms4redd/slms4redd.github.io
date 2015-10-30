@@ -1,0 +1,406 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Examine an existing style &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Styling Vector data" href="styling_vector.html" />
+    <link rel="next" title="Patterns and Hatches" href="patterns_dash_arrays.html" />
+    <link rel="prev" title="Styling Vector data" href="styling_vector.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../../index.html">
+      <img class="logo" src="../../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="patterns_dash_arrays.html" title="Patterns and Hatches"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="styling_vector.html" title="Styling Vector data"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Pretty maps with GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="styling.html" >Styling with SLD</a> &raquo;</li>
+          <li class="nav-item nav-item-4"><a href="styling_vector.html" accesskey="U">Styling Vector data</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="examine-an-existing-style">
+<span id="geoserver-add-simple"></span><h1>Examine an existing style<a class="headerlink" href="#examine-an-existing-style" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic">
+<li><p class="first">From the GeoServer <a class="reference external" href="http://localhost:8080/geoserver">Welcome Page</a> navigate to <span class="guilabel">Style</span>.</p>
+<div class="figure" id="id2">
+<img alt="../../_images/style1.png" src="../../_images/style1.png" />
+<p class="caption"><span class="caption-text">Navigating to Style configuration</span></p>
+</div>
+</li>
+<li><p class="first">From the style list select the <cite>citylimits</cite> style</p>
+<div class="figure" id="id3">
+<img alt="../../_images/styling_vector1.png" src="../../_images/styling_vector1.png" />
+<p class="caption"><span class="caption-text">The styles list</span></p>
+</div>
+</li>
+<li><p class="first">Inside the <em>Style Editor</em> we have the following style:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;sld:StyledLayerDescriptor</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.opengis.net/sld&quot;</span>
+        <span class="na">xmlns:sld=</span><span class="s">&quot;http://www.opengis.net/sld&quot;</span>
+        <span class="na">xmlns:ogc=</span><span class="s">&quot;http://www.opengis.net/ogc&quot;</span>
+        <span class="na">xmlns:gml=</span><span class="s">&quot;http://www.opengis.net/gml&quot;</span>
+        <span class="na">version=</span><span class="s">&quot;1.0.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;sld:UserLayer&gt;</span>
+        <span class="nt">&lt;sld:LayerFeatureConstraints&gt;</span>
+          <span class="nt">&lt;sld:FeatureTypeConstraint/&gt;</span>
+        <span class="nt">&lt;/sld:LayerFeatureConstraints&gt;</span>
+        <span class="nt">&lt;sld:UserStyle&gt;</span>
+          <span class="nt">&lt;sld:Name&gt;</span>BoulderCityLimits<span class="nt">&lt;/sld:Name&gt;</span>
+          <span class="nt">&lt;sld:Title/&gt;</span>
+          <span class="nt">&lt;sld:IsDefault&gt;</span>1<span class="nt">&lt;/sld:IsDefault&gt;</span>
+          <span class="nt">&lt;sld:FeatureTypeStyle&gt;</span>
+                <span class="nt">&lt;sld:Name&gt;</span>group 0<span class="nt">&lt;/sld:Name&gt;</span>
+                <span class="nt">&lt;sld:FeatureTypeName&gt;</span>Feature<span class="nt">&lt;/sld:FeatureTypeName&gt;</span>
+                <span class="nt">&lt;sld:SemanticTypeIdentifier&gt;</span>generic:geometry<span class="nt">&lt;/sld:SemanticTypeIdentifier&gt;</span>
+                <span class="nt">&lt;sld:SemanticTypeIdentifier&gt;</span>simple<span class="nt">&lt;/sld:SemanticTypeIdentifier&gt;</span>
+                <span class="nt">&lt;sld:Rule&gt;</span>
+                  <span class="nt">&lt;sld:Name&gt;</span>Filled<span class="nt">&lt;/sld:Name&gt;</span>
+                  <span class="nt">&lt;sld:MinScaleDenominator&gt;</span>75000<span class="nt">&lt;/sld:MinScaleDenominator&gt;</span>
+                  <span class="nt">&lt;sld:PolygonSymbolizer&gt;</span>
+                        <span class="nt">&lt;sld:Fill&gt;</span>
+                          <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;fill&quot;</span><span class="nt">&gt;</span>#7F7F7F<span class="nt">&lt;/sld:CssParameter&gt;</span>
+                          <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;fill-opacity&quot;</span><span class="nt">&gt;</span>0.5<span class="nt">&lt;/sld:CssParameter&gt;</span>
+                        <span class="nt">&lt;/sld:Fill&gt;</span>
+                        <span class="nt">&lt;sld:Stroke&gt;</span>
+                          <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;stroke&quot;</span><span class="nt">&gt;</span>#7F7F7F<span class="nt">&lt;/sld:CssParameter&gt;</span>
+                          <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;stroke-opacity&quot;</span><span class="nt">&gt;</span>0.5<span class="nt">&lt;/sld:CssParameter&gt;</span>
+                          <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;stroke-width&quot;</span><span class="nt">&gt;</span>2.0<span class="nt">&lt;/sld:CssParameter&gt;</span>
+                        <span class="nt">&lt;/sld:Stroke&gt;</span>
+                  <span class="nt">&lt;/sld:PolygonSymbolizer&gt;</span>
+                  <span class="nt">&lt;sld:TextSymbolizer&gt;</span>
+                        <span class="nt">&lt;sld:Label&gt;</span>
+                          <span class="nt">&lt;ogc:Literal&gt;</span>Boulder<span class="nt">&lt;/ogc:Literal&gt;</span>
+                        <span class="nt">&lt;/sld:Label&gt;</span>
+                        <span class="nt">&lt;sld:Font&gt;</span>
+                          <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;font-family&quot;</span><span class="nt">&gt;</span>Arial<span class="nt">&lt;/sld:CssParameter&gt;</span>
+                          <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;font-size&quot;</span><span class="nt">&gt;</span>14.0<span class="nt">&lt;/sld:CssParameter&gt;</span>
+                          <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;font-style&quot;</span><span class="nt">&gt;</span>normal<span class="nt">&lt;/sld:CssParameter&gt;</span>
+                          <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;font-weight&quot;</span><span class="nt">&gt;</span>normal<span class="nt">&lt;/sld:CssParameter&gt;</span>
+                        <span class="nt">&lt;/sld:Font&gt;</span>
+                        <span class="nt">&lt;sld:LabelPlacement&gt;</span>
+                          <span class="nt">&lt;sld:PointPlacement&gt;</span>
+                                <span class="nt">&lt;sld:AnchorPoint&gt;</span>
+                                  <span class="nt">&lt;sld:AnchorPointX&gt;</span>
+                                        <span class="nt">&lt;ogc:Literal&gt;</span>0.0<span class="nt">&lt;/ogc:Literal&gt;</span>
+                                  <span class="nt">&lt;/sld:AnchorPointX&gt;</span>
+                                  <span class="nt">&lt;sld:AnchorPointY&gt;</span>
+                                        <span class="nt">&lt;ogc:Literal&gt;</span>0.5<span class="nt">&lt;/ogc:Literal&gt;</span>
+                                  <span class="nt">&lt;/sld:AnchorPointY&gt;</span>
+                                <span class="nt">&lt;/sld:AnchorPoint&gt;</span>
+                                <span class="nt">&lt;sld:Rotation&gt;</span>
+                                  <span class="nt">&lt;ogc:Literal&gt;</span>0<span class="nt">&lt;/ogc:Literal&gt;</span>
+                                <span class="nt">&lt;/sld:Rotation&gt;</span>
+                          <span class="nt">&lt;/sld:PointPlacement&gt;</span>
+                        <span class="nt">&lt;/sld:LabelPlacement&gt;</span>
+                        <span class="nt">&lt;sld:Fill&gt;</span>
+                          <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;fill&quot;</span><span class="nt">&gt;</span>#000000<span class="nt">&lt;/sld:CssParameter&gt;</span>
+                        <span class="nt">&lt;/sld:Fill&gt;</span>
+                        <span class="nt">&lt;sld:VendorOption</span> <span class="na">name=</span><span class="s">&quot;maxDisplacement&quot;</span><span class="nt">&gt;</span>200<span class="nt">&lt;/sld:VendorOption&gt;</span>
+                        <span class="nt">&lt;sld:VendorOption</span> <span class="na">name=</span><span class="s">&quot;Group&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/sld:VendorOption&gt;</span>
+                  <span class="nt">&lt;/sld:TextSymbolizer&gt;</span>
+                <span class="nt">&lt;/sld:Rule&gt;</span>
+          <span class="nt">&lt;/sld:FeatureTypeStyle&gt;</span>
+        <span class="nt">&lt;/sld:UserStyle&gt;</span>
+  <span class="nt">&lt;/sld:UserLayer&gt;</span>
+<span class="nt">&lt;/sld:StyledLayerDescriptor&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The most important section are:</p>
+<ul class="last">
+<li><p class="first">The <code class="docutils literal"><span class="pre">&lt;Rule&gt;</span></code> tag combines a number of symbolizers (we have also the possibility to define the OGC filter) to define the portrayal of a feature.</p>
+</li>
+<li><p class="first">The <code class="docutils literal"><span class="pre">&lt;PolygonSymbolizer&gt;</span></code> styles polygons and contain styling information about their border (stroke) and their fill.</p>
+</li>
+<li><p class="first">The <code class="docutils literal"><span class="pre">&lt;TextSymbolizer</span> <span class="pre">&gt;</span></code> specifies text labels and their style:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">&lt;Label&gt;</span></code> Specifies the content of the text label</li>
+<li><code class="docutils literal"><span class="pre">&lt;Font&gt;</span></code> Specifies the font information for the labels.</li>
+<li><code class="docutils literal"><span class="pre">&lt;LabelPlacement&gt;</span></code> Sets the position of the label relative its associate feature.</li>
+<li><code class="docutils literal"><span class="pre">&lt;Fill&gt;</span></code> Determines the fill color of the text label.</li>
+<li>VendorOption <code class="docutils literal"><span class="pre">maxDisplacement</span></code> Controls the displacement of the label along a line. Normally GeoServer would label a polygon in its centroid, provided the location is not busy with another label and that the label is not too big compare to the polygon, or not label it at all otherwise. When the maxDisplacement is set, the labeller will search for another location within maxDisplacement pixels from the pre-computed label point.</li>
+<li>VendorOption <code class="docutils literal"><span class="pre">Group</span></code> Sometimes you will have a set of related features that you only want a single label for. The grouping option groups all features with the same label text, then finds a representative geometry for the group.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">The <code class="docutils literal"><span class="pre">&lt;MaxScaleDenominator&gt;</span></code> and <code class="docutils literal"><span class="pre">&lt;MinScaleDenominator&gt;</span></code> are used to apply a particular SLD rule to a specific scale. The above SLD makes sure that the Boulder border disappear once we zoom in enough to see the city details. An alternative approach could be to keep the layer showing, but switch it to a different style, for example a think red line, so that the details of the city are not disturbed by the polygon fill.</p>
+</li>
+</ul>
+</div>
+</li>
+<li><p class="first">Now from the style list select the <cite>rivers</cite> style.</p>
+</li>
+<li><p class="first">Inside the <em>Style Editor</em> we have the following style:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;sld:StyledLayerDescriptor</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.opengis.net/sld&quot;</span>
+        <span class="na">xmlns:sld=</span><span class="s">&quot;http://www.opengis.net/sld&quot;</span>
+        <span class="na">xmlns:ogc=</span><span class="s">&quot;http://www.opengis.net/ogc&quot;</span>
+        <span class="na">xmlns:gml=</span><span class="s">&quot;http://www.opengis.net/gml&quot;</span>
+        <span class="na">version=</span><span class="s">&quot;1.0.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;sld:UserLayer&gt;</span>
+        <span class="nt">&lt;sld:LayerFeatureConstraints&gt;</span>
+          <span class="nt">&lt;sld:FeatureTypeConstraint/&gt;</span>
+        <span class="nt">&lt;/sld:LayerFeatureConstraints&gt;</span>
+        <span class="nt">&lt;sld:UserStyle&gt;</span>
+          <span class="nt">&lt;sld:Name&gt;</span>Hydrology Line<span class="nt">&lt;/sld:Name&gt;</span>
+          <span class="nt">&lt;sld:Title/&gt;</span>
+          <span class="nt">&lt;sld:FeatureTypeStyle&gt;</span>
+                <span class="nt">&lt;sld:Rule&gt;</span>
+                  <span class="nt">&lt;sld:Name&gt;</span>default rule<span class="nt">&lt;/sld:Name&gt;</span>
+                  <span class="nt">&lt;sld:MaxScaleDenominator&gt;</span>75000<span class="nt">&lt;/sld:MaxScaleDenominator&gt;</span>
+                  <span class="nt">&lt;sld:LineSymbolizer&gt;</span>
+                        <span class="nt">&lt;sld:Stroke&gt;</span>
+                          <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;stroke-width&quot;</span><span class="nt">&gt;</span>0.5<span class="nt">&lt;/sld:CssParameter&gt;</span>
+                          <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;stroke&quot;</span><span class="nt">&gt;</span>#06607F<span class="nt">&lt;/sld:CssParameter&gt;</span>
+                        <span class="nt">&lt;/sld:Stroke&gt;</span>
+                  <span class="nt">&lt;/sld:LineSymbolizer&gt;</span>
+                <span class="nt">&lt;/sld:Rule&gt;</span>
+          <span class="nt">&lt;/sld:FeatureTypeStyle&gt;</span>
+        <span class="nt">&lt;/sld:UserStyle&gt;</span>
+  <span class="nt">&lt;/sld:UserLayer&gt;</span>
+<span class="nt">&lt;/sld:StyledLayerDescriptor&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<blockquote>
+<div><p>This is a very simple Line style. Take into account the LineSymbolizer that styles lines. Lines are one-dimensional geometry elements that contain position and length.
+Lines can be comprised of multiple line segments.</p>
+<p>The outermost tag is the &lt;Stroke&gt; tag. This tag is required, and determines the visualization of the line:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">stroke</span></code> Specifies the solid color given to the line, in the form #RRGGBB.  Default is black (<code class="docutils literal"><span class="pre">#000000</span></code>).</li>
+<li><code class="docutils literal"><span class="pre">stroke-width</span></code> Specifies the width of the line in pixels.  Default is <code class="docutils literal"><span class="pre">1</span></code>.</li>
+</ul>
+</div></blockquote>
+<p class="last">In this case <code class="docutils literal"><span class="pre">MaxScaleDenominator</span></code> is used to make sure that the rivers start showing up when we are zoomed in enough, and in particular as the city borders disappear</p>
+</div>
+</li>
+</ol>
+<div class="section" id="create-a-simple-style-for-points">
+<h2>Create a simple style for points<a class="headerlink" href="#create-a-simple-style-for-points" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">From the GeoServer <a class="reference external" href="http://localhost:8080/geoserver">Welcome Page</a> navigate to <span class="guilabel">Style</span>.</p>
+<div class="figure" id="id4">
+<img alt="../../_images/style1.png" src="../../_images/style1.png" />
+<p class="caption"><span class="caption-text">Navigating to Style configuration</span></p>
+</div>
+</li>
+<li><p class="first">Click <span class="guilabel">New</span></p>
+<div class="figure" id="id5">
+<img alt="../../_images/style2.png" src="../../_images/style2.png" />
+<p class="caption"><span class="caption-text">Adding a new style</span></p>
+</div>
+</li>
+<li><p class="first">Enter &#8220;landmarks&#8221; in the <span class="guilabel">Name</span> field.</p>
+<div class="figure" id="id6">
+<img alt="../../_images/styling_vector2.png" src="../../_images/styling_vector2.png" />
+<p class="caption"><span class="caption-text">Creating a new style</span></p>
+</div>
+</li>
+<li><p class="first">In the <span class="guilabel">SLD Editor</span> enter the following XML:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;StyledLayerDescriptor</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.opengis.net/sld&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="na">version=</span><span class="s">&quot;1.0.0&quot;</span> <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;NamedLayer&gt;</span>
+        <span class="nt">&lt;Name&gt;</span>landmarks<span class="nt">&lt;/Name&gt;</span>
+        <span class="nt">&lt;UserStyle&gt;</span>
+          <span class="nt">&lt;Name&gt;</span>landmarks<span class="nt">&lt;/Name&gt;</span>
+          <span class="nt">&lt;Title&gt;</span>Point Landmarks<span class="nt">&lt;/Title&gt;</span>
+          <span class="nt">&lt;FeatureTypeStyle&gt;</span>
+                <span class="nt">&lt;Rule&gt;</span>
+                  <span class="nt">&lt;Name&gt;</span>default<span class="nt">&lt;/Name&gt;</span>
+                  <span class="nt">&lt;Title&gt;</span>Landmarks<span class="nt">&lt;/Title&gt;</span>
+                   <span class="nt">&lt;PointSymbolizer&gt;</span>
+                         <span class="nt">&lt;Graphic&gt;</span>
+                           <span class="nt">&lt;Mark&gt;</span>
+                                 <span class="nt">&lt;WellKnownName&gt;</span>triangle<span class="nt">&lt;/WellKnownName&gt;</span>
+                                 <span class="nt">&lt;Fill&gt;</span>
+                                   <span class="nt">&lt;CssParameter</span> <span class="na">name=</span><span class="s">&quot;fill&quot;</span><span class="nt">&gt;</span>#009900<span class="nt">&lt;/CssParameter&gt;</span>
+                                   <span class="nt">&lt;CssParameter</span> <span class="na">name=</span><span class="s">&quot;fill-opacity&quot;</span><span class="nt">&gt;</span>0.2<span class="nt">&lt;/CssParameter&gt;</span>
+                                 <span class="nt">&lt;/Fill&gt;</span>
+                                 <span class="nt">&lt;Stroke&gt;</span>
+                                   <span class="nt">&lt;CssParameter</span> <span class="na">name=</span><span class="s">&quot;stroke&quot;</span><span class="nt">&gt;</span>#000000<span class="nt">&lt;/CssParameter&gt;</span>
+                                   <span class="nt">&lt;CssParameter</span> <span class="na">name=</span><span class="s">&quot;stroke-width&quot;</span><span class="nt">&gt;</span>2<span class="nt">&lt;/CssParameter&gt;</span>
+                                 <span class="nt">&lt;/Stroke&gt;</span>
+                           <span class="nt">&lt;/Mark&gt;</span>
+                           <span class="nt">&lt;Size&gt;</span>12<span class="nt">&lt;/Size&gt;</span>
+                         <span class="nt">&lt;/Graphic&gt;</span>
+                   <span class="nt">&lt;/PointSymbolizer&gt;</span>
+                <span class="nt">&lt;/Rule&gt;</span>
+          <span class="nt">&lt;/FeatureTypeStyle&gt;</span>
+        <span class="nt">&lt;/UserStyle&gt;</span>
+  <span class="nt">&lt;/NamedLayer&gt;</span>
+<span class="nt">&lt;/StyledLayerDescriptor&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<blockquote>
+<div><p>Take into account:</p>
+</div></blockquote>
+<ul class="last">
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">WellKnownName</span></code> The name of the common shape. Options are circle, square, triangle, star, cross, or x. Default is square.</dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal"><span class="pre">fill</span></code> Specifies how the symbolizer should be filled.  Options are a <code class="docutils literal"><span class="pre">&lt;CssParameter</span> <span class="pre">name=&quot;fill&quot;&gt;</span></code> specifying a color in the form <code class="docutils literal"><span class="pre">#RRGGBB</span></code>, or <code class="docutils literal"><span class="pre">&lt;GraphicFill&gt;</span></code> for a fill made with a repeated graphic.</li>
+<li><code class="docutils literal"><span class="pre">fill-opacity</span></code> Determines the opacity (transparency) of symbolizers.  Values range from <code class="docutils literal"><span class="pre">0</span></code> (completely transparent) to <code class="docutils literal"><span class="pre">1</span></code> (completely opaque).  Default is <code class="docutils literal"><span class="pre">1</span></code>.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</li>
+<li><p class="first">Then click <span class="guilabel">Save</span> button.</p>
+</li>
+<li><p class="first">Open the  <code class="docutils literal"><span class="pre">geosolutions:bptlandmarks</span></code> vector layer, but this time associate the style as a &#8220;Additional Style&#8221;:</p>
+<div class="figure" id="id7">
+<img alt="../../_images/styling_vector_add_style.png" src="../../_images/styling_vector_add_style.png" />
+<p class="caption"><span class="caption-text">Open the Layers Preview</span></p>
+</div>
+</li>
+<li><p class="first">Preview the <code class="docutils literal"><span class="pre">geosolutions:bptlandmarks</span></code> layer, which with the default style should be empty due to scale dependencies.
+Then click the option button at the top left of the map and select the <code class="docutils literal"><span class="pre">landmarks</span></code> style in the style drop down:</p>
+<div class="figure" id="id8">
+<img alt="../../_images/styling_vector4.png" src="../../_images/styling_vector4.png" />
+<p class="caption"><span class="caption-text">Open the Layers Preview</span></p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Examine an existing style</a><ul>
+<li><a class="reference internal" href="#create-a-simple-style-for-points">Create a simple style for points</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="styling_vector.html"
+                        title="previous chapter">Styling Vector data</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="patterns_dash_arrays.html"
+                        title="next chapter">Patterns and Hatches</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="patterns_dash_arrays.html" title="Patterns and Hatches"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="styling_vector.html" title="Styling Vector data"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Pretty maps with GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="styling.html" >Styling with SLD</a> &raquo;</li>
+          <li class="nav-item nav-item-4"><a href="styling_vector.html" >Styling Vector data</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>
