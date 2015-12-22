@@ -1,70 +1,462 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>slms4redd documentation by slms4redd</title>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">slms4redd</h1>
-      <h2 class="project-tagline">documentation website</h2>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SLMS Platform - doc website</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/slms-doc.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
+    <nav id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
+            <li class="sidebar-brand">
+                <a href="#top"  onclick = $("#menu-close").click(); >Start Bootstrap</a>
+            </li>
+            <li>
+                <a href="#top" onclick = $("#menu-close").click(); >Home</a>
+            </li>
+            <li>
+                <a href="#infrastructure-abstract" onclick = $("#menu-close").click(); >Infrastructure</a>
+            </li>
+            <li>
+                <a href="#software-abstract" onclick = $("#menu-close").click(); >Applications</a>
+            </li>
+            <li>
+                <a href="#documentation" onclick = $("#menu-close").click(); >Documentation</a>
+            </li>
+            <li>
+                <a href="#gallery" onclick = $("#menu-close").click(); >Gallery</a>
+            </li>
+            <li>
+                <a href="#contact" onclick = $("#menu-close").click(); >Contact</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header id="top" class="header">
+        <div class="text-vertical-center">
+            <h1>SLMS</h1>
+            <h2>Satellite Landcover Monitoring System</h2>
+            <h3>Documentation website</h3>
+            <br />
+            <h2>Read the 5 minutes <a href="https://docs.google.com/presentation/d/1Mf4h_fuZIHEpco3yEDTyzMB-OdwcQ9-xPoz8K2bKsi8/edit#slide=id.p" target="_blank">presentation</a></h2>
+            <br />
+            <a href="#infrastructure-abstract" class="btn btn-dark btn-lg">or discover the other resources!</a>
+        </div>
+    </header>
+
+    <section id="infrastructure-abstract" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>SLMS is an <strong>I</strong>nfrastracure <strong>a</strong>s <strong>a</strong> <strong>S</strong>ervice project</h2>
+                    <p class="lead">Read more about <a target="_blank" href="https://en.wikipedia.org/wiki/Cloud_computing#Infrastructure_as_a_service_.28IaaS.29"><strong>IaaS</strong></a> and <a target="_blank" href="https://en.wikipedia.org/wiki/Cloud_computing"><strong>cloud computing</strong></a>.</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
     </section>
 
-    <section class="main-content">
-      <h3>
-<a id="welcome-to-the-slms-documentation-homepage" class="anchor" href="#welcome-to-the-slms-documentation-homepage-work-in-progress" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to the SLMS documentation Homepage!</h3>
+    <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
+    <section id="infrastructure" class="services bg-primary">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <h2>Infrastructure components</h2>
+                    <hr class="small">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <img id ="SLMS_training_img" src="D:\work\code\slms4redd.github.io\img\SLMS_training.png"  style="position:absolute;left:-60px;" width="270px" height="110px"  />
+                                <!--i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-cloud fa-stack-1x text-primary"></i-->
+                            </span>
+                                <h4>
+                                    <strong>SLMS training</strong>
+                                </h4>
+                                <p class="component-abstracy">Create a linux desktop VM with the SLMS preinstalled, it's simple as install Ubuntu!</p>
+                                <a href="http://slms4redd.org/downloads/virtual_machines/SLMS-training.iso" class="btn btn-light" target="_blank"><strong>Download ISO image</strong></a>
+                                <hr />
+                                <a href="http://slms4redd.org/downloads/virtual_machines/SLMS-training.iso.md5sum" class="btn-sm btn-light" target="_blank">md5Sum</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <img id ="SLMS-Ubuntu-desktop_img" src="D:\work\code\slms4redd.github.io\img\SLMS-Ubuntu-desktop.png" style="position:absolute;left:-40px;" width="250px" height="105px" />
+                                <!--i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-compass fa-stack-1x text-primary"></i-->
+                            </span>
+                                <h4>
+                                    <strong>SLMS Ubuntu desktop</strong>
+                                </h4>
+                                <p class="component-abstracy">An Ubuntu desktop distribution ready to host a SLMS training and test environment through chef provisioning.</p>
+                                <a href="http://slms4redd.org/downloads/virtual_machines/SLMS-Base_training_VM.iso" class="btn btn-light" target="_blank"><strong>Download ISO image</strong></a>
+                                <hr />
+                                <a href="http://slms4redd.org/downloads/virtual_machines/SLMS-Base_training_VM.iso.md5sum" class="btn-sm btn-light" target="_blank">md5Sum</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <img id ="SLMS-Ubuntu-server_img" src="D:\work\code\slms4redd.github.io\img\SLMS-Ubuntu-server.png" style="position:absolute;left:-40px;" width="250px" height="105px" />
+                                <!--i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-flask fa-stack-1x text-primary"></i-->
+                            </span>
+                                <h4>
+                                    <strong>SLMS Ubuntu server</strong>
+                                </h4>
+                                <p class="component-abstracy">An Ubuntu server distribution ready to host a production SLMS platform through chef provisioning.</p>
+                                <a href="#" class="btn btn-light"><strong>Download VMDK disk (Coming soon!)</strong></a>
+                                <hr />
+                                <a href="http://slms4redd.org/downloads/virtual_machines/SLMS-Base_production_VM.iso.md5sum" class="btn-sm btn-light" target="_blank">md5Sum</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                            <span class="fa-stack fa-4x">
+                                <img id ="SLMS_cookbook_img" src="D:\work\code\slms4redd.github.io\img\SLMS_cookbook.png"  style="position:absolute;left:-30px;" width="200px" height="75px" />
+                                <!--i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-shield fa-stack-1x text-primary"></i-->
+                            </span>
+                                <h4>
+                                    <strong>SLMS chef cookbook</strong>
+                                </h4>
+                                <p class="component-abstracy">Deploy the SLMS system just typing 2 bash commands!</p>
+                                <a href="https://github.com/slms4redd/chef-slms-portal" class="btn btn-light" target="_blank"><strong>Fork it!</strong></a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                            <span class="fa-stack fa-4x">
+                                <img id ="SLMS-hypervisor1_img" src="D:\work\code\slms4redd.github.io\img\SLMS-hypervisor.png" style="position:absolute;left:-70px;" width="320px" height="125px" />
+                                <!--i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-shield fa-stack-1x text-primary"></i-->
+                            </span>
+                                <h4>
+                                    <strong>Virtualization tools</strong>
+                                </h4>
+                                <p class="component-abstracy">We support <strong>VMware player</strong>(Win, Linux) and <strong>VirtualBox</strong>(Mac, Win, Linux) for training pourpose and <strong>VMware vSphere Hypervisor (aka ESXi)</strong> for production envoronments</p>
+                                <a href="https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_workstation_player/12_0" class="btn-sm btn-light" target="_blank"><strong>Try VMware Player 12</strong></a>
+                                <hr />
+                                <a href="https://www.virtualbox.org/wiki/Downloads" class="btn-sm btn-light" target="_blank"><strong>Try Virtual Box 5</strong></a>
+                                <hr />
+                                <a href="https://www.vmware.com/products/vsphere-hypervisor" class="btn-sm btn-light" target="_blank"><strong>Read more about ESXi</strong></a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                        </div>
 
-<p>
-  This page is the entry point to the online resources of the SLMS platform...
-</p>
-<p>
-  Do you need a quick overview of our platform? Watch <a href="https://docs.google.com/presentation/d/1Mf4h_fuZIHEpco3yEDTyzMB-OdwcQ9-xPoz8K2bKsi8/edit#slide=id.g3e0122fd8_21">this presentation</a>
-</p>
-
-<h3>
-<a id="SLMS-Official-Documentation" class="anchor" href="#SLMS-Official-Documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>The SLMS Official documentation</h3>
-
-<p>This is the complete documentation for the SLMS platform system administrators</p>
-
-<ul>
-  <li><a href="http://slms4redd.github.io/doc/html/index.html">Table Of Content</a> browse all the documentation</li>
-  <li><a href="http://slms4redd.github.io/doc/html/tutorial/index.html">This tutorial</a> is an introduction to the system administration of the portal. In order to do the exercises you'll have to download this <a>virtual machine</a></a></li>
-</ul>
-
-Here are listed all the subsection of the main SLMS platform components:
-
-<ul>
-  <li><a href="http://slms4redd.github.io/doc/html/geoserver/index.html">Geoserver</a> the geospatial backend used to disseminate the data through the OGC protocols</li>
-  <li><a href="http://slms4redd.github.io/doc/html/geobatch/index.html">Geobatch</a> a geospatial oriented batch ingestion system</li>
-  <li><a href="http://slms4redd.github.io/doc/html/geostore/index.html">Geostore</a> a storage + a REST interface used to store configurations and statistics</li>
-  <li><a href="http://slms4redd.github.io/doc/html/admin/index.html">Admin UI</a> a WebApp to help the admin in the data management</li>
-  <li><a href="http://slms4redd.github.io/doc/html/portal/index.html">Portal UI v1.0</a> what the end-user only see :)</li>
-</ul>
-
-<p>A basic knowledge of Linux and the GIS world (most common data formats and OGC protocols) is required.</p>
-
-<h3><a id="SLMS-dev-Documentation" class="anchor" href="#SLMS-dev-Documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Some useful SLMS developer resources</h3>
-<ul>
-  <li><a href="https://github.com/slms4redd">Our github organization page</a></li>
-  <li><a href="https://github.com/slms4redd/utils/wiki#module-appstats"> an overview of the SLMS statistic system</a></li>
-  <li><a href="https://github.com/slms4redd/slms4redd.github.io/wiki/Concept-notes---GUI-design-guidelines">GUI design guidelines</a></li>
-  <li><a href="https://github.com/slms4redd/chef-slms-portal/wiki">Resources about the chef cookbook</a></li>
-  <li><a href="https://github.com/slms4redd/slms4redd.github.io/wiki/Server-administration---deployment-of-a-new-VM">How to deploy a new VM</a></li>
-</ul>
-
-
-      <footer class="site-footer">
-
-        <span class="site-footer-credits">Hosted by Github Pages. Credits SLMS team @ FAO hq - Rome</span>
-      </footer>
-
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.col-lg-10 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
     </section>
 
-  
-  </body>
+    <section id="software-abstract" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>The SLMS platform is composed of 4 main projects</h2>
+                    <p class="lead">Fork them on <a href="https://github.com/orgs/slms4redd/dashboard" target="_blank">GitHub</a> and help us with your Pull Requests!</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+    <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
+    <section id="software" class="services bg-primary">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <h4>These are the GitHub projects which represents the core applicative components of the platform</h4>
+                    <hr class="small">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <img id ="github-logo" src="img/github-logo.png" width="130px" height="130px"  />
+                                <!--i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-cloud fa-stack-1x text-primary"></i-->
+                            </span>
+                                <h4>
+                                    <strong>SLMS User Interface</strong>
+                                </h4>
+                                <p class="component-abstracy">Browse the maps and visualize the statistical data! built with Openlayers, jQuery and Bootstrap</p>
+                                <a href="https://github.com/slms4redd/portal" class="btn btn-light" target="_blank"><strong>Fork it!</strong></a>
+                                <hr />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <img id ="github-logo" src="img/github-logo.png" width="130px" height="130px" />
+                                <!--i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-compass fa-stack-1x text-primary"></i-->
+                            </span>
+                                <h4>
+                                    <strong>SLMS Admin Interface</strong>
+                                </h4>
+                                <p class="component-abstracy">Web interface for the platform administration, built with Spring and Bootstrap</p>
+                                <a href="https://github.com/slms4redd/admin-interface" class="btn btn-light" target="_blank"><strong>Fork it!</strong></a>
+                                <hr />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <img id ="github-logo" src="img/github-logo.png" width="130px" height="130px" />
+                                <!--i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-flask fa-stack-1x text-primary"></i-->
+                            </span>
+                                <h4>
+                                    <strong>SLMS GeoBach</strong>
+                                </h4>
+                                <p class="component-abstracy">The batch ingestion system: upload GeoTiff and shapefile and automatically publish them on the sevrer! built with Spring and Geotools</p>
+                                <a href="https://github.com/slms4redd/slms-geobatch" class="btn btn-light" target="_blank"><strong>Fork it!</strong></a>
+                                <hr />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                            <span class="fa-stack fa-4x">
+                                <img id ="geoserver-logo" src="img/geoserver-logo.png" style="position:absolute; left:-50px;" width="240px" height="140px" />
+                                <!--i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-shield fa-stack-1x text-primary"></i-->
+                            </span>
+                                <h4>
+                                    <strong>GeoServer</strong>
+                                </h4>
+                                <p class="component-abstracy">The core component of the SLMS platform: renders and distributes GIS data around the web throught OGC protocols!</p>
+                                <a href="https://github.com/geoserver/geoserver" class="btn btn-light" target="_blank"><strong>Fork it!</strong></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.col-lg-10 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+    <section id="documentation" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 ">
+
+                    <h2>Documentation</h2>
+                    <p>This is the complete documentation for the SLMS platform system administrators</p>
+                    <p>A basic knowledge of Linux and the GIS world (most common data formats and OGC protocols) is required.</p>
+                    <ul>
+                      <li><a target="_blank" href="http://slms4redd.github.io/doc/html/index.html">Table Of Content</a> browse all the documentation</li>
+                    </ul>
+                    <ul>
+                      <li><a target="_blank" href="http://slms4redd.github.io/doc/html/geoserver/index.html">Geoserver</a> the geospatial backend used to disseminate the data through the OGC protocols</li>
+                      <li><a target="_blank" href="http://slms4redd.github.io/doc/html/geobatch/index.html">Geobatch</a> a geospatial oriented batch ingestion system</li>
+                      <li><a target="_blank" href="http://slms4redd.github.io/doc/html/geostore/index.html">Geostore</a> a storage + a REST interface used to store configurations and statistics</li>
+                      <li><a target="_blank" href="http://slms4redd.github.io/doc/html/admin/index.html">Admin UI</a> a WebApp to help the admin in the data management</li>
+                      <li><a target="_blank" href="http://slms4redd.github.io/doc/html/portal/index.html">Portal UI v1.0</a> what the end-user only see :)</li>
+                    </ul>
+
+                    <h2>Training</h2>
+                    <ul>
+                      <li><a target="_blank" href="http://slms4redd.github.io/doc/html/tutorial/index.html">This tutorial</a> is an introduction to the system administration of the portal.</li>
+                      <li>Use <a target="_blank" href="http://slms4redd.org/downloads/virtual_machines/SLMS-training.iso">this VM</a> for a ready training environment</li>
+                      <li>Use <a target="_blank" href="http://slms4redd.org/downloads/virtual_machines/SLMS-Base_training_VM.iso">Start from this one</a> to create your custom training environment</li>
+                    </ul>
+
+                    <h3><a target="_blank" id="SLMS-dev-Documentation" class="anchor" href="#SLMS-dev-Documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Some useful SLMS developer resources</h3>
+                    <ul>
+                      <li><a target="_blank" href="https://github.com/slms4redd">Our github organization page</a></li>
+                      <li><a target="_blank" href="https://github.com/slms4redd/utils/wiki#module-appstats"> an overview of the SLMS statistic system</a></li>
+                      <li><a target="_blank" href="https://github.com/slms4redd/slms4redd.github.io/wiki/Concept-notes---GUI-design-guidelines">GUI design guidelines</a></li>
+                      <li><a target="_blank" href="https://github.com/slms4redd/chef-slms-portal/wiki">Resources about the chef cookbook</a></li>
+                      <li><a target="_blank" href="https://github.com/slms4redd/slms4redd.github.io/wiki/Server-administration---deployment-of-a-new-VM">How to deploy a new VM</a></li>
+                    </ul>
+
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+
+    <section id="gallery" class="portfolio">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1 text-center">
+                    <h2>Gallery</h2>
+                    <hr class="small">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="portfolio-item">
+                                <a href="#">
+                                    <img class="img-portfolio img-responsive" src="img/SLMS_DRC_charts.png">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="portfolio-item">
+                                <a href="#">
+                                    <img class="img-portfolio img-responsive" src="img/SLMS_zambia_geology.png">
+                                </a>
+                            </div>
+                        </div>
+                        <!--div class="col-md-6">
+                            <div class="portfolio-item">
+                                <a href="#">
+                                    <img class="img-portfolio img-responsive" src="img/portfolio-3.jpg">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="portfolio-item">
+                                <a href="#">
+                                    <img class="img-portfolio img-responsive" src="img/portfolio-4.jpg">
+                                </a>
+                            </div>
+                        </div>
+                    </div-->
+                </div>
+                <!-- /.col-lg-10 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+    <!-- Call to Action -->
+    <!--aside class="call-to-action bg-primary">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h3>The buttons below are impossible to resist.</h3>
+                    <a href="#" class="btn btn-lg btn-light">Click Me!</a>
+                    <a href="#" class="btn btn-lg btn-dark">Look at Me!</a>
+                </div>
+            </div>
+        </div>
+    </aside-->
+
+    <!-- Map -->
+    <section id="contact" class="map">
+        <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=FAO+hq+Rome&amp;aq=0&amp;ie=UTF8&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
+        <br />
+        <small>
+            <a href="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=FAO+hq+Rome&amp;aq=0&amp;ie=UTF8&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></a>
+        </small>
+        </iframe>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1 text-center">
+                    <h4>
+                      <strong>SLMS Satellite Landcover Monitoring System</strong>
+                    </h4>
+                    <h5>
+                      <strong>A thematic area of the UNREDD project</strong>
+                    </h5>
+                    </h>
+                    <p>Viale delle Terme di Caracalla, 00153<br>Roma, Italia</p>
+                    <ul class="list-unstyled">
+                        <li><i class="fa fa-envelope-o fa-fw"></i>  <a href="mailto:name@example.com">nfms4redd-admin@googlegroups.com</a>
+                        </li>
+                    </ul>
+                    <br>
+                    <ul class="list-inline">
+                        <li>
+                            <a href="https://www.facebook.com/UNREDDprogramme" target="_balnk"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com/unredd" target="_balnk"><i class="fa fa-twitter fa-fw fa-3x"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script>
+    // Closes the sidebar menu
+    $("#menu-close").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    // Opens the sidebar menu
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    // Scrolls to the selected menu item on the page
+    $(function() {
+        $('a[href*=#]:not([href=#])').click(function() {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
+    </script>
+
+</body>
+
 </html>
