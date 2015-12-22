@@ -1,0 +1,451 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Developing a new Action &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../../index.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../../index.html">
+      <img class="logo" src="../../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="developing-a-new-action">
+<h1>Developing a new Action<a class="headerlink" href="#developing-a-new-action" title="Permalink to this headline">¶</a></h1>
+<ul>
+<li><p class="first"><em>Create the action&#8217;s directory</em>:</p>
+<div class="highlight-python"><div class="highlight"><pre>mkdir ${GEOBATCH}/src/actions/gb-${ACTION_NAME}
+</pre></div>
+</div>
+</li>
+<li><p class="first"><em>Create the new directory structure</em>:</p>
+<div class="highlight-python"><div class="highlight"><pre>mkdir ${GEOBATCH}/src/actions/gb-${ACTION_NAME}/src/
+mkdir ${GEOBATCH}/src/actions/gb-${ACTION_NAME}/src/main
+mkdir ${GEOBATCH}/src/actions/gb-${ACTION_NAME}/src/main/java
+mkdir ${GEOBATCH}/src/actions/gb-${ACTION_NAME}/src/main/resources
+mkdir ${GEOBATCH}/src/actions/gb-${ACTION_NAME}/src/test
+mkdir ${GEOBATCH}/src/actions/gb-${ACTION_NAME}/src/test/java
+mkdir ${GEOBATCH}/src/actions/gb-${ACTION_NAME}/src/test/resources
+</pre></div>
+</div>
+</li>
+<li><p class="first"><em>To build a simple action you have to create a minimal set of classes into</em>:</p>
+<div class="highlight-python"><div class="highlight"><pre>${GEOBATCH}/src/actions/gb-${ACTION_NAME}/src/main/java
+</pre></div>
+</div>
+</li>
+</ul>
+<ol class="arabic">
+<li><p class="first">Implement a Service:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;EO extends EventObject, AC ActionConfiguration&gt;
+</pre></div>
+</div>
+</li>
+<li><p class="first">Define the Action class implementing an Action:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;EXO extends EventObject&gt;
+</pre></div>
+</div>
+</li>
+<li><p class="first">Implement a Configuration:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;EO extends EventObject&gt;
+</pre></div>
+</div>
+</li>
+</ol>
+<p>This class will represent the configuration used by the Action defined above. Here you have define all the variables needed by the Action.</p>
+<p><em>Notice:</em> each member variable will be binded to nodes defined into the Execution_flow execution Flow.</p>
+<p>Actually GeoBatch make use of Xstream as class (de)serializer so we recommend to add:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="o">-</span><span class="n">Pdao</span><span class="o">.</span><span class="n">xstream</span>
+</pre></div>
+</div>
+<p>to mvn command string.</p>
+<p>Look ahead for the MVN section in this document. To add the configuration class to the Xstream Catalog you also have to:</p>
+<ul>
+<li><p class="first">Extend an AliasRegistrar:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># This is used by the it.geosolutions.geobatch.registry</span>
+<span class="c"># package to store the name of the Configuration class to perform the bind.</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><em>Example:</em></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * Register XStream aliases for the relevant services we ship in this class.</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ACTIONAliasRegistrar</span> <span class="kd">extends</span> <span class="n">AliasRegistrar</span> <span class="o">{</span>
+
+        <span class="kd">public</span> <span class="nf">ACTIONAliasRegistrar</span><span class="o">(</span><span class="n">AliasRegistry</span> <span class="n">registry</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">LOGGER</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="n">getClass</span><span class="o">().</span><span class="na">getSimpleName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;: registering alias.&quot;</span><span class="o">);</span>
+                <span class="n">registry</span>
+                                <span class="o">.</span><span class="na">putAlias</span><span class="o">(</span>
+                                                <span class="s">&quot;ACTIONActionConfiguration&quot;</span><span class="o">,</span>
+                                                <span class="n">ACTIONActionConfiguration</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><em>Other details</em> <a class="reference external" href="http://geoserver.org/display/GEOS/Configuration+Persistence">http://geoserver.org/display/GEOS/Configuration+Persistence</a></li>
+</ul>
+<p>Since GeoBatch is a Spring based framework you have to add into:</p>
+<div class="highlight-python"><div class="highlight"><pre>${GEOBATCH}/src/actions/gb-${ACTION_NAME}/src/main/resources
+</pre></div>
+</div>
+<p>an XML file called <em>applicationContext.xml</em> which will be used to load beans on server startup:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="cp">&lt;!DOCTYPE beans PUBLIC &quot;-//SPRING//DTD BEAN//EN&quot; &quot;http://www.springframework.org/dtd/spring-beans.dtd&quot;&gt;</span>
+
+<span class="nt">&lt;beans</span> <span class="na">default-init-method=</span><span class="s">&quot;init&quot;</span> <span class="na">default-destroy-method=</span><span class="s">&quot;dispose&quot;</span><span class="nt">&gt;</span>
+
+        <span class="c">&lt;!-- Environment Initialization --&gt;</span>
+
+        <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;ACTIONGeneratorService&quot;</span> <span class="na">class=</span><span class="s">&quot;it.geosolutions.geobatch.ACTION_PACKAGE.ACTIONGeneratorService&quot;</span><span class="nt">&gt;</span>
+         <span class="nt">&lt;constructor-arg</span> <span class="na">type=</span><span class="s">&quot;String&quot;</span><span class="nt">&gt;&lt;value&gt;</span>ACTIONGeneratorService<span class="nt">&lt;/value&gt;&lt;/constructor-arg&gt;</span><span class="c">&lt;!--&quot;id&quot;--&gt;</span>
+         <span class="nt">&lt;constructor-arg</span> <span class="na">type=</span><span class="s">&quot;String&quot;</span><span class="nt">&gt;&lt;value&gt;</span>ACTIONGeneratorService<span class="nt">&lt;/value&gt;&lt;/constructor-arg&gt;</span><span class="c">&lt;!--&quot;name&quot;--&gt;</span>
+         <span class="nt">&lt;constructor-arg</span> <span class="na">type=</span><span class="s">&quot;String&quot;</span><span class="nt">&gt;&lt;value&gt;</span>ACTIONGeneratorService<span class="nt">&lt;/value&gt;&lt;/constructor-arg&gt;</span><span class="c">&lt;!--&quot;description&quot;--&gt;</span>
+        <span class="nt">&lt;/bean&gt;</span>
+
+        <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;ACTION_IDAliasRegistrar&quot;</span> <span class="na">class=</span><span class="s">&quot;it.geosolutions.geobatch.ACTION_PACKAGE.ACTIONAliasRegistrar&quot;</span> <span class="na">lazy-init=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;constructor-arg</span> <span class="na">ref=</span><span class="s">&quot;aliasRegistry&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/bean&gt;</span>
+<span class="nt">&lt;/beans&gt;</span>
+</pre></div>
+</div>
+<div class="section" id="maven">
+<h2>Maven<a class="headerlink" href="#maven" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>GeoBatch uses maven2 to handle module dependencies, To add the above action be sure to apply following steps.</li>
+</ul>
+<p>Create the maven configuration file:</p>
+<div class="highlight-python"><div class="highlight"><pre>touch ${GEOBATCH}/src/actions/gb-${ACTION_NAME}/pom.xml
+</pre></div>
+</div>
+<p>Edit the pom.xml file setting project name and dependencies:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="c">&lt;!-- =======================================================================</span>
+<span class="c">        Maven Project Configuration File                                                        GeoSolutions GeoBatch Project</span>
+<span class="c">        http://geobatch.codehaus.org</span>
+<span class="c">        Version: $Id: pom.xml 329 2009-12-17 17:24:49Z dany111 $</span>
+<span class="c">     ======================================================================= --&gt;</span>
+  <span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">&quot;http://maven.apache.org/POM/4.0.0&quot;</span>
+                <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+                <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://maven.apache.org/POM/4.0.0</span>
+<span class="s">                                                        http://maven.apache.org/maven-v4_0_0.xsd&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+
+  <span class="nt">&lt;parent&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>it.geosolutions.geobatch<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>gb-actions<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>0.9-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;/parent&gt;</span>
+
+
+  <span class="c">&lt;!-- =========================================================== --&gt;</span>
+  <span class="c">&lt;!--  Module Description                                      --&gt;</span>
+  <span class="c">&lt;!-- =========================================================== --&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>it.geosolutions<span class="nt">&lt;/groupId&gt;</span>
+  <span class="c">&lt;!-- TODO: Set the action artifactId name --&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>gb-action-ACTION<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;packaging&gt;</span>jar<span class="nt">&lt;/packaging&gt;</span>
+  <span class="c">&lt;!-- TODO: Set a package description --&gt;</span>
+  <span class="nt">&lt;name&gt;</span>GeoBatch action: ACTION executor<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;url&gt;</span>http://www.geo-solutions.it/maven_reports/gb/flowmanagers/<span class="nt">&lt;/url&gt;</span>
+
+  <span class="nt">&lt;scm&gt;</span>
+        <span class="nt">&lt;connection&gt;</span>
+        scm:svn:http://svn.geotools.org/geotools/trunk/gt/modules/flowmanagers/
+        <span class="nt">&lt;/connection&gt;</span>
+        <span class="nt">&lt;url&gt;</span>http://svn.geotools.org/geotools/trunk/gt/modules/flowmanagers/<span class="nt">&lt;/url&gt;</span>
+  <span class="nt">&lt;/scm&gt;</span>
+
+  <span class="c">&lt;!-- TODO: Set a description --&gt;</span>
+  <span class="nt">&lt;description&gt;</span>
+        GeoSolutions GeoBatch flow managers - ACTION executor.
+  <span class="nt">&lt;/description&gt;</span>
+
+  <span class="nt">&lt;licenses&gt;</span>
+        <span class="nt">&lt;license&gt;</span>
+        <span class="nt">&lt;name&gt;</span>Lesser General Public License (LGPL)<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;url&gt;</span>http://www.gnu.org/copyleft/lesser.txt<span class="nt">&lt;/url&gt;</span>
+        <span class="nt">&lt;distribution&gt;</span>repo<span class="nt">&lt;/distribution&gt;</span>
+        <span class="nt">&lt;/license&gt;</span>
+  <span class="nt">&lt;/licenses&gt;</span>
+
+  <span class="c">&lt;!-- =========================================================== --&gt;</span>
+  <span class="c">&lt;!--  Dependency Management                                   --&gt;</span>
+  <span class="c">&lt;!-- =========================================================== --&gt;</span>
+  <span class="nt">&lt;dependencies&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+                        <span class="nt">&lt;groupId&gt;</span>it.geosolutions.geobatch<span class="nt">&lt;/groupId&gt;</span>
+                        <span class="nt">&lt;artifactId&gt;</span>gb-fs-catalog<span class="nt">&lt;/artifactId&gt;</span>
+                <span class="nt">&lt;/dependency&gt;</span>
+                <span class="nt">&lt;dependency&gt;</span>
+                        <span class="nt">&lt;groupId&gt;</span>it.geosolutions.geobatch<span class="nt">&lt;/groupId&gt;</span>
+                        <span class="nt">&lt;artifactId&gt;</span>gb-alias-registry<span class="nt">&lt;/artifactId&gt;</span>
+                <span class="nt">&lt;/dependency&gt;</span>
+
+        <span class="c">&lt;!-- TODO: Add dependencies here  --&gt;</span>
+
+  <span class="nt">&lt;/dependencies&gt;</span>
+<span class="nt">&lt;/project&gt;</span>
+</pre></div>
+</div>
+<p>Edit the:</p>
+<div class="highlight-python"><div class="highlight"><pre>${GEOBATCH}/src/actions/pom.xml
+</pre></div>
+</div>
+<p>to add the module action profile, flags and setting dependencies.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="c">&lt;!--</span>
+<span class="c">        =======================================================================</span>
+<span class="c">                Maven Project Configuration File</span>
+
+<span class="c">                GeoSolutions GeoBatch Project</span>
+<span class="c">                        http://geobatch.codehaus.org</span>
+<span class="c">        =======================================================================</span>
+<span class="c">--&gt;</span>
+<span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">&quot;http://maven.apache.org/POM/4.0.0&quot;</span>
+                <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+                <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://maven.apache.org/POM/4.0.0</span>
+<span class="s">                http://maven.apache.org/maven-v4_0_0.xsd&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+
+        ...
+
+        <span class="c">&lt;!-- =========================================================== --&gt;</span>
+        <span class="c">&lt;!--    Modules for the build in approximate dependency order   --&gt;</span>
+        <span class="c">&lt;!-- =========================================================== --&gt;</span>
+        <span class="nt">&lt;profiles&gt;</span>
+
+        ...
+
+                <span class="nt">&lt;profile&gt;</span>
+                        <span class="nt">&lt;id&gt;</span>PROFILE<span class="nt">&lt;/id&gt;</span>
+                        <span class="nt">&lt;activation&gt;</span>
+                                <span class="nt">&lt;property&gt;</span>
+                                        <span class="nt">&lt;name&gt;</span>all<span class="nt">&lt;/name&gt;</span>
+                                <span class="nt">&lt;/property&gt;</span>
+                        <span class="nt">&lt;/activation&gt;</span>
+                        <span class="nt">&lt;modules&gt;</span>
+                                <span class="nt">&lt;module&gt;</span>gb-ACTION<span class="nt">&lt;/module&gt;</span>
+                        <span class="nt">&lt;/modules&gt;</span>
+                <span class="nt">&lt;/profile&gt;</span>
+
+                <span class="c">&lt;!-- You can configure a module to load this action as dependency --&gt;</span>
+
+                <span class="nt">&lt;profile&gt;</span>
+                        <span class="nt">&lt;id&gt;</span>MASTER_PROFILE<span class="nt">&lt;/id&gt;</span>
+                        <span class="nt">&lt;modules&gt;</span>
+                                <span class="nt">&lt;module&gt;</span>MODULE_1<span class="nt">&lt;/module&gt;</span>
+                                ...
+                                <span class="nt">&lt;module&gt;</span>MODULE_N<span class="nt">&lt;/module&gt;</span>
+
+                                <span class="nt">&lt;module&gt;</span>gb-ACTION<span class="nt">&lt;/module&gt;</span>
+                        <span class="nt">&lt;/modules&gt;</span>
+                <span class="nt">&lt;/profile&gt;</span>
+
+                ...
+
+        <span class="nt">&lt;/profiles&gt;</span>
+
+<span class="nt">&lt;/project&gt;</span>
+</pre></div>
+</div>
+<p>Edit the main maven pom.xml file found in the GeoBatch project sources folder:</p>
+<div class="highlight-python"><div class="highlight"><pre>${GEOBATCH}/src/pom.xml
+</pre></div>
+</div>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="c">&lt;!-- =======================================================================</span>
+<span class="c">                Maven Project Configuration File</span>
+
+<span class="c">                GeoSolutions GeoBatch Project</span>
+<span class="c">                        http://geobatch.codehaus.org</span>
+
+<span class="c">                Version: $Id: pom.xml 63 2008-04-04 11:22:11Z alessio $</span>
+<span class="c">======================================================================= --&gt;</span>
+<span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://maven.apache.org/POM/4.0.0                                  http://maven.apache.org/maven-v4_0_0.xsd&quot;</span><span class="nt">&gt;</span>
+
+        ...
+
+        <span class="c">&lt;!-- Profiles set on the command-line overwrite default properties. --&gt;</span>
+        <span class="nt">&lt;profiles&gt;</span>
+
+                ...
+
+                <span class="c">&lt;!-- If you need it, add here the profile --&gt;</span>
+                <span class="nt">&lt;profile&gt;</span>
+                        <span class="nt">&lt;id&gt;</span>ACTION<span class="nt">&lt;/id&gt;</span>
+                        <span class="nt">&lt;modules&gt;</span>
+                                <span class="nt">&lt;module&gt;</span>gb-ACTION<span class="nt">&lt;/module&gt;</span>
+                        <span class="nt">&lt;/modules&gt;</span>
+                <span class="nt">&lt;/profile&gt;</span>
+
+                ...
+
+        <span class="nt">&lt;/profiles&gt;</span>
+
+
+        <span class="c">&lt;!-- =========================================================== --&gt;</span>
+        <span class="c">&lt;!--    Dependency Management                                   --&gt;</span>
+        <span class="c">&lt;!--    If a POM declares one of those dependencies, then it    --&gt;</span>
+        <span class="c">&lt;!--    will use the version specified here. Otherwise, those   --&gt;</span>
+        <span class="c">&lt;!--    dependencies are ignored.                               --&gt;</span>
+        <span class="c">&lt;!-- =========================================================== --&gt;</span>
+        <span class="nt">&lt;dependencyManagement&gt;</span>
+                <span class="nt">&lt;dependencies&gt;</span>
+
+                        ...
+
+                        <span class="c">&lt;!-- TODO: Add a dependency to the project --&gt;</span>
+
+                <span class="nt">&lt;dependency&gt;</span>
+         <span class="nt">&lt;groupId&gt;</span>it.geosolutions<span class="nt">&lt;/groupId&gt;</span>
+         <span class="nt">&lt;artifactId&gt;</span>gb-action-ACTION<span class="nt">&lt;/artifactId&gt;</span>
+                                <span class="nt">&lt;version&gt;</span>${gb.version}<span class="nt">&lt;/version&gt;</span>
+                <span class="nt">&lt;/dependency&gt;</span>
+
+                        ...
+
+                <span class="nt">&lt;/dependencies&gt;</span>
+        <span class="nt">&lt;/dependencyManagement&gt;</span>
+
+<span class="nt">&lt;/project&gt;</span>
+</pre></div>
+</div>
+<p>Now run the following mvn command from the GeoBatch source dir:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd ${GEOBATCH}/src/
+mvn eclipse:clean eclipse:eclipse -P${PROFILE}
+</pre></div>
+</div>
+<p>Where:</p>
+<div class="highlight-python"><div class="highlight"><pre>${PROFILE}
+</pre></div>
+</div>
+<p>can be a list of profiles containing the ACTION&#8217;s one and/or a master profile which include the desired modules.</p>
+<p>If you are working with multiple version of the platform, be sure to use the <em>eclipse.addVersionToProjectName</em> flag which add version informations to the package.</p>
+<div class="highlight-python"><div class="highlight"><pre>mvn eclipse:clean eclipse:eclipse -P${PROFILE} -Declipse.addVersionToProjectName=true
+</pre></div>
+</div>
+<p><em>Notes:</em></p>
+<p>Remember to set accordingly the editor formatter and the template of the code following this <a class="reference external" href="http://docs.geoserver.org/stable/en/developer/eclipse-guide/index.html">http://docs.geoserver.org/stable/en/developer/eclipse-guide/index.html</a> guide.
+Short How-TO:
+Window -&gt; Preferences -&gt; Java -&gt; Code Style:
+-&gt; Code Templates: e importate dal codice di geotools /build/eclipse/codetemplates.xml
+-&gt; Formatter: e importare dal codice di geotools /build/eclipse/formatter.xml</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Developing a new Action</a><ul>
+<li><a class="reference internal" href="#maven">Maven</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

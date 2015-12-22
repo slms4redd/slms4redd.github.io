@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Parameters for robustness &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Advanced GeoServer Configuration" href="index.html" />
+    <link rel="next" title="Advanced Production System configuration" href="gsproduction.html" />
+    <link rel="prev" title="Advanced GeoServer Configuration" href="index.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../../index.html">
+      <img class="logo" src="../../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gsproduction.html" title="Advanced Production System configuration"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Advanced GeoServer Configuration"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Advanced GeoServer Configuration</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-geoserver.parameters"></span><div class="section" id="parameters-for-robustness">
+<span id="geoserver-parameters"></span><h1>Parameters for robustness<a class="headerlink" href="#parameters-for-robustness" title="Permalink to this headline">¶</a></h1>
+<p>In a production environment may be necessary to properly configure the WMS service in order to give a limit to resources associated with a request. The <strong>Request limit</strong> options allow the administrator to limit the resources consumed by each WMS GetMap request.</p>
+<p>GeoServer provides a user interface for these options:</p>
+<div class="figure align-center" id="id1">
+<img alt="../../_images/parameters1.png" src="../../_images/parameters1.png" />
+<p class="caption"><span class="caption-text"><em>Setting the Resource consumption limits</em></span></p>
+</div>
+<p>The following table shows each option name, a description, and the minimum GeoServer version at which the option is available (old versions will just ignore it if set).</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="80%" />
+<col width="10%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Option</strong></td>
+<td><strong>Description</strong></td>
+<td><strong>Version</strong></td>
+</tr>
+<tr class="row-even"><td><strong>Max rendering memory</strong></td>
+<td>Sets the maximum amount of memory, in kilobytes, a single GetMap request is allowed to use. Each output format will make a best effort attempt to respect the maximum using the highest consuming portion of the request processing as a reference. For example, the PNG output format will take into consideration the memory used to prepare the image rendering surface in memory, usually proportional to the image size multiplied by the number of bytes per pixel</td>
+<td>1.7.5</td>
+</tr>
+<tr class="row-odd"><td><strong>Max rendering time</strong></td>
+<td>Sets the maximum amount of time, in seconds, GeoServer will use to process the request. This time limits the &#8220;blind processing&#8221; portion of the request serving, that is, the part in which GeoServer is computing the results before writing them out to the client. The portion that     is writing results back to the client is not under the control of this parameter, since this time is also controlled by how fast the network between the server and the client is. So, for example, in the case of PNG/JPEG image generation, this option will control the pure rendering time, but not the time used to write the results back.</td>
+<td>1.7.5</td>
+</tr>
+<tr class="row-even"><td><strong>Max rendering errors</strong></td>
+<td>Sets the maximum amount of rendering errors tolerated by a GetMap. Usually GetMap skips over faulty features, reprojection errors and the like in an attempt to serve the results anyways. This makes for a best effort rendering, but also makes it harder to spot issues, and consumes CPU cycles as each error is handled and logged</td>
+<td>1.7.5</td>
+</tr>
+</tbody>
+</table>
+<p>Out of the box GeoServer uses 65MB, 60 seconds and 1000 errors respectively. All limits can be disabled by setting their value to <code class="docutils literal"><span class="pre">0</span></code>.</p>
+<p>Once any of the set limits is exceeded, the GetMap operation will stop and a <code class="docutils literal"><span class="pre">ServiceException</span></code> will be returned to the client.</p>
+<p>It is suggested that the administrator sets all of the above limits taking into consideration peak conditions. For example, while a GetMap request under normal circumstance may take less than a second, under high load it is acceptable for it to take longer, but usually, it&#8217;s not sane that a request goes on for 30 minutes straight. The following table shows some example values for the configuration options above, with explanations of how each is computed:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="10%" />
+<col width="70%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Option</strong></td>
+<td><strong>Value</strong></td>
+<td><strong>Rationale</strong></td>
+</tr>
+<tr class="row-even"><td>maxRequestMemory</td>
+<td>65000</td>
+<td>65MB are sufficient to render a 407x4078 image at 4 bytes per pixel (full color and transparency), or a 8x8 meta-tile if you are using GeoWebCache or TileCache. Mind the rendering process will use an extra in memory buffer for each subsequent FeatureTypeStyle in your SLD, so this will also limit the size of the image. For example, if the SLD contains two FeatureTypeStyle element in order to draw cased lines for an highway the maximum image size will be limited to 2884x2884 (the memory goes like the square of the image size, so halving the memory does not halve the image size)</td>
+</tr>
+<tr class="row-odd"><td>maxRenderingTime</td>
+<td>60</td>
+<td>A request that processes for one minute straight is probably drawing a lot of features independent of the current load. It might be the result of a client making a GetMap against a big layer using a custom style that does not have the proper scale dependencies</td>
+</tr>
+<tr class="row-even"><td>maxRenderingErrors</td>
+<td>1000</td>
+<td>Encountering 1000 errors is probably the result of a request that is trying to reproject a big data set into a projection that is not suited to area it covers, resulting in many reprojection failures.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Advanced GeoServer Configuration</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gsproduction.html"
+                        title="next chapter">Advanced Production System configuration</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gsproduction.html" title="Advanced Production System configuration"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Advanced GeoServer Configuration"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Advanced GeoServer Configuration</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

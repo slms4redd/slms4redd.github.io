@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Roads and labelling roads &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Styling Vector data" href="styling_vector.html" />
+    <link rel="next" title="Styling point data" href="style_points.html" />
+    <link rel="prev" title="Patterns and Hatches" href="patterns_dash_arrays.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../../index.html">
+      <img class="logo" src="../../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="style_points.html" title="Styling point data"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="patterns_dash_arrays.html" title="Patterns and Hatches"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Pretty maps with GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="styling.html" >Styling with SLD</a> &raquo;</li>
+          <li class="nav-item nav-item-4"><a href="styling_vector.html" accesskey="U">Styling Vector data</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="roads-and-labelling-roads">
+<span id="geoserver-roads"></span><h1>Roads and labelling roads<a class="headerlink" href="#roads-and-labelling-roads" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic">
+<li><p class="first">From the <a class="reference external" href="http://localhost:8080/geoserver">Welcome Page</a> navigate to <span class="menuselection">Styles ‣ mainrd</span> in order to edit the mainrd SLD.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You have to be logged in as Administrator in order to activate this function.</p>
+</div>
+</li>
+<li><p class="first">In the <span class="guilabel">SLD Editor</span> find the <span class="guilabel">sld:TextSymbolizer</span> associated to the <span class="guilabel">ogc:PropertyName</span> <em>LABEL_NAME</em></p>
+<div class="figure" id="id1">
+<a class="reference internal image-reference" href="../../_images/sld_create9.jpg"><img alt="../../_images/sld_create9.jpg" src="../../_images/sld_create9.jpg" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-text">Road style</span></p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The style defines a <code class="docutils literal"><span class="pre">&lt;Font&gt;</span></code> and an <code class="docutils literal"><span class="pre">&lt;Halo&gt;</span></code> in order to render the value of the propety <em>LABEL_NAME</em> for that layer. The interesting part is at the bottom where several <code class="docutils literal"><span class="pre">&lt;VendorOption&gt;</span></code> are specified. Those options are GeoServer specific and allows us to have better and nicer result by tweacking the label renderer behaviour.</p>
+</div>
+</li>
+</ol>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="80%" />
+<col width="10%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Option</strong></td>
+<td><strong>Description</strong></td>
+<td><strong>Type</strong></td>
+</tr>
+<tr class="row-even"><td><strong>followLine</strong></td>
+<td><p class="first">The followLine option forces a label to follow the curve of the line.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;VendorOption</span> <span class="na">name=</span><span class="s">&quot;followLine&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/VendorOption&gt;</span>
+</pre></div>
+</div>
+<p>To use this option place the following in your <code class="docutils literal"><span class="pre">&lt;TextSymbolizer&gt;</span></code>. It is required to use <code class="docutils literal"><span class="pre">&lt;LinePlacement&gt;</span></code> along with this option to ensure that all labels are correctly following the lines:</p>
+<div class="last highlight-xml"><div class="highlight"><pre><span class="nt">&lt;LabelPlacement&gt;</span>
+  <span class="nt">&lt;LinePlacement/&gt;</span>
+<span class="nt">&lt;/LabelPlacement&gt;</span>
+</pre></div>
+</div>
+</td>
+<td>boolean</td>
+</tr>
+<tr class="row-odd"><td><strong>repeat</strong></td>
+<td><p class="first">The repeat option determines how often GeoServer labels a line. Normally GeoServer would label each line only once, regardless of their length. Specify a positive value to make it draw the label every repeat pixels.</p>
+<div class="last highlight-xml"><div class="highlight"><pre><span class="nt">&lt;VendorOption</span> <span class="na">name=</span><span class="s">&quot;repeat&quot;</span><span class="nt">&gt;</span>100<span class="nt">&lt;/VendorOption&gt;</span>
+</pre></div>
+</div>
+</td>
+<td>number</td>
+</tr>
+<tr class="row-even"><td><strong>group</strong></td>
+<td><p class="first">Sometimes you will have a set of related features that you only want a single label for. The grouping option groups all features with the same label text, then finds a representative geometry for the group.</p>
+<p>Roads data is an obvious example - you only want a single label for all of <code class="docutils literal"><span class="pre">main</span> <span class="pre">street</span></code>, not a label for every piece of <code class="docutils literal"><span class="pre">main</span> <span class="pre">street</span></code>.</p>
+<div class="figure">
+<img alt="../../_images/group_not.png" src="../../_images/group_not.png" />
+</div>
+<p>When the grouping option is off (default), grouping is not performed and each geometry is labeled (space permitting).</p>
+<div class="figure">
+<img alt="../../_images/group_yes.png" src="../../_images/group_yes.png" />
+</div>
+<p>With the grouping option on, all the geometries with the same label are grouped together and the label position is determined from ALL the geometries.</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>Point Set</strong>
+first point inside the view rectangle is used.</li>
+<li><strong>Line Set</strong>
+lines are (a) networked together (b) clipped to the view rectangle (c) middle of the longest network path is used.</li>
+<li><strong>Polygon Set</strong>
+polygons are (a) clipped to the view rectangle (b) the centroid of the largest polygon is used.</li>
+</ul>
+</div></blockquote>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;VendorOption</span> <span class="na">name=</span><span class="s">&quot;group&quot;</span><span class="nt">&gt;</span>yes<span class="nt">&lt;/VendorOption&gt;</span>
+</pre></div>
+</div>
+<div class="last admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Watch out - you could group together two sets of features by accident. For example, you could create a single group for <code class="docutils literal"><span class="pre">Paris</span></code> which contains features for Paris (France) and Paris (Texas).</p>
+</div>
+</td>
+<td>enum{yes/no}</td>
+</tr>
+<tr class="row-odd"><td><strong>maxDisplacement</strong></td>
+<td><p class="first">The maxDisplacement option controls the displacement of the label along a line. Normally GeoServer would label a line at its center point only, provided the location is not busy with another label, and not label it at all otherwise. When set, the labeller will search for another location within maxDisplacement pixels from the pre-computed label point.</p>
+<p>When used in conjunction with repeat, the value for maxDisplacement should always be lower than the value for repeat.</p>
+<div class="last highlight-xml"><div class="highlight"><pre><span class="nt">&lt;VendorOption</span> <span class="na">name=</span><span class="s">&quot;maxDisplacement&quot;</span><span class="nt">&gt;</span>10<span class="nt">&lt;/VendorOption&gt;</span>
+</pre></div>
+</div>
+</td>
+<td>number</td>
+</tr>
+</tbody>
+</table>
+<p>Another important thing to notice in this style is the <strong>road casing</strong>, that is, the fact each road segment is painted by two overlapping strokes of different color and size.</p>
+<p>Placing the strokes in the two separate feature type styles is crucial:</p>
+<blockquote>
+<div><ul class="simple">
+<li>with the symbolizers in two separate FeatureTypeStyle element all roads are painted with the large stroke, and then again with the thin, lighter one.</li>
+<li>if instead the two symbolizers were placed in the same FeatureTypeStyle element the result would be different, and not pleasing to see, since the renderer would take the first road, paint with the large and thin strokes in
+sequence, then move to the next one and repeat until the end</li>
+</ul>
+<div class="figure" id="id2">
+<img alt="../../_images/nofts.png" src="../../_images/nofts.png" />
+<p class="caption"><span class="caption-text">Road casing with a single FeatureTypeStyle element</span></p>
+</div>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="patterns_dash_arrays.html"
+                        title="previous chapter">Patterns and Hatches</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="style_points.html"
+                        title="next chapter">Styling point data</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="style_points.html" title="Styling point data"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="patterns_dash_arrays.html" title="Patterns and Hatches"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Pretty maps with GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="styling.html" >Styling with SLD</a> &raquo;</li>
+          <li class="nav-item nav-item-4"><a href="styling_vector.html" >Styling Vector data</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

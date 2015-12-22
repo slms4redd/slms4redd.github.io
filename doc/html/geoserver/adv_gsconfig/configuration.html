@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Monitor Configuration &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Monitoring" href="monitoring.html" />
+    <link rel="next" title="Logging all requests on the file system" href="auditing.html" />
+    <link rel="prev" title="Installing the Monitoring Extension" href="installation.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../../index.html">
+      <img class="logo" src="../../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="auditing.html" title="Logging all requests on the file system"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installing the Monitoring Extension"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Advanced GeoServer Configuration</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="monitoring.html" accesskey="U">Monitoring</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="monitor-configuration">
+<h1>Monitor Configuration<a class="headerlink" href="#monitor-configuration" title="Permalink to this headline">¶</a></h1>
+<p>Many aspects of the monitor extension are configurable. All configuration files
+are stored in the data directory under the <code class="docutils literal"><span class="pre">monitoring</span></code> directory:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;data_directory&gt;
+    monitoring/
+        db.properties
+        filter.properties
+        hibernate.properties
+        monitor.properties
+</pre></div>
+</div>
+<p>The function of these files will be discussed below.</p>
+<div class="section" id="monitor-mode">
+<span id="id1"></span><h2>Monitor Mode<a class="headerlink" href="#monitor-mode" title="Permalink to this headline">¶</a></h2>
+<p>The monitoring extension supports different &#8220;monitoring modes&#8221; that control how
+request data is captured and stored. Currently three modes are supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>history</strong> <em>(Default)</em> - Only historical request information is available. No live information is maintained.</li>
+<li><strong>live</strong> - Only information about live requests is maintained.</li>
+<li><strong>mixed</strong> - A combination of live and history. This mode is experimental.</li>
+</ul>
+</div></blockquote>
+<p>The mode is set in the <code class="docutils literal"><span class="pre">monitor.properties</span></code> file.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For the Virtual Machine GeoServer instance we are &#8220;live&#8221; mode.</p>
+</div>
+<div class="section" id="history-mode">
+<h3>History Mode<a class="headerlink" href="#history-mode" title="Permalink to this headline">¶</a></h3>
+<p>History mode persists information about all requests in an external database. It
+does not provide any real time information. This mode is appropriate in cases
+where a user is most interested in analyzing request history over a given time
+period.</p>
+</div>
+<div class="section" id="live-mode">
+<h3>Live Mode<a class="headerlink" href="#live-mode" title="Permalink to this headline">¶</a></h3>
+<p>Live mode only maintains short lived information about requests that are
+currently executing. It also maintains a small buffer of recent requests. No
+external database is used with this mode and no information is persisted for
+the long term.</p>
+<p>This mode is most appropriate in cases where a user only cares about what a
+server is doing in real time and is not interested about request history.</p>
+</div>
+<div class="section" id="mixed-mode">
+<h3>Mixed Mode<a class="headerlink" href="#mixed-mode" title="Permalink to this headline">¶</a></h3>
+<p>Mixed mode combines both live and history mode in that it maintains both real
+time information and persists all request data to the monitoring database. This
+mode however is experimental and comes with more overhead than the other two
+modes. This is because mixed mode must perform numerous database transactions
+over the life cycle of a single request (in order to maintain live information),
+whereas history mode only has to perform a single database transaction for a
+request.</p>
+<p>This mode is most appropriate when both real time request information and
+request history are desired. This mode is also most appropriate in a clustered
+server environment in which a user is interested in viewing real time request
+information about multiple nodes in a cluster.</p>
+</div>
+</div>
+<div class="section" id="monitor-database">
+<h2>Monitor Database<a class="headerlink" href="#monitor-database" title="Permalink to this headline">¶</a></h2>
+<p>By default monitored request data is stored in an embedded H2 database located
+in the <code class="docutils literal"><span class="pre">monitoring</span></code> directory. This can be changed by editing the
+<code class="docutils literal"><span class="pre">db.properties</span></code> file:</p>
+<div class="highlight-python"><div class="highlight"><pre># default configuration is for h2
+driver=org.h2.Driver
+url=jdbc:h2:file:${GEOSERVER_DATA_DIR}/monitoring/monitoring
+</pre></div>
+</div>
+<p>For example to store request data in an external PostgreSQL database:</p>
+<div class="highlight-python"><div class="highlight"><pre>driver=org.postgresql.Driver
+url=jdbc:postgresql://192.168.1.124:5432/monitoring
+username=bob
+password=foobar
+</pre></div>
+</div>
+</div>
+<div class="section" id="request-filters">
+<h2>Request Filters<a class="headerlink" href="#request-filters" title="Permalink to this headline">¶</a></h2>
+<p>By default not all requests are monitored. Those requests excluded include any web admin requests or any monitor HTTP API requests. These exclusions are configured in the <code class="docutils literal"><span class="pre">filter.properties</span></code> file:</p>
+<div class="highlight-python"><div class="highlight"><pre>/rest/monitor/**
+/web/**
+</pre></div>
+</div>
+<p>These default filters can be changed or extended to filter more types of
+requests. For example to filter out all WFS requests:</p>
+<div class="highlight-python"><div class="highlight"><pre>/wfs
+</pre></div>
+</div>
+<div class="section" id="how-to-determine-the-filter-path">
+<h3>How to determine the filter path<a class="headerlink" href="#how-to-determine-the-filter-path" title="Permalink to this headline">¶</a></h3>
+<p>The contents of <code class="docutils literal"><span class="pre">filter.properties</span></code> are a series of ant-style patterns that
+are applied to the <em>path</em> of the request. Consider the following request:</p>
+<div class="highlight-python"><div class="highlight"><pre>http://localhost:8080/geoserver/wms?request=getcapabilities
+</pre></div>
+</div>
+<p>The path of the above request is <code class="docutils literal"><span class="pre">/wms</span></code>. In the following request:</p>
+<div class="highlight-python"><div class="highlight"><pre>http://localhost:8080/geoserver/rest/workspaces/topp/datastores.xml
+</pre></div>
+</div>
+<p>The path is <code class="docutils literal"><span class="pre">/rest/workspaces/topp/datastores.xml</span></code>.</p>
+<p>In general, the path used in filters is comprised of the portion of the URL
+after <code class="docutils literal"><span class="pre">/geoserver</span></code> (including the preceding <code class="docutils literal"><span class="pre">/</span></code>) and before the query string <code class="docutils literal"><span class="pre">?</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre>http://&lt;host&gt;:&lt;port&gt;/geoserver/&lt;path&gt;?&lt;queryString&gt;
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For more information about ant-style pattern matching, see the <a class="reference external" href="http://ant.apache.org/manual/dirtasks.html">Apache Ant manual</a>.</p>
+</div>
+<ol class="arabic">
+<li><p class="first">Open the <code class="docutils literal"><span class="pre">filter.properties</span></code> file located at ${GEOSERVER_DATA_DIR}/monitoring and add the following setting:</p>
+<div class="highlight-python"><div class="highlight"><pre>/wms
+</pre></div>
+</div>
+</li>
+<li><p class="first">Go to the Map <a class="reference external" href="http://localhost:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.web.demo.MapPreviewPage">Map Preview</a> and open the <cite>geosolutions:ccounties</cite> layer clicking on the <code class="docutils literal"><span class="pre">OpenLayer</span></code> link.</p>
+</li>
+<li><p class="first">Perform a few times zoom the map.</p>
+</li>
+<li><p class="first">Use also the GML preview for said layer</p>
+</li>
+<li><p class="first">Navigate to the <a class="reference external" href="http://localhost:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.monitor.web.ReportPage">Monitor/Reports section</a></p>
+</li>
+<li><p class="first">Click on <code class="docutils literal"><span class="pre">OWS</span> <span class="pre">Request</span> <span class="pre">Summary</span></code> to show a detailed chart like the following:</p>
+<div class="figure">
+<img alt="../../_images/monitor1.png" src="../../_images/monitor1.png" />
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Monitor Configuration</a><ul>
+<li><a class="reference internal" href="#monitor-mode">Monitor Mode</a><ul>
+<li><a class="reference internal" href="#history-mode">History Mode</a></li>
+<li><a class="reference internal" href="#live-mode">Live Mode</a></li>
+<li><a class="reference internal" href="#mixed-mode">Mixed Mode</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#monitor-database">Monitor Database</a></li>
+<li><a class="reference internal" href="#request-filters">Request Filters</a><ul>
+<li><a class="reference internal" href="#how-to-determine-the-filter-path">How to determine the filter path</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="installation.html"
+                        title="previous chapter">Installing the Monitoring Extension</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="auditing.html"
+                        title="next chapter">Logging all requests on the file system</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="auditing.html" title="Logging all requests on the file system"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installing the Monitoring Extension"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Advanced GeoServer Configuration</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="monitoring.html" >Monitoring</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

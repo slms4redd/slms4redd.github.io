@@ -1,0 +1,512 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Processing with GDAL &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Advanced Raster data preparation and configuration" href="index.html" />
+    <link rel="next" title="Managing Mosaics and Pyramids" href="mosaic_pyramid.html" />
+    <link rel="prev" title="Adding an Image Mosaic to GeoServer" href="mosaic.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../../index.html">
+      <img class="logo" src="../../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="mosaic_pyramid.html" title="Managing Mosaics and Pyramids"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="mosaic.html" title="Adding an Image Mosaic to GeoServer"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Advanced Raster data preparation and configuration</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-geoserver.processing"></span><div class="section" id="processing-with-gdal">
+<span id="geoserver-processing"></span><h1>Processing with GDAL<a class="headerlink" href="#processing-with-gdal" title="Permalink to this headline">¶</a></h1>
+<p>In the <a class="reference internal" href="../adding_data/add_geotiff.html#geoserver-add-geotiff"><span>Adding a GeoTiff</span></a> section, a GeoTIFF file has been added to geoserver as is. However, it&#8217;s common practice to do a preliminar analysis on the available data and, if needed, optimize it since configuring big datasets without proper pre-processing, may result in low performance when accessing them.
+In this section, instructions about how to do data optimization will be provided by introducing some FWTools Utilities.</p>
+<div class="section" id="gdalinfo">
+<h2>gdalinfo<a class="headerlink" href="#gdalinfo" title="Permalink to this headline">¶</a></h2>
+<p>This utility allows to get several info from the GDAL library, for instance, specific Driver capabilities and input Datasets/Files properties.</p>
+<div class="section" id="gdalinfo-getting-drivers-capabilities">
+<h3><em>gdalinfo - Getting Drivers Capabilities</em><a class="headerlink" href="#gdalinfo-getting-drivers-capabilities" title="Permalink to this headline">¶</a></h3>
+<p>Being GeoTIFF a widely adopted geospatial format, it&#8217;s useful to get information about the GDAL GeoTIFF&#8217;s Driver capabilities using the command:</p>
+<div class="highlight-python"><div class="highlight"><pre>gdalinfo --format GTIFF
+</pre></div>
+</div>
+<p>This is only a trimmed down version of a typical output:</p>
+<div class="highlight-python"><div class="highlight"><pre>Format Details:
+  Short Name: GTiff
+  Long Name: GeoTIFF
+  Extension: tif
+  Mime Type: image/tiff
+  Help Topic: frmt_gtiff.html
+  Supports: Create() - Create writeable dataset.
+  Supports: CreateCopy() - Create dataset by copying another.
+  Supports: Virtual IO - eg. /vsimem/
+  Creation Datatypes: Byte UInt16 Int16 UInt32 Int32 Float32 Float64 CInt16 CInt32 CFloat32 CFloat64
+  &lt;CreationOptionList&gt;
+  &lt;Option name=&quot;COMPRESS&quot; type=&quot;string-select&quot;&gt;
+         &lt;Value&gt;NONE&lt;/Value&gt;
+         &lt;Value&gt;LZW&lt;/Value&gt;
+         &lt;Value&gt;PACKBITS&lt;/Value&gt;
+         &lt;Value&gt;JPEG&lt;/Value&gt;
+         &lt;Value&gt;CCITTRLE&lt;/Value&gt;
+         &lt;Value&gt;CCITTFAX3&lt;/Value&gt;
+         &lt;Value&gt;CCITTFAX4&lt;/Value&gt;
+         &lt;Value&gt;DEFLATE&lt;/Value&gt;
+  &lt;/Option&gt;
+  &lt;Option name=&quot;PREDICTOR&quot; type=&quot;int&quot; description=&quot;Predictor Type&quot; /&gt;
+  &lt;Option name=&quot;JPEG_QUALITY&quot; type=&quot;int&quot; description=&quot;JPEG quality 1-100&quot; default=&quot;75&quot;/&gt;
+  &lt;Option name=&quot;ZLEVEL&quot; type=&quot;int&quot; description=&quot;DEFLATE compression level 1-9&quot; default=&quot;6&quot; /&gt;
+  &lt;Option name=&quot;LZMA_PRESET&quot; type=&quot;int&quot; description=&quot;LZMA compression level 0(fast)-9(slow)&quot; default=&quot;6&quot; /&gt;
+  &lt;Option name=&quot;NBITS&quot; type=&quot;int&quot; description=&quot;BITS for sub-byte files (1-7), sub-uint16 (9-15), sub-uint32 (17-31)&quot; /&gt;
+  &lt;Option name=&quot;INTERLEAVE&quot; type=&quot;string-select&quot; default=&quot;PIXEL&quot;&gt;
+         &lt;Value&gt;BAND&lt;/Value&gt;
+         &lt;Value&gt;PIXEL&lt;/Value&gt;
+  &lt;/Option&gt;
+  &lt;Option name=&quot;TILED&quot; type=&quot;boolean&quot; description=&quot;Switch to tiled format&quot;/&gt;
+  &lt;Option name=&quot;TFW&quot; type=&quot;boolean&quot; description=&quot;Write out world file&quot;/&gt;
+  &lt;Option name=&quot;RPB&quot; type=&quot;boolean&quot; description=&quot;Write out .RPB (RPC) file&quot; /&gt;
+  &lt;Option name=&quot;BLOCKXSIZE&quot; type=&quot;int&quot; description=&quot;Tile Width&quot;/&gt;
+  &lt;Option name=&quot;BLOCKYSIZE&quot; type=&quot;int&quot; description=&quot;Tile/Strip Height&quot;/&gt;
+  &lt;Option name=&quot;PHOTOMETRIC&quot; type=&quot;string-select&quot;&gt;
+         &lt;Value&gt;MINISBLACK&lt;/Value&gt;
+         &lt;Value&gt;MINISWHITE&lt;/Value&gt;
+         &lt;Value&gt;PALETTE&lt;/Value&gt;
+         &lt;Value&gt;RGB&lt;/Value&gt;
+         &lt;Value&gt;CMYK&lt;/Value&gt;
+         &lt;Value&gt;YCBCR&lt;/Value&gt;
+         &lt;Value&gt;CIELAB&lt;/Value&gt;
+         &lt;Value&gt;ICCLAB&lt;/Value&gt;
+         &lt;Value&gt;ITULAB&lt;/Value&gt;
+  &lt;/Option&gt;
+  &lt;Option name=&quot;SPARSE_OK&quot; type=&quot;boolean&quot; description=&quot;Can newly created files have missing blocks?&quot; default=&quot;FALSE&quot; /&gt;
+  &lt;Option name=&quot;ALPHA&quot; type=&quot;boolean&quot; description=&quot;Mark first extrasample as being alpha&quot; /&gt;
+  &lt;Option name=&quot;PROFILE&quot; type=&quot;string-select&quot; default=&quot;GDALGeoTIFF&quot;&gt;
+         &lt;Value&gt;GDALGeoTIFF&lt;/Value&gt;
+         &lt;Value&gt;GeoTIFF&lt;/Value&gt;
+         &lt;Value&gt;BASELINE&lt;/Value&gt;
+  &lt;/Option&gt;
+  &lt;Option name=&quot;PIXELTYPE&quot; type=&quot;string-select&quot;&gt;
+         &lt;Value&gt;DEFAULT&lt;/Value&gt;
+         &lt;Value&gt;SIGNEDBYTE&lt;/Value&gt;
+  &lt;/Option&gt;
+  &lt;Option name=&quot;BIGTIFF&quot; type=&quot;string-select&quot; description=&quot;Force creation of BigTIFF file&quot;&gt;
+         &lt;Value&gt;YES&lt;/Value&gt;
+         &lt;Value&gt;NO&lt;/Value&gt;
+         &lt;Value&gt;IF_NEEDED&lt;/Value&gt;
+         &lt;Value&gt;IF_SAFER&lt;/Value&gt;
+  &lt;/Option&gt;
+  &lt;Option name=&quot;ENDIANNESS&quot; type=&quot;string-select&quot; default=&quot;NATIVE&quot; description=&quot;Force endianness of created file. For DEBUG purpose mostly&quot;&gt;
+         &lt;Value&gt;NATIVE&lt;/Value&gt;
+         &lt;Value&gt;INVERTED&lt;/Value&gt;
+         &lt;Value&gt;LITTLE&lt;/Value&gt;
+         &lt;Value&gt;BIG&lt;/Value&gt;
+  &lt;/Option&gt;
+  &lt;Option name=&quot;COPY_SRC_OVERVIEWS&quot; type=&quot;boolean&quot; default=&quot;NO&quot; description=&quot;Force copy of overviews of source dataset (CreateCopy())&quot; /&gt;
+  &lt;/CreationOptionList&gt;
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>From the above list of create options it&#8217;s possible to determine the main GeoTIFF Driver&#8217;s writing capabilities:</dt>
+<dd><ul class="first last simple">
+<li>COMPRESS: customize the compression to be used when writing output data</li>
+<li>JPEG_QUALITY: specify a quality factor to be used by the JPEG compression</li>
+<li>TILED: When set to YES it allows to tile output data</li>
+<li>BLOCKXSIZE, BLOCKYZISE: Specify the Tile dimension width and Tile dimension height</li>
+<li>PHOTOMETRIC: Specify the photometric interpretation of the data</li>
+<li>PROFILE: Specify the GeoTIFF profile to be used (some profiles only support a minimal set of TIFF Tags while some others provide a wider range of Tags)</li>
+<li>BIGTIFF: Specify when to write data as BigTIFF (A TIFF format which allows to break the 4GB Offset boundary)</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="gdalinfo-getting-dataset-file-properties">
+<h3><em>gdalinfo - Getting Dataset/File Properties</em><a class="headerlink" href="#gdalinfo-getting-dataset-file-properties" title="Permalink to this headline">¶</a></h3>
+<p>The following instructions allow you to get information about the sample dataset previously configured in GeoServer.</p>
+<ol class="arabic">
+<li><p class="first">Run:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd /home/unredd/Desktop/workshop/data/user_data/aerial
+
+gdalinfo 13tde815295_200803_0x6000m_cl.tif
+</pre></div>
+</div>
+<div class="figure" id="id1">
+<img alt="../../_images/fw_basegdalinfo.png" src="../../_images/fw_basegdalinfo.png" />
+<p class="caption"><span class="caption-text">Part of the <em>gdalinfo</em> output on a sample dataset</span></p>
+</div>
+</li>
+<li><p class="first">Check the <strong>Block</strong> info as well as the <strong>Overviews</strong> info if present.</p>
+</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><strong>Block</strong>: It represents the internal tiling. Notice that the sample dataset has tiles made of 16 rows having width equals to the full image width.</li>
+<li><strong>Overviews</strong>: It provides information about the underlying overviews. Notice that the sample dataset doesn&#8217;t have overviews since the <em>Overviews</em> property is totally missing from the gdalinfo output.</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="gdal-translate">
+<h2>gdal_translate<a class="headerlink" href="#gdal-translate" title="Permalink to this headline">¶</a></h2>
+<p>This utility allows to convert a dataset to a different format by allowing a wide set of parameters to customize the conversion.</p>
+<p>Running the command:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">gdal_translate</span>
+</pre></div>
+</div>
+<p>allows to get the list of supported parameters as well as the supported output formats:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage: gdal_translate [--help-general]
+       [-ot {Byte/Int16/UInt16/UInt32/Int32/Float32/Float64/
+             CInt16/CInt32/CFloat32/CFloat64}] [-strict]
+       [-of format] [-b band] [-mask band] [-expand {gray|rgb|rgba}]
+       [-outsize xsize[%] ysize[%]]
+       [- unscale] [-scale [src_min src_max [dst_min dst_max]]]
+       [-srcwin xoff yoff xsize ysize] [-projwin ulx uly lrx lry]
+       [-a_srs srs_def] [-a_ullr ulx uly lrx lry] [-a_nodata value]
+       [-gcp pixel line easting northing [elevation]]*
+       [-mo &quot;META-TAG=VALUE&quot;]* [-q] [-sds]
+       [-co &quot;NAME=VALUE&quot;]* [-stats]
+       src_dataset dst_dataset
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Where the meaning of the main parameters is summarized below:</dt>
+<dd><ul class="first last simple">
+<li><em>-ot</em>: allows to specify the output datatype (Make sure that the specified datatype is contained in the <em>Creation Datatypes</em> list of the Writing driver)</li>
+<li><em>-of</em>: specify the desired output format (GTIFF is the default value)</li>
+<li><em>-b</em>: allows to specify an input band to be written in the output file. (Use multiple <em>-b</em> option to specify more bands)</li>
+<li><em>-mask</em>: allows to specify an input band to be write an output dataset mask band.</li>
+<li><em>-expand</em>: allows to expose a dataset with 1 band with a color table as a dataset with 3 (rgb) or 4 (rgba) bands. The (gray) value allows to expand a dataset with a color table containing only gray levels to a gray indexed dataset.</li>
+<li><em>-outsize</em>: allows to set the size of the output file in terms of pixels and lines unless the <em>%</em> sign is attached in which case it&#8217;s as a fraction of the input image size.</li>
+<li><em>-unscale</em>: allows to apply the scale/offset metadata for the bands to convert from scaled values to unscaled ones.</li>
+<li><em>-scale</em>: allows to rescale the input pixels values from the range src_min to src_max to the range dst_min to dst_max. (If omitted the output range is 0 to 255. If omitted the input range is automatically computed from the source data).</li>
+<li><em>-srcwin</em>: allows to select a subwindow from the source image in terms of xoffset, yoffset, width and height</li>
+<li><em>-projwin</em>: allows to select a subwindow from the source image by specifying the corners given in georeferenced coordinates.</li>
+<li><em>-a_srs</em>: allows to override the projection for the output file. The srs_def may be any of the usual GDAL/OGR forms, complete WKT, PROJ.4, EPSG:n or a file containing the WKT.</li>
+<li><em>-a_ullr</em>: allows to assign/override the georeferenced bounds of the output file.</li>
+<li><em>-a_nodata</em>: allows to assign a specified nodata value to output bands.</li>
+<li><em>-co</em>: allows to set a creation option in the form &#8220;NAME=VALUE&#8221; to the output format driver. (Multiple <em>-co</em> options may be listed.)</li>
+<li><em>-stats</em>: allows to get statistics (min, max, mean, stdDev) for each band</li>
+<li><em>src_dataset</em>: is the source dataset name. It can be either file name, URL of data source or subdataset name for multi*-dataset files.</li>
+<li><em>dst_dataset</em>: is the destination file name.</li>
+</ul>
+</dd>
+</dl>
+<div class="section" id="gdal-translate-tiling-the-sample-dataset">
+<h3><em>gdal_translate - Tiling the sample dataset</em><a class="headerlink" href="#gdal-translate-tiling-the-sample-dataset" title="Permalink to this headline">¶</a></h3>
+<p>The following steps provide instructions to tile the sample dataset previously configured in GeoServer, by using the GeoTiff driver.</p>
+<ol class="arabic">
+<li><p class="first">Create a directory to store the converted data:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd /home/unredd/Desktop/workshop/data/user_data
+
+mkdir retiled
+</pre></div>
+</div>
+</li>
+<li><p class="first">Convert the input sample data to an output file having tiling set to 512x512. Run:</p>
+<div class="highlight-python"><div class="highlight"><pre>gdal_translate -co &quot;TILED=YES&quot; -co &quot;BLOCKXSIZE=512&quot; -co &quot;BLOCKYSIZE=512&quot; aerial/13tde815295_200803_0x6000m_cl.tif retiled/13tde815295_200803_0x6000m_cl.tif
+</pre></div>
+</div>
+</li>
+<li><p class="first">Optionally, check that the output dataset have been successfully tiled, by running the command:</p>
+<div class="highlight-python"><div class="highlight"><pre>gdalinfo retiled/13tde815295_200803_0x6000m_cl.tif
+</pre></div>
+</div>
+<div class="figure" id="id2">
+<img alt="../../_images/fw_tiledgdalinfo.png" src="../../_images/fw_tiledgdalinfo.png" />
+<p class="caption"><span class="caption-text">Part of the <em>gdalinfo</em> output on the tiled dataset. Notice the <strong>Block</strong> value now is 512x512</span></p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="gdaladdo">
+<h2>gdaladdo<a class="headerlink" href="#gdaladdo" title="Permalink to this headline">¶</a></h2>
+<p>This utility allows to add overviews to a dataset. The following steps provide instructions to add overviews to the tiled sample dataset.</p>
+<p>Running the command:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">gdaladdo</span>
+</pre></div>
+</div>
+<p>allows to get the list of supported parameters:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage: gdaladdo [-r {nearest,average,gauss,average_mp,average_magphase,mode}]
+                [-ro] [--help-general] filename levels
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Where the meaning of the main parameters is summarized below:</dt>
+<dd><ul class="first last simple">
+<li><em>-r</em>: allows to specify the resampling algorithm (Nearest is the default value)</li>
+<li><em>-ro</em>: allows to open the dataset in read-only mode, in order to generate external overview (for GeoTIFF especially)</li>
+<li><em>filename</em>: represents the file to build overviews for.</li>
+<li><em>levels</em>: allows to specify a list of overview levels to build.</li>
+</ul>
+</dd>
+</dl>
+<div class="section" id="gdaladdo-adding-overviews-to-the-sample-dataset">
+<h3><em>gdaladdo - Adding overviews to the sample dataset</em><a class="headerlink" href="#gdaladdo-adding-overviews-to-the-sample-dataset" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p class="first">Run:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd /home/unredd/Desktop/workshop/data/user_data/retiled
+
+gdaladdo -r average 13tde815295_200803_0x6000m_cl.tif 2 4 8 16 32
+</pre></div>
+</div>
+<p>to add 5 levels of overviews having 2,4,8,16,32 subsampling factors applied to the original image resolution respectively.</p>
+</li>
+<li><p class="first">Optionally, check that the overviews have been added to the dataset, by running the command:</p>
+<div class="highlight-python"><div class="highlight"><pre>gdalinfo 13tde815295_200803_0x6000m_cl.tif
+</pre></div>
+</div>
+<div class="figure" id="id3">
+<img alt="../../_images/fw_tiledovgdalinfo.png" src="../../_images/fw_tiledovgdalinfo.png" />
+<p class="caption"><span class="caption-text">Part of the <em>gdalinfo</em> output on the tiled dataset with overviews. Notice the <strong>Overviews</strong> properties</span></p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="process-in-bulk">
+<h2>Process in bulk<a class="headerlink" href="#process-in-bulk" title="Permalink to this headline">¶</a></h2>
+<p>Instead of manually repeating these 2 steps (retile + add overviews) for each file, we can invoke a few commands to get it automated.</p>
+<ol class="arabic">
+<li><p class="first">Run:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd /home/unredd/Desktop/workshop/data/user_data
+
+mkdir optimized
+
+cd aerial
+
+for i in `find *.tif`; do gdal_translate -CO &quot;TILED=YES&quot; -CO &quot;BLOCKXSIZE=512&quot; -CO &quot;BLOCKYSIZE=512&quot; $i ../optimized/$i; gdaladdo -r average ../optimized/$i 2 4 8 16 32; done
+</pre></div>
+</div>
+</li>
+<li><p class="first">You should see a list of run like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>...
+Input file size is 2500, 2500
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+Input file size is 2500, 2500
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+Input file size is 2500, 2500
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+...
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This process can take some seconds.</p>
+</div>
+<p>At this point optimized datasets have been prepared and they are ready to be served by GeoServer as an ImageMosaic.</p>
+</div>
+<div class="section" id="gdalwarp">
+<h2>gdalwarp<a class="headerlink" href="#gdalwarp" title="Permalink to this headline">¶</a></h2>
+<p>This utility allows to warp and reproject a dataset. The following steps provide instructions to reproject the aerial dataset (which has &#8220;EPSG:26913&#8221; coordinate reference system) to WGS84 (&#8220;EPSG:4326&#8221;).</p>
+<p>Running the command:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">gdalwarp</span>
+</pre></div>
+</div>
+<p>allows to get the list of supported parameters:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage: gdalwarp [--help-general] [--formats]
+       [-s_srs srs_def] [-t_srs srs_def] [-to &quot;NAME=VALUE&quot;]
+       [-order n | -tps | -rpc | -geoloc] [-et err_threshold]
+       [-refine_gcps tolerance [minimum_gcps]]
+       [-te xmin ymin xmax ymax] [-tr xres yres] [-tap] [-ts width height]
+       [-wo &quot;NAME=VALUE&quot;] [-ot Byte/Int16/...] [-wt Byte/Int16]
+       [-srcnodata &quot;value [value...]&quot;] [-dstnodata &quot;value [value...]&quot;] -dstalpha
+       [-r resampling_method] [-wm memory_in_mb] [-multi] [-q]
+       [-cutline datasource] [-cl layer] [-cwhere expression]
+       [-csql statement] [-cblend dist_in_pixels] [-crop_to_cutline]
+       [-of format] [-co &quot;NAME=VALUE&quot;]* [-overwrite]
+       srcfile* dstfile
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Where the meaning of the main parameters is summarized below:</dt>
+<dd><ul class="first last simple">
+<li><em>-s_srs</em>: allows to specify the source coordinate reference system</li>
+<li><em>-t_srs</em>: allows to specify the target coordinate reference system</li>
+<li><em>-te</em>: allows to set georeferenced extents (expressed in target CRS) of the output</li>
+<li><em>-tr</em>: allows to specify the output resolution (expressed in target georeferenced units)</li>
+<li><em>-ts</em>: allows to specify the output size in pixel and lines.</li>
+<li><em>-r</em>: allows to specify the resampling method (one of near, bilinear, cubic, cubicspline and lanczos)</li>
+<li><em>-srcnodata</em>: allows to specify band values to be excluded from interpolation.</li>
+<li><em>-dstnodata</em>: allows to specify nodata values on output file.</li>
+<li><em>-wm</em>: allows to specify the amount of memory (expressed in megabytes) used by the warping API for caching.</li>
+</ul>
+</dd>
+</dl>
+<div class="section" id="gdalwarp-reprojecting-sample-dataset-to-wgs84">
+<h3><em>gdalwarp - Reprojecting sample dataset to WGS84</em><a class="headerlink" href="#gdalwarp-reprojecting-sample-dataset-to-wgs84" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p class="first">Run:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd /home/unredd/Desktop/workshop/data/user_data/retiled
+
+gdalwarp -t_srs &quot;EPSG:4326&quot; -co &quot;TILED=YES&quot; 13tde815295_200803_0x6000m_cl.tif 13tde815295_200803_0x6000m_cl_warped.tif
+</pre></div>
+</div>
+<p>to reproject the specified aerial dataset to WGS84 coordinate reference system.</p>
+</li>
+<li><p class="first">Optionally, check that reprojection has been successfull, by running the command:</p>
+<div class="highlight-python"><div class="highlight"><pre>gdalinfo 13tde815295_200803_0x6000m_cl_warped.tif
+</pre></div>
+</div>
+<div class="figure" id="id4">
+<img alt="../../_images/fw_warpedgdalinfo.png" src="../../_images/fw_warpedgdalinfo.png" />
+<p class="caption"><span class="caption-text">Part of the <em>gdalinfo</em> output on the warped dataset. Notice the updated <strong>Coordinate System</strong> property</span></p>
+</div>
+</li>
+</ol>
+<p>In the <a class="reference internal" href="mosaic_pyramid.html#geoserver-mosaic-pyramid"><span>next</span></a> section, instructions to configure an ImageMosaic will be provided.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Processing with GDAL</a><ul>
+<li><a class="reference internal" href="#gdalinfo">gdalinfo</a><ul>
+<li><a class="reference internal" href="#gdalinfo-getting-drivers-capabilities"><em>gdalinfo - Getting Drivers Capabilities</em></a></li>
+<li><a class="reference internal" href="#gdalinfo-getting-dataset-file-properties"><em>gdalinfo - Getting Dataset/File Properties</em></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gdal-translate">gdal_translate</a><ul>
+<li><a class="reference internal" href="#gdal-translate-tiling-the-sample-dataset"><em>gdal_translate - Tiling the sample dataset</em></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gdaladdo">gdaladdo</a><ul>
+<li><a class="reference internal" href="#gdaladdo-adding-overviews-to-the-sample-dataset"><em>gdaladdo - Adding overviews to the sample dataset</em></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#process-in-bulk">Process in bulk</a></li>
+<li><a class="reference internal" href="#gdalwarp">gdalwarp</a><ul>
+<li><a class="reference internal" href="#gdalwarp-reprojecting-sample-dataset-to-wgs84"><em>gdalwarp - Reprojecting sample dataset to WGS84</em></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mosaic.html"
+                        title="previous chapter">Adding an Image Mosaic to GeoServer</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="mosaic_pyramid.html"
+                        title="next chapter">Managing Mosaics and Pyramids</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="mosaic_pyramid.html" title="Managing Mosaics and Pyramids"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="mosaic.html" title="Adding an Image Mosaic to GeoServer"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Advanced Raster data preparation and configuration</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

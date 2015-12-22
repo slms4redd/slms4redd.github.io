@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Adding a Postgis layer &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Adding base types" href="adding_base_types.html" />
+    <link rel="next" title="Adding a GeoTiff" href="add_geotiff.html" />
+    <link rel="prev" title="Loading a Shapefile into PostGIS" href="shp_postgis.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../../index.html">
+      <img class="logo" src="../../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="add_geotiff.html" title="Adding a GeoTiff"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="shp_postgis.html" title="Loading a Shapefile into PostGIS"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Adding Data to GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="adding_base_types.html" accesskey="U">Adding base types</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-geoserver.postgis_lay"></span><div class="section" id="adding-a-postgis-layer">
+<span id="geoserver-postgis-lay"></span><h1>Adding a Postgis layer<a class="headerlink" href="#adding-a-postgis-layer" title="Permalink to this headline">¶</a></h1>
+<p>This task shows how to add a PostGIS layer into GeoServer:</p>
+<ol class="arabic">
+<li><p class="first">Navigate to the GeoServer <a class="reference external" href="http://localhost:8080/geoserver/web/">Welcome Page</a>.</p>
+</li>
+<li><p class="first">If you are not already logged in, on the Welcome page locate the <span class="guilabel">Login</span> form located at the top right corner, and enter the username &#8220;admin&#8221; and password &#8220;geoserver&#8221;.</p>
+<div class="figure" id="id1">
+<img alt="../../_images/vector1.png" src="../../_images/vector1.png" />
+<p class="caption"><span class="caption-text">GeoServer Login</span></p>
+</div>
+</li>
+<li><p class="first">Click the <span class="guilabel">Add stores</span> link.</p>
+<div class="figure" id="id2">
+<img alt="../../_images/vector2.png" src="../../_images/vector2.png" />
+<p class="caption"><span class="caption-text">Add stores link</span></p>
+</div>
+</li>
+<li><p class="first">Select the <span class="guilabel">PostGIS</span> link and click it.</p>
+<div class="figure" id="id3">
+<img alt="../../_images/postgis_lay1.png" src="../../_images/postgis_lay1.png" />
+<p class="caption"><span class="caption-text">Add new PostGIS Store</span></p>
+</div>
+</li>
+<li><p class="first">On the <span class="guilabel">New Vector Data Source</span> page fill the following parameter:</p>
+<ul class="simple">
+<li><span class="guilabel">Data source name</span>, &#8216;shape&#8217;</li>
+<li><span class="guilabel">database</span>, &#8216;shape&#8217; the name of the database created in previous workshop step.</li>
+<li><span class="guilabel">user</span>, &#8216;unredd&#8217; the name of the user database owner.</li>
+<li><span class="guilabel">password</span>, &#8216;unredd&#8217; the user password.</li>
+</ul>
+<p>and click <span class="guilabel">Save</span>.</p>
+<div class="figure">
+<img alt="../../_images/postgis_lay3.png" src="../../_images/postgis_lay3.png" />
+</div>
+<div class="figure" id="id4">
+<img alt="../../_images/postgis_lay2.png" src="../../_images/postgis_lay2.png" />
+<p class="caption"><span class="caption-text">Setting dtabase connection parameters</span></p>
+</div>
+</li>
+<li><p class="first">After saving, you will be taken to a page that lists all the layers in the PostGIS database and gives you the option to publish any of them. Click <span class="guilabel">Publish</span>.</p>
+<div class="figure" id="id5">
+<img alt="../../_images/postgis_lay4.png" src="../../_images/postgis_lay4.png" />
+<p class="caption"><span class="caption-text">Publishing a layer from the PostGIS table</span></p>
+</div>
+</li>
+<li><p class="first">The <span class="guilabel">Name</span> and <span class="guilabel">Title</span> fields should be automatically populated. Fill the <span class="guilabel">Declared SRS</span> field to set the Coordinate Reference Systems and generate the bounds for the layer by clicking the <span class="guilabel">Compute from data</span> and <span class="guilabel">Compute from native bounds</span> buttons in the <span class="guilabel">Bounding Boxes</span> section</p>
+<div class="figure">
+<img alt="../../_images/postgis_lay5.png" src="../../_images/postgis_lay5.png" />
+</div>
+<div class="figure" id="id6">
+<img alt="../../_images/postgis_lay6.png" src="../../_images/postgis_lay6.png" />
+<p class="caption"><span class="caption-text">Populating fields and generating the layer bounding box</span></p>
+</div>
+</li>
+<li><p class="first">Scroll to the bottom of the page, notice the read only <span class="guilabel">Feature Type Detail</span> table and then click <span class="guilabel">Save</span>.</p>
+<div class="figure" id="id7">
+<img alt="../../_images/postgis_lay7.png" src="../../_images/postgis_lay7.png" />
+<p class="caption"><span class="caption-text">Submitting the layer configuration</span></p>
+</div>
+</li>
+<li><p class="first">If all went well, you should see something like this:</p>
+<div class="figure" id="id8">
+<img alt="../../_images/postgis_lay8.png" src="../../_images/postgis_lay8.png" />
+<p class="caption"><span class="caption-text">After a successful save</span></p>
+</div>
+</li>
+<li><p class="first">At this point the PostGIS layer has been added and is ready to be served by GeoServer. Use the layer preview to view its contents, filtering on the &#8216;main_road&#8217; name.</p>
+</li>
+</ol>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="shp_postgis.html"
+                        title="previous chapter">Loading a Shapefile into PostGIS</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="add_geotiff.html"
+                        title="next chapter">Adding a GeoTiff</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="add_geotiff.html" title="Adding a GeoTiff"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="shp_postgis.html" title="Loading a Shapefile into PostGIS"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Adding Data to GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="adding_base_types.html" >Adding base types</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

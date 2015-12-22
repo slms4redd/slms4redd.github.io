@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Octave Service &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../../index.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../../index.html">
+      <img class="logo" src="../../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="octave-service">
+<h1>Octave Service<a class="headerlink" href="#octave-service" title="Permalink to this headline">¶</a></h1>
+<p>This module add the Octave support to the GeoBatch platform.</p>
+<div class="section" id="octave-environment">
+<h2>Octave Environment<a class="headerlink" href="#octave-environment" title="Permalink to this headline">¶</a></h2>
+<p>The octave environment is composed by an ordered sequence of sheets, it represents the complete execution flow of an Octave process and it&#8217;s executed atomically.</p>
+<div class="highlight-xml"><div class="highlight"><pre>    <span class="c">&lt;!-- OCTAVE ENV --&gt;</span>
+<span class="nt">&lt;octave&gt;</span>
+     <span class="nt">&lt;sheets&gt;</span>
+             <span class="nt">&lt;sheet</span> <span class="na">name=</span><span class="s">&quot;A&quot;</span><span class="nt">&gt;</span>
+                     ...
+             <span class="nt">&lt;/sheet&gt;</span>
+
+             ...
+
+             <span class="nt">&lt;sheet</span> <span class="na">name=</span><span class="s">&quot;Z&quot;</span><span class="nt">&gt;</span>
+                     ...
+             <span class="nt">&lt;/sheet&gt;</span>
+     <span class="nt">&lt;/sheets&gt;</span>
+<span class="nt">&lt;/octave&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="octave-executable-sheet">
+<h2>Octave Executable Sheet<a class="headerlink" href="#octave-executable-sheet" title="Permalink to this headline">¶</a></h2>
+<p>Each sheet is defined by its name (which should be unique within the same environment).
+A sheet contains:</p>
+<blockquote>
+<div><p>&#8216;&#8217;&#8216;commands&#8217;&#8216;&#8217;: (alternative*)</p>
+<blockquote>
+<div>List of octave simple commands to run</div></blockquote>
+<p>&#8216;&#8217;&#8216;functions&#8217;&#8216;&#8217;: (alternative*)</p>
+<blockquote>
+<div><p>List of functions which should be executed by the Octave process. this could be as complex as you want but you&#8217;ll have to provide a preprocessor to execute it.</p>
+<p>The function part of a sheet is essentially a sheet itself but it is not an executable sheet.</p>
+<p>The ExecutableSheet is different from a simple Sheet since it never contain a function node (which need to be preprocessed to become executable).</p>
+<p>&#8216;&#8217;&#8216;definitions&#8217;&#8216;&#8217;: (optional)</p>
+<p>List of variables which should be passed to the Octave process from the Java environment (this happen before the first command is executed)</p>
+<p>&#8216;&#8217;&#8216;returns&#8217;&#8216;&#8217;: (optional)</p>
+<p>List of variables which should be passed from the Octave process to the Java environment (this happen after the last command is executed)</p>
+</div></blockquote>
+</div></blockquote>
+<ul class="simple">
+<li>alternative -&gt; at last one of these should be present</li>
+</ul>
+<div class="highlight-xml"><div class="highlight"><pre>    <span class="c">&lt;!-- OCTAVE ENV --&gt;</span>
+<span class="nt">&lt;octave&gt;</span>
+  <span class="nt">&lt;sheets&gt;</span>
+    <span class="c">&lt;!-- OCTAVE SHEET --&gt;</span>
+    <span class="nt">&lt;sheet</span> <span class="na">name=</span><span class="s">&quot;MARS3DFlow&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;commands&gt;</span>
+            <span class="nt">&lt;OctaveCommand</span> <span class="na">executed=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+             <span class="nt">&lt;command&gt;</span>source &quot;/usr/share/octave/3.0.5/m/startup/octaverc&quot;;<span class="nt">&lt;/command&gt;</span>
+            <span class="nt">&lt;/OctaveCommand&gt;</span>
+            <span class="nt">&lt;OctaveCommand</span> <span class="na">executed=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+             <span class="nt">&lt;command&gt;</span>cd &quot;/home/user/work/data/rep10workingdir/&quot;<span class="nt">&lt;/command&gt;</span>
+            <span class="nt">&lt;/OctaveCommand&gt;</span>
+    <span class="nt">&lt;/commands&gt;</span>
+    <span class="nt">&lt;definitions/&gt;</span>
+    <span class="nt">&lt;functions&gt;</span>
+            <span class="nt">&lt;function</span> <span class="na">name=</span><span class="s">&quot;function&quot;</span><span class="nt">&gt;</span>
+             <span class="nt">&lt;commands/&gt;</span>
+             <span class="nt">&lt;returns/&gt;</span>
+             <span class="nt">&lt;definitions&gt;</span>
+                     <span class="nt">&lt;OctaveFile</span> <span class="na">name=</span><span class="s">&quot;file_in&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span> <span class="na">output=</span><span class="s">&quot;false&quot;</span> <span class="na">input=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+                     <span class="nt">&lt;OctaveFile</span> <span class="na">name=</span><span class="s">&quot;file_out&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span> <span class="na">output=</span><span class="s">&quot;true&quot;</span> <span class="na">input=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+             <span class="nt">&lt;/definitions&gt;</span>
+            <span class="nt">&lt;/function&gt;</span>
+    <span class="nt">&lt;/functions&gt;</span>
+    <span class="nt">&lt;returns/&gt;</span>
+    <span class="nt">&lt;/sheet&gt;</span>
+  <span class="nt">&lt;/sheets&gt;</span>
+<span class="nt">&lt;/octave&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="preprocessor">
+<h2>Preprocessor<a class="headerlink" href="#preprocessor" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>&#8216;&#8217;&#8216;Why we need preprocessors?&#8217;&#8216;&#8217;</dt>
+<dd><p class="first">Looking ahead to the example we will try to preprocess a function which should be called using 2 variables (which should be passed from the Java to the Octave environment).</p>
+<p class="last">Those variables, (we assume), are not defined until the program execution starts.</p>
+</dd>
+</dl>
+<p>This sheet need to be preprocessed since it contains a function:</p>
+<div class="highlight-xml"><div class="highlight"><pre>    <span class="nt">&lt;function</span> <span class="na">name=</span><span class="s">&quot;function&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;commands/&gt;</span>
+<span class="nt">&lt;returns/&gt;</span>
+<span class="nt">&lt;definitions&gt;</span>
+     <span class="nt">&lt;OctaveFile</span> <span class="na">name=</span><span class="s">&quot;file_in&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span> <span class="na">output=</span><span class="s">&quot;false&quot;</span> <span class="na">input=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;OctaveFile</span> <span class="na">name=</span><span class="s">&quot;file_out&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span> <span class="na">output=</span><span class="s">&quot;true&quot;</span> <span class="na">input=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/definitions&gt;</span>
+    <span class="nt">&lt;/function&gt;</span>
+</pre></div>
+</div>
+<p>This sheet is a (not so good) preprocessed version of the above one...</p>
+<div class="highlight-xml"><div class="highlight"><pre>    <span class="nt">&lt;/commands&gt;</span>
+    <span class="nt">&lt;OctaveCommand</span> <span class="na">executed=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;command&gt;</span>function(file_in,file_out);<span class="nt">&lt;/command&gt;</span>
+    <span class="nt">&lt;/OctaveCommand&gt;</span>
+    <span class="nt">&lt;/commands&gt;</span>
+    <span class="nt">&lt;definitions&gt;</span>
+<span class="nt">&lt;OctaveFile</span> <span class="na">name=</span><span class="s">&quot;file_in&quot;</span> <span class="na">value=</span><span class="s">&quot;?&quot;</span> <span class="na">output=</span><span class="s">&quot;false&quot;</span> <span class="na">input=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;OctaveFile</span> <span class="na">name=</span><span class="s">&quot;file_out&quot;</span> <span class="na">value=</span><span class="s">&quot;?&quot;</span> <span class="na">output=</span><span class="s">&quot;true&quot;</span> <span class="na">input=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/definitions&gt;</span>
+</pre></div>
+</div>
+<p>Looking at the OctaveFile variables we can still see that their value &#8216;?&#8217; are undefined!</p>
+<p>&#8216;&#8217;So the runtime preprocessing is needed.&#8217;&#8216;</p>
+<dl class="docutils">
+<dt>&#8216;&#8217;&#8216;What a preprocessor should do?&#8217;&#8216;&#8217;</dt>
+<dd>Transform a Sheet in an ExecutableSheet initializing all the needed input (definitions) and output (returns) variables and building the command string which call that function.</dd>
+<dt>&#8216;&#8217;&#8216;NOTE&#8217;&#8216;&#8217;:</dt>
+<dd><p class="first">The function prototype is -&gt; [OUT1, OUT2, ... ,OUTn] = function(IN1, IN2, ..., INn);</p>
+<p class="last">Refer to the Octave/Matlab documentation for detailed documentation.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Octave Service</a><ul>
+<li><a class="reference internal" href="#octave-environment">Octave Environment</a></li>
+<li><a class="reference internal" href="#octave-executable-sheet">Octave Executable Sheet</a></li>
+<li><a class="reference internal" href="#preprocessor">Preprocessor</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

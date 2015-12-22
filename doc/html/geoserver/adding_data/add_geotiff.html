@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Adding a GeoTiff &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Adding base types" href="adding_base_types.html" />
+    <link rel="next" title="Pretty maps with GeoServer" href="../pretty_maps/index.html" />
+    <link rel="prev" title="Adding a Postgis layer" href="postgis_lay.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../../index.html">
+      <img class="logo" src="../../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../pretty_maps/index.html" title="Pretty maps with GeoServer"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="postgis_lay.html" title="Adding a Postgis layer"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Adding Data to GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="adding_base_types.html" accesskey="U">Adding base types</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-geoserver.add_geotiff"></span><div class="section" id="adding-a-geotiff">
+<span id="geoserver-add-geotiff"></span><h1>Adding a GeoTiff<a class="headerlink" href="#adding-a-geotiff" title="Permalink to this headline">¶</a></h1>
+<p>The GeoTIFF is a widely used geospatial raster data format: it is composed of a single file containing both the data and the georeferencing information (not to be confused with the .tiff/.tfw/.prj file triplet, which is considered a &#8220;world image&#8221; file in GeoServer).
+This section provides instructions to add and publish a GeoTIFF file.</p>
+<ol class="arabic">
+<li><p class="first">Open the web browser and navigate to the GeoServer <a class="reference external" href="http://localhost:8080/geoserver">Welcome Page</a>.</p>
+</li>
+<li><p class="first">Select <span class="guilabel">Add stores</span> from the interface.</p>
+<div class="figure">
+<img alt="../../_images/geotiff_addstores.png" src="../../_images/geotiff_addstores.png" />
+</div>
+</li>
+<li><p class="first">Select <span class="guilabel">GeoTIFF - Tagged Image File Format with Geographic information</span> from the set of available Raster Data Sources.</p>
+<div class="figure">
+<img alt="../../_images/geotiff_sources.png" src="../../_images/geotiff_sources.png" />
+</div>
+</li>
+<li><p class="first">Specify a proper name (as an instance, <code class="file docutils literal"><span class="pre">13tde815295_200803_0x6000m_cl</span></code>) in the <span class="guilabel">Data Source Name</span> field of the interface.</p>
+</li>
+<li><p class="first">Click on browse link in order to set the GeoTIFF location in the <span class="guilabel">URL</span> field.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The 13tde815295_200803_0x6000m_cl.tif is located at <code class="file docutils literal"><span class="pre">/home/unredd/Desktop/workshop/data/user_data/aerial/13tde815295_200803_0x6000m_cl.tif</span></code></p>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="../../_images/addgeotiff1.png"><img alt="../../_images/addgeotiff1.png" src="../../_images/addgeotiff1.png" style="width: 800px;" /></a>
+</div>
+</li>
+<li><p class="first">Click <span class="guilabel">Save</span>.</p>
+</li>
+<li><p class="first">Publish the layer by clicking on the <span class="guilabel">publish</span> link.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../../_images/addgeotiff2.png"><img alt="../../_images/addgeotiff2.png" src="../../_images/addgeotiff2.png" style="width: 800px;" /></a>
+</div>
+</li>
+<li><p class="first">Check the Coordinate Reference Systems and the Bounding Boxes fields are properly set and click on <span class="guilabel">Save</span>.</p>
+<div class="figure">
+<img alt="../../_images/addgeotiff3.png" src="../../_images/addgeotiff3.png" />
+</div>
+</li>
+<li><p class="first">At this point the GeoTIFF is being published with GeoServer. You can use the layer preview to inspect the data.</p>
+<div class="figure">
+<img alt="../../_images/addgeotiff4.png" src="../../_images/addgeotiff4.png" />
+</div>
+</li>
+</ol>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="postgis_lay.html"
+                        title="previous chapter">Adding a Postgis layer</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../pretty_maps/index.html"
+                        title="next chapter">Pretty maps with GeoServer</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../pretty_maps/index.html" title="Pretty maps with GeoServer"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="postgis_lay.html" title="Adding a Postgis layer"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Adding Data to GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="adding_base_types.html" >Adding base types</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

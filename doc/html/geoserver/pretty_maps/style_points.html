@@ -1,0 +1,412 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Styling point data &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Styling Vector data" href="styling_vector.html" />
+    <link rel="next" title="Styling in real world units" href="style_uom.html" />
+    <link rel="prev" title="Roads and labelling roads" href="roads.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../../index.html">
+      <img class="logo" src="../../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="style_uom.html" title="Styling in real world units"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="roads.html" title="Roads and labelling roads"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Pretty maps with GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="styling.html" >Styling with SLD</a> &raquo;</li>
+          <li class="nav-item nav-item-4"><a href="styling_vector.html" accesskey="U">Styling Vector data</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-geoserver.pretty_maps"></span><div class="section" id="styling-point-data">
+<h1>Styling point data<a class="headerlink" href="#styling-point-data" title="Permalink to this headline">¶</a></h1>
+<p>Point data in SLD can be depicted with <code class="docutils literal"><span class="pre">PointSymbolizer</span></code> and labelled with <code class="docutils literal"><span class="pre">TextSymbolizer</span></code>.
+This section describe an existing, realistic style, available in the data directory that depicts the <em>point landmarks</em> layer (<code class="docutils literal"><span class="pre">bptlandmarks</span></code>) with icons and labels.</p>
+<div class="section" id="the-dataset">
+<h2>The dataset<a class="headerlink" href="#the-dataset" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">bptlandmarks</span></code> layer (Boulder point landmarks) contains the location of significant point entities such as malls, schools, airports and the like. The attribute structure is reported in the <a class="reference external" href="http://localhost:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.web.data.resource.ResourceConfigurationPage&amp;name=bptlandmarks&amp;wsName=geosolutions">GeoServer page for such layer</a>:</p>
+<div class="figure" id="id1">
+<img alt="../../_images/pt_attribute_table.png" src="../../_images/pt_attribute_table.png" />
+<p class="caption"><span class="caption-text">Point landmarks attribute structure</span></p>
+</div>
+<p>The style will use the <code class="docutils literal"><span class="pre">MTFCC</span></code> code to categorize the various points in the different types (e.g., schools have <code class="docutils literal"><span class="pre">MTFCC</span> <span class="pre">=</span> <span class="pre">K2543</span></code>, and eventually use <code class="docutils literal"><span class="pre">FULLNAME</span></code> for the label.
+This results in the <a class="reference external" href="http://localhost:8080/geoserver/geosolutions/wms/reflect?layers=geosolutions:BoulderCityLimits,geosolutions:bptlandmarks&amp;format=application/openlayers&amp;styles=line,&amp;BBOX=-105.34993829345,39.993637207035,-105.25840606689,40.04423291016">following map</a>:</p>
+<div class="figure" id="id2">
+<img alt="../../_images/pt_landmark_map.png" src="../../_images/pt_landmark_map.png" />
+<p class="caption"><span class="caption-text">Point landmarks in Boulder</span></p>
+</div>
+<p>The complete style we&#8217;ll be referring to is named <code class="docutils literal"><span class="pre">point_landmark</span></code>, you can have a look at the full style in the <a class="reference external" href="http://localhost:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.wms.web.data.StyleEditPage&amp;name=point_landmark">GeoServer style editor</a>:</p>
+<div class="figure" id="id3">
+<img alt="../../_images/pt_landmark_style.png" src="../../_images/pt_landmark_style.png" />
+<p class="caption"><span class="caption-text">Point landmarks style</span></p>
+</div>
+</div>
+<div class="section" id="point-symbolizers">
+<h2>Point symbolizers<a class="headerlink" href="#point-symbolizers" title="Permalink to this headline">¶</a></h2>
+<p>A point symbolizer depicts a symbol by means of a <code class="docutils literal"><span class="pre">Mark``or</span> <span class="pre">a</span> <span class="pre">``External</span> <span class="pre">Graphic</span></code>.
+The former is a built-in vector symbol that can be stroked and filled at the styler will, but only a handful of such symbols are available, whilst the latter can be a user provided image or SVG graphic.</p>
+<p>The point landmark styles use the Open Street Map icons for most of the locations. The images have been added inside the data directory, inside <code class="docutils literal"><span class="pre">styles/im</span></code>, since this allows to refer them by relative path:</p>
+<div class="figure" id="id4">
+<img alt="../../_images/icons.png" src="../../_images/icons.png" />
+<p class="caption"><span class="caption-text">Point landmarks style</span></p>
+</div>
+<p>Given the above symbols a point symbolizer looks as follows:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;sld:PointSymbolizer&gt;</span>
+          <span class="nt">&lt;sld:Graphic&gt;</span>
+            <span class="nt">&lt;sld:ExternalGraphic&gt;</span>
+              <span class="nt">&lt;sld:OnlineResource</span> <span class="na">xlink:type=</span><span class="s">&quot;simple&quot;</span> <span class="na">xlink:href=</span><span class="s">&quot;./img/landmarks/school.png&quot;</span> <span class="nt">/&gt;</span>
+              <span class="nt">&lt;sld:Format&gt;</span>image/png<span class="nt">&lt;/sld:Format&gt;</span>
+            <span class="nt">&lt;/sld:ExternalGraphic&gt;</span>
+          <span class="nt">&lt;/sld:Graphic&gt;</span>
+          <span class="nt">&lt;VendorOption</span> <span class="na">name=</span><span class="s">&quot;labelObstacle&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/VendorOption&gt;</span>
+        <span class="nt">&lt;/sld:PointSymbolizer&gt;</span>
+</pre></div>
+</div>
+<p>The icon is depicted on the screen as-is, at its natural resolutions.
+The <code class="docutils literal"><span class="pre">labelObstacle</span></code> vendor parameter, specific to GeoServer, makes sure the point is icon is treated as a <a class="reference external" href="http://docs.geoserver.org/latest/en/user/styling/sld-extensions/label-obstacles.html">label obstacle</a>, that is, makes sure no label will ever be depicted over the point.</p>
+</div>
+<div class="section" id="text-symbolizers-for-points">
+<h2>Text symbolizers for points<a class="headerlink" href="#text-symbolizers-for-points" title="Permalink to this headline">¶</a></h2>
+<p>The text symbolizer associates a label with a point using an attribute value as the label source.
+The following symbolizer is used to label schools:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;sld:TextSymbolizer&gt;</span>
+   <span class="nt">&lt;sld:Label&gt;</span>
+     <span class="nt">&lt;ogc:PropertyName&gt;</span>FULLNAME<span class="nt">&lt;/ogc:PropertyName&gt;</span>
+   <span class="nt">&lt;/sld:Label&gt;</span>
+   <span class="nt">&lt;sld:Font&gt;</span>
+     <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;font-family&quot;</span><span class="nt">&gt;</span>Arial<span class="nt">&lt;/sld:CssParameter&gt;</span>
+     <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;font-size&quot;</span><span class="nt">&gt;</span>12.0<span class="nt">&lt;/sld:CssParameter&gt;</span>
+     <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;font-style&quot;</span><span class="nt">&gt;</span>normal<span class="nt">&lt;/sld:CssParameter&gt;</span>
+     <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;font-weight&quot;</span><span class="nt">&gt;</span>normal<span class="nt">&lt;/sld:CssParameter&gt;</span>
+   <span class="nt">&lt;/sld:Font&gt;</span>
+   <span class="nt">&lt;sld:LabelPlacement&gt;</span>
+     <span class="nt">&lt;sld:PointPlacement&gt;</span>
+       <span class="nt">&lt;sld:AnchorPoint&gt;</span>
+         <span class="nt">&lt;sld:AnchorPointX&gt;</span>
+           <span class="nt">&lt;ogc:Literal&gt;</span>0.5<span class="nt">&lt;/ogc:Literal&gt;</span>
+         <span class="nt">&lt;/sld:AnchorPointX&gt;</span>
+         <span class="nt">&lt;sld:AnchorPointY&gt;</span>
+           <span class="nt">&lt;ogc:Literal&gt;</span>1.0<span class="nt">&lt;/ogc:Literal&gt;</span>
+         <span class="nt">&lt;/sld:AnchorPointY&gt;</span>
+       <span class="nt">&lt;/sld:AnchorPoint&gt;</span>
+       <span class="nt">&lt;sld:Displacement&gt;</span>
+         <span class="nt">&lt;sld:DisplacementX&gt;</span>
+           <span class="nt">&lt;ogc:Literal&gt;</span>0.0<span class="nt">&lt;/ogc:Literal&gt;</span>
+         <span class="nt">&lt;/sld:DisplacementX&gt;</span>
+         <span class="nt">&lt;sld:DisplacementY&gt;</span>
+           <span class="nt">&lt;ogc:Literal&gt;</span>-10.0<span class="nt">&lt;/ogc:Literal&gt;</span>
+         <span class="nt">&lt;/sld:DisplacementY&gt;</span>
+       <span class="nt">&lt;/sld:Displacement&gt;</span>
+       <span class="nt">&lt;sld:Rotation&gt;</span>
+         <span class="nt">&lt;ogc:Literal&gt;</span>0.0<span class="nt">&lt;/ogc:Literal&gt;</span>
+       <span class="nt">&lt;/sld:Rotation&gt;</span>
+     <span class="nt">&lt;/sld:PointPlacement&gt;</span>
+   <span class="nt">&lt;/sld:LabelPlacement&gt;</span>
+   <span class="nt">&lt;sld:Halo&gt;</span>
+     <span class="nt">&lt;sld:Radius&gt;</span>
+       <span class="nt">&lt;ogc:Literal&gt;</span>1.5<span class="nt">&lt;/ogc:Literal&gt;</span>
+     <span class="nt">&lt;/sld:Radius&gt;</span>
+     <span class="nt">&lt;sld:Fill&gt;</span>
+       <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;fill&quot;</span><span class="nt">&gt;</span>#FFFFFF<span class="nt">&lt;/sld:CssParameter&gt;</span>
+     <span class="nt">&lt;/sld:Fill&gt;</span>
+   <span class="nt">&lt;/sld:Halo&gt;</span>
+   <span class="nt">&lt;sld:Fill&gt;</span>
+     <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;fill&quot;</span><span class="nt">&gt;</span>#000033<span class="nt">&lt;/sld:CssParameter&gt;</span>
+   <span class="nt">&lt;/sld:Fill&gt;</span>
+   <span class="nt">&lt;sld:Priority&gt;</span>200000<span class="nt">&lt;/sld:Priority&gt;</span>
+   <span class="nt">&lt;sld:VendorOption</span> <span class="na">name=</span><span class="s">&quot;autoWrap&quot;</span><span class="nt">&gt;</span>100<span class="nt">&lt;/sld:VendorOption&gt;</span>
+ <span class="nt">&lt;/sld:TextSymbolizer&gt;</span>
+</pre></div>
+</div>
+<p>Highlights about the above style:</p>
+<ul class="simple">
+<li>Uses <code class="docutils literal"><span class="pre">FULLNAME</span></code> as the label source</li>
+<li>Uses a Arial 12pt font</li>
+<li>Places the label below the point, and offsets it by 10 pixel to the south</li>
+<li>Applies a white halo to make it stand out of the background map</li>
+<li>Sets its priority to 200000 (high, important) to make sure the label is depicted in preference to others</li>
+<li>Uses the <code class="docutils literal"><span class="pre">autoWrap</span></code> option to make it wrap on the next line if it&#8217;s larger than 100 pixels
+(the full list of labelling vendor options is available in the <a class="reference external" href="http://docs.geoserver.org/latest/en/user/styling/sld-reference/labeling.html">GeoServer user guide</a>).</li>
+</ul>
+</div>
+<div class="section" id="using-rules-to-assign-a-different-styling-to-each-point">
+<h2>Using Rules to assign a different styling to each point<a class="headerlink" href="#using-rules-to-assign-a-different-styling-to-each-point" title="Permalink to this headline">¶</a></h2>
+<p>A Rule is a SLD construct allowing the style editor to control scale dependencies and filter data so that only certain data is depicted using the symbolizers contained in the rule.</p>
+<p>The rule for the school points looks as follows:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;sld:Rule&gt;</span>
+   <span class="nt">&lt;sld:Name&gt;</span>school<span class="nt">&lt;/sld:Name&gt;</span>
+   <span class="nt">&lt;ogc:Filter&gt;</span>
+     <span class="nt">&lt;ogc:PropertyIsEqualTo&gt;</span>
+       <span class="nt">&lt;ogc:PropertyName&gt;</span>MTFCC<span class="nt">&lt;/ogc:PropertyName&gt;</span>
+       <span class="nt">&lt;ogc:Literal&gt;</span>K2543<span class="nt">&lt;/ogc:Literal&gt;</span>
+     <span class="nt">&lt;/ogc:PropertyIsEqualTo&gt;</span>
+   <span class="nt">&lt;/ogc:Filter&gt;</span>
+   <span class="nt">&lt;sld:MaxScaleDenominator&gt;</span>100000<span class="nt">&lt;/sld:MaxScaleDenominator&gt;</span>
+   <span class="nt">&lt;sld:PointSymbolizer&gt;</span>
+     <span class="c">&lt;!-- same as above --&gt;</span>
+   <span class="nt">&lt;/sld:PointSymbolizer&gt;</span>
+   <span class="nt">&lt;sld:TextSymbolizer&gt;</span>
+     <span class="c">&lt;!-- same as above --&gt;</span>
+   <span class="nt">&lt;/sld:TextSymbolizer&gt;</span>
+ <span class="nt">&lt;/sld:Rule&gt;</span>
+</pre></div>
+</div>
+<p>Highlights about the above rule:</p>
+<ul class="simple">
+<li>makes sure the symbolizers are applied only to the features whose <code class="docutils literal"><span class="pre">MTFCC</span> <span class="pre">=</span> <span class="pre">K2543</span></code></li>
+<li>shows the symbols only when the scale denominator is below 100000 (e.g., shows them at 1:10000, but not at 1:2000000).</li>
+</ul>
+</div>
+<div class="section" id="using-dynamic-symbolizers-to-reduce-the-style-size">
+<h2>Using dynamic symbolizers to reduce the style size<a class="headerlink" href="#using-dynamic-symbolizers-to-reduce-the-style-size" title="Permalink to this headline">¶</a></h2>
+<p>The overall <code class="docutils literal"><span class="pre">point_landmark</span></code> style has 8 different rules using different symbols for each type and amounts to almost 550 lines of XML. The same style could be written in a much more compact way if we could store the symbol name in some attribute and expand it in the external graphic url.</p>
+<p>Standard SLD 1.0 does not allow for that, but GeoServer supports extensions to it known as <em>dynamic symbolizers</em> that allow for generic CQL expressions to be embedded in the URL.
+The data directory already contains a secondary layer, <code class="docutils literal"><span class="pre">bptlandmarks_2876</span></code>, which is using a different projection and has a <code class="docutils literal"><span class="pre">IMAGE</span></code> attribute containing the file names.</p>
+<p>The style can then be reduced to a single rule using the following point symbolizer:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;sld:PointSymbolizer&gt;</span>
+  <span class="nt">&lt;sld:Graphic&gt;</span>
+    <span class="nt">&lt;sld:ExternalGraphic&gt;</span>
+      <span class="nt">&lt;sld:OnlineResource</span> <span class="na">xlink:type=</span><span class="s">&quot;simple&quot;</span> <span class="na">xlink:href=</span><span class="s">&quot;./img/landmarks/${IMAGE}&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;sld:Format&gt;</span>image/png<span class="nt">&lt;/sld:Format&gt;</span>
+    <span class="nt">&lt;/sld:ExternalGraphic&gt;</span>
+  <span class="nt">&lt;/sld:Graphic&gt;</span>
+  <span class="nt">&lt;VendorOption</span> <span class="na">name=</span><span class="s">&quot;labelObstacle&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/VendorOption&gt;</span>
+<span class="nt">&lt;/sld:PointSymbolizer&gt;</span>
+</pre></div>
+</div>
+<p>Here is the overall style:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;sld:StyledLayerDescriptor</span>
+<span class="na">xmlns=</span><span class="s">&quot;http://www.opengis.net/sld&quot;</span>
+<span class="na">xmlns:sld=</span><span class="s">&quot;http://www.opengis.net/sld&quot;</span>
+<span class="na">xmlns:ogc=</span><span class="s">&quot;http://www.opengis.net/ogc&quot;</span>
+<span class="na">xmlns:gml=</span><span class="s">&quot;http://www.opengis.net/gml&quot;</span>
+<span class="na">xmlns:xlink=</span><span class="s">&quot;http://www.w3.org/1999/xlink&quot;</span> <span class="na">version=</span><span class="s">&quot;1.0.0&quot;</span><span class="nt">&gt;</span>
+
+ <span class="nt">&lt;sld:UserLayer&gt;</span>
+   <span class="nt">&lt;sld:LayerFeatureConstraints&gt;</span>
+     <span class="nt">&lt;sld:FeatureTypeConstraint/&gt;</span>
+   <span class="nt">&lt;/sld:LayerFeatureConstraints&gt;</span>
+   <span class="nt">&lt;sld:UserStyle&gt;</span>
+     <span class="nt">&lt;sld:Name&gt;</span>tl 2010 08013 pointlm<span class="nt">&lt;/sld:Name&gt;</span>
+     <span class="nt">&lt;sld:Title/&gt;</span>
+     <span class="nt">&lt;sld:FeatureTypeStyle&gt;</span>
+       <span class="nt">&lt;sld:Rule&gt;</span>
+         <span class="nt">&lt;sld:Name&gt;</span>landmarks<span class="nt">&lt;/sld:Name&gt;</span>
+         <span class="nt">&lt;ogc:Filter&gt;</span>
+           <span class="nt">&lt;ogc:Not&gt;</span>
+             <span class="nt">&lt;ogc:PropertyIsNull&gt;</span>
+               <span class="nt">&lt;ogc:PropertyName&gt;</span>IMAGE<span class="nt">&lt;/ogc:PropertyName&gt;</span>
+             <span class="nt">&lt;/ogc:PropertyIsNull&gt;</span>
+           <span class="nt">&lt;/ogc:Not&gt;</span>
+         <span class="nt">&lt;/ogc:Filter&gt;</span>
+         <span class="nt">&lt;sld:MaxScaleDenominator&gt;</span>100000<span class="nt">&lt;/sld:MaxScaleDenominator&gt;</span>
+         <span class="nt">&lt;sld:PointSymbolizer&gt;</span>
+           <span class="nt">&lt;sld:Graphic&gt;</span>
+             <span class="nt">&lt;sld:ExternalGraphic&gt;</span>
+               <span class="nt">&lt;sld:OnlineResource</span> <span class="na">xlink:type=</span><span class="s">&quot;simple&quot;</span> <span class="na">xlink:href=</span><span class="s">&quot;./img/landmarks/${IMAGE}&quot;</span> <span class="nt">/&gt;</span>
+               <span class="nt">&lt;sld:Format&gt;</span>image/png<span class="nt">&lt;/sld:Format&gt;</span>
+             <span class="nt">&lt;/sld:ExternalGraphic&gt;</span>
+           <span class="nt">&lt;/sld:Graphic&gt;</span>
+           <span class="nt">&lt;VendorOption</span> <span class="na">name=</span><span class="s">&quot;labelObstacle&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/VendorOption&gt;</span>
+         <span class="nt">&lt;/sld:PointSymbolizer&gt;</span>
+         <span class="nt">&lt;sld:TextSymbolizer&gt;</span>
+           <span class="nt">&lt;sld:Label&gt;</span>
+             <span class="nt">&lt;ogc:PropertyName&gt;</span>FULLNAME<span class="nt">&lt;/ogc:PropertyName&gt;</span>
+           <span class="nt">&lt;/sld:Label&gt;</span>
+           <span class="nt">&lt;sld:Font&gt;</span>
+             <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;font-family&quot;</span><span class="nt">&gt;</span>Arial<span class="nt">&lt;/sld:CssParameter&gt;</span>
+             <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;font-size&quot;</span><span class="nt">&gt;</span>12.0<span class="nt">&lt;/sld:CssParameter&gt;</span>
+             <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;font-style&quot;</span><span class="nt">&gt;</span>normal<span class="nt">&lt;/sld:CssParameter&gt;</span>
+             <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;font-weight&quot;</span><span class="nt">&gt;</span>normal<span class="nt">&lt;/sld:CssParameter&gt;</span>
+           <span class="nt">&lt;/sld:Font&gt;</span>
+           <span class="nt">&lt;sld:LabelPlacement&gt;</span>
+             <span class="nt">&lt;sld:PointPlacement&gt;</span>
+               <span class="nt">&lt;sld:AnchorPoint&gt;</span>
+                 <span class="nt">&lt;sld:AnchorPointX&gt;</span>
+                   <span class="nt">&lt;ogc:Literal&gt;</span>0.5<span class="nt">&lt;/ogc:Literal&gt;</span>
+                 <span class="nt">&lt;/sld:AnchorPointX&gt;</span>
+                 <span class="nt">&lt;sld:AnchorPointY&gt;</span>
+                   <span class="nt">&lt;ogc:Literal&gt;</span>1.0<span class="nt">&lt;/ogc:Literal&gt;</span>
+                 <span class="nt">&lt;/sld:AnchorPointY&gt;</span>
+               <span class="nt">&lt;/sld:AnchorPoint&gt;</span>
+               <span class="nt">&lt;sld:Displacement&gt;</span>
+                 <span class="nt">&lt;sld:DisplacementX&gt;</span>
+                   <span class="nt">&lt;ogc:Literal&gt;</span>0.0<span class="nt">&lt;/ogc:Literal&gt;</span>
+                 <span class="nt">&lt;/sld:DisplacementX&gt;</span>
+                 <span class="nt">&lt;sld:DisplacementY&gt;</span>
+                   <span class="nt">&lt;ogc:Literal&gt;</span>-14.0<span class="nt">&lt;/ogc:Literal&gt;</span>
+                 <span class="nt">&lt;/sld:DisplacementY&gt;</span>
+               <span class="nt">&lt;/sld:Displacement&gt;</span>
+               <span class="nt">&lt;sld:Rotation&gt;</span>
+                 <span class="nt">&lt;ogc:Literal&gt;</span>0.0<span class="nt">&lt;/ogc:Literal&gt;</span>
+               <span class="nt">&lt;/sld:Rotation&gt;</span>
+             <span class="nt">&lt;/sld:PointPlacement&gt;</span>
+           <span class="nt">&lt;/sld:LabelPlacement&gt;</span>
+           <span class="nt">&lt;sld:Halo&gt;</span>
+             <span class="nt">&lt;sld:Radius&gt;</span>
+               <span class="nt">&lt;ogc:Literal&gt;</span>1.5<span class="nt">&lt;/ogc:Literal&gt;</span>
+             <span class="nt">&lt;/sld:Radius&gt;</span>
+             <span class="nt">&lt;sld:Fill&gt;</span>
+               <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;fill&quot;</span><span class="nt">&gt;</span>#FFFFFF<span class="nt">&lt;/sld:CssParameter&gt;</span>
+             <span class="nt">&lt;/sld:Fill&gt;</span>
+           <span class="nt">&lt;/sld:Halo&gt;</span>
+           <span class="nt">&lt;sld:Fill&gt;</span>
+             <span class="nt">&lt;sld:CssParameter</span> <span class="na">name=</span><span class="s">&quot;fill&quot;</span><span class="nt">&gt;</span>#000033<span class="nt">&lt;/sld:CssParameter&gt;</span>
+           <span class="nt">&lt;/sld:Fill&gt;</span>
+           <span class="nt">&lt;sld:Priority&gt;</span>200000<span class="nt">&lt;/sld:Priority&gt;</span>
+           <span class="nt">&lt;sld:VendorOption</span> <span class="na">name=</span><span class="s">&quot;autoWrap&quot;</span><span class="nt">&gt;</span>100<span class="nt">&lt;/sld:VendorOption&gt;</span>
+         <span class="nt">&lt;/sld:TextSymbolizer&gt;</span>
+       <span class="nt">&lt;/sld:Rule&gt;</span>
+     <span class="nt">&lt;/sld:FeatureTypeStyle&gt;</span>
+   <span class="nt">&lt;/sld:UserStyle&gt;</span>
+ <span class="nt">&lt;/sld:UserLayer&gt;</span>
+<span class="nt">&lt;/sld:StyledLayerDescriptor&gt;</span>
+</pre></div>
+</div>
+<p>And <a class="reference external" href="http://localhost:8080/geoserver/geosolutions/wms/reflect?layers=geosolutions:BoulderCityLimits,geosolutions:bptlandmarks_2876&amp;format=application/openlayers&amp;styles=line,&amp;&amp;SRS=EPSG%3A2876&amp;BBOX=3055352.9105712,1242991.8881696,3066350.8695086,1250875.1907674">here is a map</a> using this alternate style:</p>
+<div class="figure" id="id5">
+<img alt="../../_images/pt_landmark_ds.png" src="../../_images/pt_landmark_ds.png" />
+<p class="caption"><span class="caption-text">Point landmarks using dynamic symbolizers</span></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Styling point data</a><ul>
+<li><a class="reference internal" href="#the-dataset">The dataset</a></li>
+<li><a class="reference internal" href="#point-symbolizers">Point symbolizers</a></li>
+<li><a class="reference internal" href="#text-symbolizers-for-points">Text symbolizers for points</a></li>
+<li><a class="reference internal" href="#using-rules-to-assign-a-different-styling-to-each-point">Using Rules to assign a different styling to each point</a></li>
+<li><a class="reference internal" href="#using-dynamic-symbolizers-to-reduce-the-style-size">Using dynamic symbolizers to reduce the style size</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="roads.html"
+                        title="previous chapter">Roads and labelling roads</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="style_uom.html"
+                        title="next chapter">Styling in real world units</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="style_uom.html" title="Styling in real world units"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="roads.html" title="Roads and labelling roads"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Pretty maps with GeoServer</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="styling.html" >Styling with SLD</a> &raquo;</li>
+          <li class="nav-item nav-item-4"><a href="styling_vector.html" >Styling Vector data</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

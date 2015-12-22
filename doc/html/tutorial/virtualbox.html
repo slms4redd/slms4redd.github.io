@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Install the virtual machine &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../index.html" />
+    <link rel="up" title="DRC NFMS Portal training" href="index.html" />
+    <link rel="next" title="Linux" href="linux.html" />
+    <link rel="prev" title="Portal architecture" href="portal_architecture.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../index.html">
+      <img class="logo" src="../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="linux.html" title="Linux"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="portal_architecture.html" title="Portal architecture"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">DRC NFMS Portal training</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="install-the-virtual-machine">
+<h1>Install the virtual machine<a class="headerlink" href="#install-the-virtual-machine" title="Permalink to this headline">¶</a></h1>
+<p>For this training we will use a virtual machine. We need to install a virtualization software that will host the Operating System. The virtualization software of our choice is VirtualBox and our Operating System will be Ubuntu/Linux</p>
+<p>The steps we are going to take are the following ones:</p>
+<ul class="simple">
+<li>Download and install VirtualBox</li>
+<li>Create a virtual machine</li>
+<li>Install Ubuntu/Linux</li>
+</ul>
+<p>Using the virtualization software terminology, the physical machine (hardware) is called <em>host</em> while the virtual machine is called <em>guest</em>.</p>
+<div class="section" id="virtualbox-installation">
+<h2>VirtualBox installation<a class="headerlink" href="#virtualbox-installation" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>The first step is to download VirtualBox under &#8220;VirtualBox platform packages&#8221; on the download page (<a class="reference external" href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a>)</dt>
+<dd>and proceed with the installation.</dd>
+</dl>
+<p>Then you will need to install Ubuntu/Linux, so it is advisable to download the installer
+while preparing the virtual machine. The Ubuntu installer is available on Ubuntu download page (<a class="reference external" href="http://www.ubuntu.com/download">http://www.ubuntu.com/download</a>). We will download
+Ubuntu Desktop, preferably the 32-bit package of the 12.04 LTS (Long Term Support) distribution.</p>
+<p>The Ubuntu page asks for a small contribution for download, but you are not required to do it. You can continue
+the download by clicking on the &#8220;not now, take me to the download&#8221;:</p>
+<a class="reference internal image-reference" href="../_images/ubuntu_download.png"><img alt="../_images/ubuntu_download.png" class="align-center" src="../_images/ubuntu_download.png" style="width: 700px;" /></a>
+<p>The downloaded file should be called &#8220;ubuntu-12.04.1-desktop-i386.iso&#8221;.</p>
+</div>
+<div class="section" id="creation-of-a-virtual-machine">
+<h2>Creation of a virtual machine<a class="headerlink" href="#creation-of-a-virtual-machine" title="Permalink to this headline">¶</a></h2>
+<p>Once VirtualVox is installed, we start it and create a new virtual machine:</p>
+<img alt="../_images/p00.png" class="align-center" src="../_images/p00.png" />
+<p>Below we give a name to the virtual machine and specify the operating system &#8220;Linux&#8221;, &#8220;Ubuntu&#8221;.</p>
+<img alt="../_images/p01.png" src="../_images/p01.png" />
+<p>We set 4096Mb of memory for the virtual machine. Keep in mind that this memory is taken from the host machine
+so if the host has less than 2GB, 1GB allocated to the virtual machine may be too much, as the host
+may run out of memory.</p>
+<p>In no case the memory allocated to the virtaul machine should exceeded 50% of the total memory of the host.</p>
+<img alt="../_images/p02.png" class="align-center" src="../_images/p02.png" />
+<p>Finally we have to specify the size and type of the disc. For all the parameters but the hard disk size, choose the default option. For the hard disk size choose 80GB.</p>
+<img alt="../_images/p03.png" class="align-center" src="../_images/p03.png" />
+<img alt="../_images/p04.png" class="align-center" src="../_images/p04.png" />
+<img alt="../_images/p05.png" class="align-center" src="../_images/p05.png" />
+<img alt="../_images/p06.png" class="align-center" src="../_images/p06.png" />
+<p>Now that the machine is created it can be started by selecting it and pressing the &#8220;Start&#8221; button.</p>
+<img alt="../_images/p07.png" class="align-center" src="../_images/p07.png" />
+<p>When starting, the VirtualBox show various informational messages that are not very important. One of them is about &#8220;host key&#8221;. When
+you are working on the virtual machine and press the host key, the virtualization software passes the focus from the guest to the host. The default key is right &#8220;Control&#8221;.</p>
+<img alt="../_images/p08.png" class="align-center" src="../_images/p08.png" />
+</div>
+<div class="section" id="ubuntu-linux-installation">
+<h2>Ubuntu/Linux installation<a class="headerlink" href="#ubuntu-linux-installation" title="Permalink to this headline">¶</a></h2>
+<p>The next step is to install a version of Ubuntu/Linux. When starting the virtual machine you will be asked to find an image of the operating system.</p>
+<p>Then you have to press the button to select the image file full of Ubuntu you downloaded eralier: ubuntu-12.04.1-desktop-i386.iso.</p>
+<img alt="../_images/p09.png" class="align-center" src="../_images/p09.png" />
+<p>And finally we just have to press the <em>Start</em>  button to start the installation.</p>
+<img alt="../_images/p10.png" class="align-center" src="../_images/p10.png" />
+<p>You can choose any language for the installation by selecting it from the list on the left.</p>
+<a class="reference internal image-reference" href="../_images/p11.png"><img alt="../_images/p11.png" class="align-center" src="../_images/p11.png" style="width: 700px;" /></a>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Install the virtual machine</a><ul>
+<li><a class="reference internal" href="#virtualbox-installation">VirtualBox installation</a></li>
+<li><a class="reference internal" href="#creation-of-a-virtual-machine">Creation of a virtual machine</a></li>
+<li><a class="reference internal" href="#ubuntu-linux-installation">Ubuntu/Linux installation</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="portal_architecture.html"
+                        title="previous chapter">Portal architecture</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="linux.html"
+                        title="next chapter">Linux</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="linux.html" title="Linux"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="portal_architecture.html" title="Portal architecture"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >DRC NFMS Portal training</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

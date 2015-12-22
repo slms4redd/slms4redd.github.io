@@ -1,0 +1,437 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Interface description &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../index.html" />
+    <link rel="up" title="DRC NFMS Portal training" href="index.html" />
+    <link rel="next" title="Portal architecture" href="portal_architecture.html" />
+    <link rel="prev" title="Introduction to the training" href="outline.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../index.html">
+      <img class="logo" src="../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="portal_architecture.html" title="Portal architecture"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="outline.html" title="Introduction to the training"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">DRC NFMS Portal training</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="interface-description">
+<h1>Interface description<a class="headerlink" href="#interface-description" title="Permalink to this headline">¶</a></h1>
+<p>The NFMS portal page is composed of the following main user interface elements:</p>
+<dl class="docutils">
+<dt><a class="reference internal" href="#map"><span>Map</span></a></dt>
+<dd>Allows to overlay, browse and query all the layers available in the portal</dd>
+<dt><a class="reference internal" href="#navigation-buttons"><span>Navigation Buttons</span></a></dt>
+<dd>Used to browse the map (zoom in and out, and zoom to maximum extent)</dd>
+<dt><a class="reference internal" href="#layers-pane"><span>Layers Pane</span></a></dt>
+<dd>Used to show or hide layers on the map, and to access layers legend and general information</dd>
+<dt><a class="reference internal" href="#time-slider"><span>Time Slider</span></a></dt>
+<dd>In case of time dependent layers, it allows to select a time instance</dd>
+<dt><a class="reference internal" href="#language-buttons"><span>Language Selection Buttons</span></a></dt>
+<dd>When multiple language are supported they allow to select different languages</dd>
+<dt><a class="reference internal" href="#legend-pane"><span>Legend Pane</span></a></dt>
+<dd>Shows the legend for the visible layers, together with the link to their source</dd>
+</dl>
+<div class="figure align-center" id="id7">
+<a class="reference internal image-reference" href="../_images/whole_page1.png"><img alt="../_images/whole_page1.png" src="../_images/whole_page1.png" /></a>
+<p class="caption"><span class="caption-text">NFMS portal</span></p>
+</div>
+<p>Follows a detailed description of the user interface elements and functions described above.</p>
+<div class="section" id="map">
+<span id="id1"></span><h2>Map<a class="headerlink" href="#map" title="Permalink to this headline">¶</a></h2>
+<p>The map is the main component of the web portal, it allows the user to overlay and query all the informative layers available in the web portal. The map extent and zoom level can be dynamically adjusted allowing the user to focus on a particular area of interest. It also allows to access statistics for specific polygons and layers.</p>
+</div>
+<div class="section" id="navigation-buttons">
+<span id="id2"></span><h2>Navigation Buttons<a class="headerlink" href="#navigation-buttons" title="Permalink to this headline">¶</a></h2>
+<p>Navigation buttons are used to zoom in and out and to the maximum extent (the whole country). Zoom levels are discontinuous, an match Google Maps™ ones to allow overlay with their layers if needed. When the map is zoomed on a small area and you want to quickly move to another one, you can zoom to the maximum extent and then zoom in again to the area you are interested in.</p>
+<div class="figure align-center" id="id8">
+<a class="reference internal image-reference" href="../_images/nav_buttons1.png"><img alt="../_images/nav_buttons1.png" src="../_images/nav_buttons1.png" /></a>
+<p class="caption"><span class="caption-text">Navigation buttons</span></p>
+</div>
+</div>
+<div class="section" id="layers-pane">
+<span id="id3"></span><h2>Layers Pane<a class="headerlink" href="#layers-pane" title="Permalink to this headline">¶</a></h2>
+<p>The layers pane shows all the map layers available in the portal, organized in a three-levels structure. The first level it&#8217;s thematic areas which the layers belongs to. On the example below they are:</p>
+<ul class="simple">
+<li>Base layers</li>
+<li>Administrative areas</li>
+<li>REDD+ activity</li>
+<li>Forest area and forest area change</li>
+<li>Safeguards</li>
+<li>Other</li>
+</ul>
+<div class="figure align-center" id="id9">
+<a class="reference internal image-reference" href="../_images/layers_pane1.png"><img alt="../_images/layers_pane1.png" src="../_images/layers_pane1.png" /></a>
+<p class="caption"><span class="caption-text">Layers pane</span></p>
+</div>
+<p>Clicking on one of these headers expands the corresponding pane and shows the layers in that thematic area (Forest Area and Forest Area Change in the figure above).</p>
+<p>Layers can eventually be grouped in a second-level sub-category. On the given example, in the <cite>Forest area and forest area change</cite> thematic area, layers are grouped in the following sub-categories:</p>
+<ul class="simple">
+<li>Forest land remaining forest land</li>
+<li>Forest land converted to non-forest land</li>
+<li>Non-forest land converted to forest-land</li>
+<li>Biomass fire</li>
+</ul>
+<p>Finally at the third level (or second if not in a subcategory) are the map layers.</p>
+<p>For each layer the following features are buttons/icons available:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#layer-show"><span>Layer show checkbox</span></a></li>
+<li><a class="reference internal" href="#inline-legend"><span>Inline legend icon</span></a></li>
+<li><a class="reference internal" href="#inline-legend-button"><span>Inline legend button</span></a></li>
+<li><a class="reference internal" href="#layer-info-button"><span>Layer info button</span></a></li>
+</ul>
+<div class="section" id="showing-layers">
+<span id="layer-show"></span><h3>Showing Layers<a class="headerlink" href="#showing-layers" title="Permalink to this headline">¶</a></h3>
+<p>If the layer is actually available as an online map (it could not be available as GIS data but the administrator might want the label to be there), a checkbox is shown at its left to add it to the map. Clicking on the checkbox adds the layer to the map and its legend to the <cite>Legend Pane &lt;legend-pane&gt;</cite> if available. If present, the inline legend button is activated.</p>
+</div>
+<div class="section" id="inline-legends">
+<span id="inline-legend"></span><h3>Inline Legends<a class="headerlink" href="#inline-legends" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>When the layer has one only category (in the case of country boundary layers for instance), an inline legend icon is shown at the left of its label in the <a class="reference internal" href="#layers-pane"><span>layers pane</span></a>.</div></blockquote>
+<div class="figure align-center" id="id10">
+<a class="reference internal image-reference" href="../_images/layer_inline_legend1.png"><img alt="../_images/layer_inline_legend1.png" src="../_images/layer_inline_legend1.png" /></a>
+<p class="caption"><span class="caption-text">Inline legend</span></p>
+</div>
+</div>
+<div class="section" id="inline-legend-buttons">
+<span id="inline-legend-button"></span><h3>Inline Legend Buttons<a class="headerlink" href="#inline-legend-buttons" title="Permalink to this headline">¶</a></h3>
+<p>If the layer has a more complex legend, a &#8220;show legend&#8221; button is shown instead. When the layer is not active the icon is grayed-out and not active as a button. When the layer is added to the map, the inline legend button is activated and by clicking on it the <cite>Legend Pane &lt;legend-pane&gt;</cite> is shown and its content automatically scrolls to the legend requested.</p>
+<div class="figure align-center" id="id11">
+<a class="reference internal image-reference" href="../_images/inline_legend_button1.png"><img alt="../_images/inline_legend_button1.png" src="../_images/inline_legend_button1.png" /></a>
+<p class="caption"><span class="caption-text">Inline legend button</span></p>
+</div>
+</div>
+<div class="section" id="layer-info-button">
+<span id="id4"></span><h3>Layer info button<a class="headerlink" href="#layer-info-button" title="Permalink to this headline">¶</a></h3>
+<p>If layer information is available, an info button is shown at the right of the layer label. When you click on it, a modal dialog appears with a description of the layer, which may contain the following information:</p>
+<ul class="simple">
+<li>Layer description</li>
+<li>Original data source</li>
+<li>Logos of the organizations providing the data</li>
+<li>Any other relevant information</li>
+</ul>
+<div class="figure align-center" id="id12">
+<a class="reference internal image-reference" href="../_images/layer_info1.png"><img alt="../_images/layer_info1.png" src="../_images/layer_info1.png" /></a>
+<p class="caption"><span class="caption-text">Layer info dialog</span></p>
+</div>
+</div>
+</div>
+<div class="section" id="selected-layers-pane">
+<span id="time-slider"></span><h2>Selected Layers Pane<a class="headerlink" href="#selected-layers-pane" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="id13">
+<a class="reference internal image-reference" href="../_images/selected_layers1.png"><img alt="../_images/selected_layers1.png" src="../_images/selected_layers1.png" /></a>
+<p class="caption"><span class="caption-text">Selected layers pane</span></p>
+</div>
+<p>Clicking on the <code class="docutils literal"><span class="pre">Selected</span> <span class="pre">layers</span></code> button you get a subset of the layer list containing only the ones that are currently visible. It&#8217;s possible to change the transparency for each layer using the slider under its label.</p>
+</div>
+<div class="section" id="id5">
+<h2>Time Slider<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>Some of the layers, in particular the ones that are periodically produced by, or used in, the analysis process, are time-dependent (<code class="docutils literal"><span class="pre">layer</span> <span class="pre">updates</span></code> in the GeoStore model). To choose a date among the ones available you can drag the time slider (see figure below). The date that the system chooses for each layer is its closest previous one available for that layer. To better explain this behavior let&#8217;s consider a particular case in which we have the following layers and dates:</p>
+<ul class="simple">
+<li>Deforestation - years 2000, 2005, and 2010</li>
+<li>Landsat mosaic - years 2000 and 2010.</li>
+</ul>
+<p>If you select 2005 in the time slider,  the system will automatically choose Deforestation year 2005 (as it matches the value you selected) and Landsat mosaic year 2000 (the previous year closest to the one you have chosen).</p>
+<div class="figure align-center" id="id14">
+<a class="reference internal image-reference" href="../_images/time_slider1.png"><img alt="../_images/time_slider1.png" src="../_images/time_slider1.png" /></a>
+<p class="caption"><span class="caption-text">Time slider</span></p>
+</div>
+</div>
+<div class="section" id="language-selection-buttons">
+<span id="language-buttons"></span><h2>Language Selection Buttons<a class="headerlink" href="#language-selection-buttons" title="Permalink to this headline">¶</a></h2>
+<p>Portal language is selected by clicking on the language buttons. Depending on the country where the portal is implemented, different languages are available.</p>
+<p>When you select a language the system remembers it the next times you reload the portal.</p>
+<dl class="docutils">
+<dt>/language_buttons.png</dt>
+<dd><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">align:</th><td class="field-body">center</td>
+</tr>
+<tr class="field-even field"><th class="field-name">scale:</th><td class="field-body">75 %</td>
+</tr>
+</tbody>
+</table>
+<p class="last">Language buttons</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="legend-pane">
+<span id="id6"></span><h2>Legend Pane<a class="headerlink" href="#legend-pane" title="Permalink to this headline">¶</a></h2>
+<p>The legend is hidden by default. To show it you can either</p>
+<ul class="simple">
+<li>click on the legend button on the top of the page</li>
+<li>click on the <a class="reference internal" href="#inline-legend-button"><span>inline legend button</span></a>, on the left of the layers that have a legend</li>
+</ul>
+<p>The pane  shows the legends for the layers that are being shown on the map. When clicking on an inline legend icon related to a layer, the pane automatically scrolls to its legend.</p>
+<div class="figure align-center" id="id15">
+<a class="reference internal image-reference" href="../_images/legend_pane1.png"><img alt="../_images/legend_pane1.png" src="../_images/legend_pane1.png" /></a>
+<p class="caption"><span class="caption-text">Legend pane</span></p>
+</div>
+</div>
+<div class="section" id="page-footer">
+<h2>Page Footer<a class="headerlink" href="#page-footer" title="Permalink to this headline">¶</a></h2>
+<p>The footer section of the portal contains popups/links to pages with relevant information related to the project in general and could contain links to information specific for the country.</p>
+<div class="figure align-center" id="id16">
+<a class="reference internal image-reference" href="../_images/footer_links1.png"><img alt="../_images/footer_links1.png" src="../_images/footer_links1.png" /></a>
+<p class="caption"><span class="caption-text">Footer links</span></p>
+</div>
+<p>The scale of the map is shown at the bottom right of the page.</p>
+</div>
+<div class="section" id="browsing-the-map">
+<h2>Browsing the Map<a class="headerlink" href="#browsing-the-map" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="panning-and-zooming">
+<h3>Panning and zooming<a class="headerlink" href="#panning-and-zooming" title="Permalink to this headline">¶</a></h3>
+<p>Map panning is done by dragging of the mouse pointer over the map itself</p>
+<p>Zooming can be done in the following three ways:</p>
+<ul class="simple">
+<li>clicking on the zoom in and zoom out buttons on the top-left of the page</li>
+<li>shift-dragging the mouse pointer over the map</li>
+<li>double-clicking on any point on the map</li>
+</ul>
+<p>You can also zoom to the maximum extent using the <code class="docutils literal"><span class="pre">zoom</span> <span class="pre">to</span> <span class="pre">max</span> <span class="pre">extent</span></code> button, positioned next to the zoom-in button and usually showing a stylized shape of the country.</p>
+</div>
+</div>
+<div class="section" id="querying-the-map">
+<h2>Querying the map<a class="headerlink" href="#querying-the-map" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-query-dialog">
+<h3>The Query Dialog<a class="headerlink" href="#the-query-dialog" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center" id="id17">
+<a class="reference internal image-reference" href="../_images/query_dialog1.png"><img alt="../_images/query_dialog1.png" src="../_images/query_dialog1.png" /></a>
+<p class="caption"><span class="caption-text">Query Dialog</span></p>
+</div>
+<p>If any <cite>queryable</cite> layer is visible on the map, you can get access to information and statistics related to them by clicking on the point you are interested to. A dialog is shown with an entry for each queryable layer that has features (if vector) or a no-data value (if raster) on that point. When hovering one of the entries in the dialog, the related polygon feature is highlighted on the map (see image below). You can also zoom to that area by clicking the <code class="docutils literal"><span class="pre">Zoom</span> <span class="pre">to</span> <span class="pre">area</span></code> button, and access statistics based on it.</p>
+<div class="figure align-center" id="id18">
+<a class="reference internal image-reference" href="../_images/query_dialog_21.png"><img alt="../_images/query_dialog_21.png" src="../_images/query_dialog_21.png" /></a>
+<p class="caption"><span class="caption-text">Query Dialog - feature highlight</span></p>
+</div>
+</div>
+<div class="section" id="pre-calculated-statistics">
+<h3>Pre-calculated Statistics<a class="headerlink" href="#pre-calculated-statistics" title="Permalink to this headline">¶</a></h3>
+<p>By clicking on <code class="docutils literal"><span class="pre">the</span> <span class="pre">statistics</span></code> button in the query dialog, a modal popup containing the statistics for the area is shown.</p>
+<div class="figure align-center" id="id19">
+<a class="reference internal image-reference" href="../_images/chart1.png"><img alt="../_images/chart1.png" src="../_images/chart1.png" /></a>
+<p class="caption"><span class="caption-text">Chart dialog</span></p>
+</div>
+<p>Hovering the mouse on the chart shows actual values.</p>
+<p>The chart can be printed clicking on the printer button on the top left of the dialog.</p>
+</div>
+<div class="section" id="real-time-statistics">
+<h3>Real-time Statistics<a class="headerlink" href="#real-time-statistics" title="Permalink to this headline">¶</a></h3>
+<p>&#8211; To be implemented &#8211;</p>
+<p>To access real-time statistics:</p>
+<ul class="simple">
+<li>click on the Statistics button on the header and start drawing the contour of the area you want to calculate the statistics for (see the image <a class="reference internal" href="#draw-polygon"><span>Draw polygon</span></a> below)</li>
+<li>double click to close the polygon</li>
+<li>a dialog will show you the list of the available statistics</li>
+<li>after you chose the statistic and click on the <code class="docutils literal"><span class="pre">Calculate</span></code> button, you&#8217;ll have to enter your email and the captcha text and click <code class="docutils literal"><span class="pre">Ok</span></code></li>
+</ul>
+<div class="figure align-center" id="id20">
+<span id="draw-polygon"></span><a class="reference internal image-reference" href="../_images/draw_polygon1.png"><img alt="../_images/draw_polygon1.png" src="../_images/draw_polygon1.png" /></a>
+<p class="caption"><span class="caption-text">Draw polygon</span></p>
+</div>
+<p>When the calculation is complete, you will receive by email the URL with the link to the statistics you requested</p>
+</div>
+</div>
+<div class="section" id="feedback">
+<h2>Feedback<a class="headerlink" href="#feedback" title="Permalink to this headline">¶</a></h2>
+<p>If you want to send comments on the published resources, click on the <em>Feedback</em> button on the header.
+The feedback dialog will open:</p>
+<div class="figure align-center" id="id21">
+<img alt="../_images/feedback_dialog1.png" src="../_images/feedback_dialog1.png" />
+<p class="caption"><span class="caption-text">Feedback dialog</span></p>
+</div>
+<ol class="arabic simple">
+<li>Select the <strong>layer</strong> you want to give feedback on (for example, <em>REDD+ Projects</em>). To appear in the selector, the layer must be active.</li>
+<li>Use the <strong>drawing tools</strong> to delimitate the area or areas your comments are refering to. The toolbar offers three different tools:<ul>
+<li><img alt="tb_add" src="../_images/toolbar_button_add1.png" /> <strong>Add Polygon</strong> to draw new areas on the map.</li>
+<li><img alt="tb_get" src="../_images/toolbar_button_get1.png" /> <strong>Get feature from selected layer</strong> to retrieve a geometry from a layer. This tool is only active on queryable vector layers.</li>
+<li><img alt="tb_edit" src="../_images/toolbar_button_edit1.png" /> <strong>Edit Polygon</strong> to change the shape of an area. Drag the nodes to change the shape, or hit <em>del</em> key to delete existing vertices or the entire polygon.</li>
+</ul>
+</li>
+<li>Write your contact <strong>name</strong> and <strong>email</strong>. System administrators may want to contact you for further details on your request.</li>
+<li>Add a <strong>feedback</strong> message describing your concerns.</li>
+<li>Write the <strong>reCAPTCHA</strong> words and <strong>Submit</strong>.</li>
+</ol>
+<div class="section" id="feedback-example">
+<h3>Feedback example<a class="headerlink" href="#feedback-example" title="Permalink to this headline">¶</a></h3>
+<p>Let&#8217;s say that you detect a <em>REDD+ project region</em> that is out of date:</p>
+<div class="figure align-center" id="id22">
+<img alt="../_images/feedback_polygon_view1.png" src="../_images/feedback_polygon_view1.png" />
+<p class="caption"><span class="caption-text">Identify an element worth comenting on the map</span></p>
+</div>
+<p>First, click on <em>Feedback</em> and select the <em>REDD+ Projects</em> layer. Activate the <img alt="tb_get" src="../_images/toolbar_button_get1.png" /> tool and click inside the region.
+The original polygon will be retrieved and presented as an orange, editable geometry:</p>
+<div class="figure align-center" id="id23">
+<img alt="../_images/feedback_polygon_get1.png" src="../_images/feedback_polygon_get1.png" />
+<p class="caption"><span class="caption-text">Get an existing element from the layer</span></p>
+</div>
+<p>Then, select the <img alt="tb_edit" src="../_images/toolbar_button_edit1.png" /> tool to change its shape draging the nodes:</p>
+<div class="figure align-center" id="id24">
+<img alt="../_images/feedback_polygon_edit1.png" src="../_images/feedback_polygon_edit1.png" />
+<p class="caption"><span class="caption-text">Change its shape</span></p>
+</div>
+<p>Finally, add a <em>feedback</em> text comment. For example: <em>REDD+ Project has been extended to the eastern valley</em>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Interface description</a><ul>
+<li><a class="reference internal" href="#map">Map</a></li>
+<li><a class="reference internal" href="#navigation-buttons">Navigation Buttons</a></li>
+<li><a class="reference internal" href="#layers-pane">Layers Pane</a><ul>
+<li><a class="reference internal" href="#showing-layers">Showing Layers</a></li>
+<li><a class="reference internal" href="#inline-legends">Inline Legends</a></li>
+<li><a class="reference internal" href="#inline-legend-buttons">Inline Legend Buttons</a></li>
+<li><a class="reference internal" href="#layer-info-button">Layer info button</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#selected-layers-pane">Selected Layers Pane</a></li>
+<li><a class="reference internal" href="#id5">Time Slider</a></li>
+<li><a class="reference internal" href="#language-selection-buttons">Language Selection Buttons</a></li>
+<li><a class="reference internal" href="#legend-pane">Legend Pane</a></li>
+<li><a class="reference internal" href="#page-footer">Page Footer</a></li>
+<li><a class="reference internal" href="#browsing-the-map">Browsing the Map</a><ul>
+<li><a class="reference internal" href="#panning-and-zooming">Panning and zooming</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#querying-the-map">Querying the map</a><ul>
+<li><a class="reference internal" href="#the-query-dialog">The Query Dialog</a></li>
+<li><a class="reference internal" href="#pre-calculated-statistics">Pre-calculated Statistics</a></li>
+<li><a class="reference internal" href="#real-time-statistics">Real-time Statistics</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#feedback">Feedback</a><ul>
+<li><a class="reference internal" href="#feedback-example">Feedback example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="outline.html"
+                        title="previous chapter">Introduction to the training</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="portal_architecture.html"
+                        title="next chapter">Portal architecture</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="portal_architecture.html" title="Portal architecture"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="outline.html" title="Introduction to the training"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >DRC NFMS Portal training</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

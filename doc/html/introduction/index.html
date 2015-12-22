@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../index.html" />
+    <link rel="next" title="Sample datasets" href="../testdata/index.html" />
+    <link rel="prev" title="UN-REDD NFMS Platform - Technical Documentation" href="../index.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../index.html">
+      <img class="logo" src="../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../testdata/index.html" title="Sample datasets"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="UN-REDD NFMS Platform - Technical Documentation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>The objective of UN-REDD is to create an infrastructure that helps in the transparent dissemination of forest change, by processing and publishing forest (remote sensing) data, validated and open for public feedback of people in the monitored areas.</p>
+<p>This manual describes the dissemination system, its architecture, components and use.</p>
+<div class="section" id="system-overview">
+<h2>System Overview<a class="headerlink" href="#system-overview" title="Permalink to this headline">¶</a></h2>
+<p>The whole system is composed of two main blocks: the <em>analysis system</em> and the <em>dissemination system</em>.</p>
+<p>The <strong>analysis system</strong> includes:</p>
+<ul class="simple">
+<li>the source data mass import,</li>
+<li>the operator-assisted analysis part handled by the TerrAmazon application,</li>
+<li>the massive export of the preprocessed data in some agreed standard formats.</li>
+</ul>
+<p>The <strong>dissemination system</strong> includes:</p>
+<ul class="simple">
+<li>ingestion of the data provided by the analysis system;</li>
+<li>data cataloguing;</li>
+<li>specific geographic data processing (optimization);</li>
+<li>statistics processing (both fixed statistics, and on-demand statistics);</li>
+<li>data publishing (services offering interfaces for data query and retrieval);</li>
+<li>the user front-end where data can be searched for, accessed and visualized by a human;</li>
+<li>the admin front-end where staging data can be published, and where published data can be edited/corrected.</li>
+</ul>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/introduction1.png"><img alt="../_images/introduction1.png" src="../_images/introduction1.png" /></a>
+<p class="caption"><span class="caption-text">System Overview</span></p>
+</div>
+</div>
+<div class="section" id="use-cases">
+<h2>Use cases<a class="headerlink" href="#use-cases" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="user-interface">
+<h3>User interface<a class="headerlink" href="#user-interface" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>the user can choose one (or more) geographic layers to be shown on the map</li>
+<li>the user can choose the time dimension by selecting one single date for all the shown layers</li>
+<li>the user can choose another date, in addition to the one for all of the displayed layers, in order to be able to compare the changes on a thematic layer at different times;</li>
+<li>the user can visualize <em>pre-computed</em> statistics on a collection of pre-established polygons (v. gr. administrative boudaries).</li>
+<li>the user can request <em>on the fly</em> statistics on a polygon drawn on the screen.</li>
+<li>a user will be able to post geo-referenced comments and post warnings about wrong features. A data administrator will be able to review the comments and act accordingly.</li>
+</ul>
+</div>
+<div class="section" id="data-ingestion">
+<h3>Data ingestion<a class="headerlink" href="#data-ingestion" title="Permalink to this headline">¶</a></h3>
+<p>When the analysis subsystem exports a new batch of data, the dissemination subsystem will:</p>
+<ul class="simple">
+<li>reorganize the data according to a predefined schema</li>
+<li>preprocess geographic data in order to:<ul>
+<li>precompute and store as much information as possible (e.g. pre-computed statistics) for better performance and scaling</li>
+<li>preprocess data in order to improve visualization performance</li>
+<li>update internal metadata about time series</li>
+<li>publish the new geographic layers in the staging area (or add new time coordinates to the time series)</li>
+<li>generate a tile cache for tile oriented visualization (e.g. google maps client)</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="admin-interface">
+<h3>Admin interface<a class="headerlink" href="#admin-interface" title="Permalink to this headline">¶</a></h3>
+<p>Administrators are able to:</p>
+<ul class="simple">
+<li>Receive user comments and warnings about publised data.</li>
+<li>Edit the features of vector layers:<ul>
+<li>Once a vector layer has been modified and republished, all of its related precomputed stats should be recomputed again.</li>
+</ul>
+</li>
+<li>Publish layers waiting in the staging area.<ul>
+<li>The administrator will see a list of the new data that has been submitted into the staging area by the analysis system. New data will be a new time coordinate related to an existing layer in the dissemination system.</li>
+<li>The administrator will be allowed to:<ul>
+<li>view the new data,</li>
+<li>edit the features (if needed),</li>
+<li>publish the new data into the dissemination system.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="system-architecture">
+<h2>System Architecture<a class="headerlink" href="#system-architecture" title="Permalink to this headline">¶</a></h2>
+<p>The dissemination subsystem can be split into several blocks:</p>
+<ol class="arabic simple">
+<li>raw data ingestion and pre-processing (GeoBatch)</li>
+<li>internal data storage (GeoStore)</li>
+<li>geographic data publishing (GeoServer)</li>
+<li>statistics publishing (WPS)</li>
+<li>user front-end (Portal interface)</li>
+<li>management of the data flows (Admin interface)</li>
+</ol>
+<div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/introduction2.png"><img alt="../_images/introduction2.png" src="../_images/introduction2.png" /></a>
+<p class="caption"><span class="caption-text">System Architecture</span></p>
+</div>
+<div class="section" id="data-ingestion-with-geobatch">
+<h3>Data Ingestion with <em>GeoBatch</em><a class="headerlink" href="#data-ingestion-with-geobatch" title="Permalink to this headline">¶</a></h3>
+<p>GeoBatch is a geospatial aware batch processing system to ease the processing, the deploy, and the management of jobs on streams of geospatial data.</p>
+<p>When the analysis subsystem exports its data, GeoBatch will start to process such data, by running site specific scripts that would end in the publication of the geographic data in GeoServer, but that would also perform all the preprocessing steps identified above, like as an instance upfront computation of statistics for predefined areas.</p>
+</div>
+<div class="section" id="geographic-data-publishing-with-geoserver">
+<h3>Geographic Data Publishing with <em>GeoServer</em><a class="headerlink" href="#geographic-data-publishing-with-geoserver" title="Permalink to this headline">¶</a></h3>
+<p>GeoServer is an open source software server that allows the publishing of geospatial data from any major spatial data source using open standards from OGC and ISO.</p>
+</div>
+<div class="section" id="geographic-data-caching-with-geowebcache">
+<h3>Geographic Data Caching with <em>GeoWebCache</em><a class="headerlink" href="#geographic-data-caching-with-geowebcache" title="Permalink to this headline">¶</a></h3>
+<p>GeoWebCache is a web application used to cache map tiles coming from a variety of sources such as OGC Web Map Service (WMS).</p>
+<p>It is used to improve the GeoServer workload for WMS service.</p>
+</div>
+<div class="section" id="dynamic-statistics-with-wps">
+<h3>Dynamic statistics with <em>WPS</em><a class="headerlink" href="#dynamic-statistics-with-wps" title="Permalink to this headline">¶</a></h3>
+<p>The Web Processing Service is an OGC specification that defines a standard interface that facilitates the publishing of geospatial processes. GeoServer already provides a WPS implementation.</p>
+<p>Dynamic statistics are implemented via WPS, in order to exploit some existing procedures, by using a standard interface that can be easily implemented for the required processing. A first implementation is the <em>ZonalStats</em> process, a process that computes various statistics on given layers, being them raster or vector, in a given set of polygons.</p>
+<p>On-the-fly processing, however implemented, is usually a very resource-intensive process, and this applies to WPS as well. This problem can be partially mitigated by having a cluster of GeoServer instances, and pre-computing the predefined area statistics at publication time.</p>
+</div>
+<div class="section" id="non-geographic-data-publishing">
+<h3>Non-geographic data publishing<a class="headerlink" href="#non-geographic-data-publishing" title="Permalink to this headline">¶</a></h3>
+<p>A flexible data repository is needed to store various pieces of information, be them static or fixed. These data may be created either by the server, or input by the user. Some examples are static statistics, as well as (possibly geo-referenced) comments and notes posted by users.</p>
+<p>The Data Repository is accessed via a RESTful front end.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction</a><ul>
+<li><a class="reference internal" href="#system-overview">System Overview</a></li>
+<li><a class="reference internal" href="#use-cases">Use cases</a><ul>
+<li><a class="reference internal" href="#user-interface">User interface</a></li>
+<li><a class="reference internal" href="#data-ingestion">Data ingestion</a></li>
+<li><a class="reference internal" href="#admin-interface">Admin interface</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#system-architecture">System Architecture</a><ul>
+<li><a class="reference internal" href="#data-ingestion-with-geobatch">Data Ingestion with <em>GeoBatch</em></a></li>
+<li><a class="reference internal" href="#geographic-data-publishing-with-geoserver">Geographic Data Publishing with <em>GeoServer</em></a></li>
+<li><a class="reference internal" href="#geographic-data-caching-with-geowebcache">Geographic Data Caching with <em>GeoWebCache</em></a></li>
+<li><a class="reference internal" href="#dynamic-statistics-with-wps">Dynamic statistics with <em>WPS</em></a></li>
+<li><a class="reference internal" href="#non-geographic-data-publishing">Non-geographic data publishing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">UN-REDD NFMS Platform - Technical Documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../testdata/index.html"
+                        title="next chapter">Sample datasets</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../testdata/index.html" title="Sample datasets"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="UN-REDD NFMS Platform - Technical Documentation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

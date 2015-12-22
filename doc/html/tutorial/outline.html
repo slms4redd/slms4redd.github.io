@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction to the training &mdash; UNREDD NFMS 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/redd.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="UNREDD NFMS 1.0 documentation" href="../index.html" />
+    <link rel="up" title="DRC NFMS Portal training" href="index.html" />
+    <link rel="next" title="Interface description" href="portal_interface.html" />
+    <link rel="prev" title="DRC NFMS Portal training" href="index.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+<div class="header">
+  <div class="logo">
+    <a href="../index.html">
+      <img class="logo" src="../_static/un-redd.gif" alt="Logo"/>
+    </a>
+  </div>
+  <div class="faologo">
+  <table><tr><td>
+    <a href="http://www.fao.org/">
+      <img class="logo" src="../_static/fao_logo.gif" alt="FAO"/>
+    </a>
+	</td><td>
+
+      <img class="logo" src="../_static/undp_logo.gif" alt="undp"/>
+    </td><td>
+      <img class="logo" src="../_static/unep.gif" alt="unep"/>
+
+	</td>
+	</td></tr></table>
+  </div>
+
+</div>
+
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="portal_interface.html" title="Interface description"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="DRC NFMS Portal training"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">DRC NFMS Portal training</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="introduction-to-the-training">
+<h1>Introduction to the training<a class="headerlink" href="#introduction-to-the-training" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation-of-the-system">
+<h2>Installation of the system<a class="headerlink" href="#installation-of-the-system" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;ll install chef-solo and we&#8217;ll execute a chef script to install the portal</p>
+</div>
+<div class="section" id="introduction-to-linux">
+<h2>Introduction to Linux<a class="headerlink" href="#introduction-to-linux" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;ll start from a virtual machine with the Ubuntu operating system installed.</p>
+<p>We&#8217;ll learn about the file structure, how to browse the file system and some commands</p>
+</div>
+<div class="section" id="introduction-to-web-services">
+<h2>Introduction to web services<a class="headerlink" href="#introduction-to-web-services" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;ll introduce the HTTP protocol on which the OGC services are built</p>
+<div class="section" id="ogc-open-geospatial-consortium-web-services">
+<h3>OGC (Open Geospatial Consortium) web services<a class="headerlink" href="#ogc-open-geospatial-consortium-web-services" title="Permalink to this headline">¶</a></h3>
+<p>Introduction to the OGC services.</p>
+<p>Benefits for standards: interoperability.</p>
+<p>WMS and WFS standards.</p>
+<p>Download of the specifications.</p>
+</div>
+</div>
+<div class="section" id="system-architecture">
+<h2>System architecture<a class="headerlink" href="#system-architecture" title="Permalink to this headline">¶</a></h2>
+<p>While running chef cookbook we can comment on the following topics:</p>
+<p>The system is under a process of simplification to facilitate installation and adoption by the countries.</p>
+<p>The important thing here is to know the roles that are needed to make the portal work:</p>
+<ul class="simple">
+<li>Client-server applicaiton</li>
+<li>Standard Services: publication of data via standard interfaces</li>
+<li>Specific services</li>
+<li>Application javascript consuming these resources</li>
+</ul>
+<p>Show overall architecture diagram (architecture0)</p>
+<p>Show the use of services over HTTP to illustrate the concept of architecture, of the calls from the client.</p>
+</div>
+<div class="section" id="introduction-to-geoserver">
+<h2>Introduction to GeoServer<a class="headerlink" href="#introduction-to-geoserver" title="Permalink to this headline">¶</a></h2>
+<p>Installing and running GeoServer</p>
+<p>WMS services</p>
+<p>Styling maps with SLD (Styled Layer Descriptor)</p>
+<p>WMS queries</p>
+<p>Styling vector and raster maps</p>
+<dl class="docutils">
+<dt>Advanced raster preparation and configuration for GeoServer</dt>
+<dd>GDAL tools</dd>
+</dl>
+<p>Sharing data in KML and KMZ formats</p>
+<p>WFS protocol</p>
+</div>
+<div class="section" id="portal-configuration">
+<h2>Portal configuration<a class="headerlink" href="#portal-configuration" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;ll see again the architecture diagam, and explain the benefit we obtained publishing our data using standard protocols. We&#8217;ll then see how our portal benefits from them and how to customize his parts</p>
+<p>Location and structure of the configuration directory</p>
+<p>List the relevant files in the configuration directory and describe their structure and the information they contain.</p>
+<p>Custom graphics.</p>
+<p>Multilanguage support.</p>
+<p>Explain the properties files</p>
+<p>Setting up a new vector layer</p>
+<p>Configuring a new layer group</p>
+<div class="section" id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>css, json syntax, usage of the wms protocol</li>
+</ul>
+</div>
+</div>
+<div class="section" id="statistics-service-data-model">
+<h2>Statistics service data model<a class="headerlink" href="#statistics-service-data-model" title="Permalink to this headline">¶</a></h2>
+<p>How do we add statistics? GeoServer doesn&#8217;t provide this functionality so we need to have some additional services.</p>
+<p>In order to build charts, these sercices need to know what calculations to apply to which layer, and how to present this to the user.
+This information is modeled in a database called GeoStore.</p>
+<p>We&#8217;ll see how:</p>
+<ul class="simple">
+<li>Create a layer</li>
+<li>Add a layer time instance</li>
+<li>Create statistics</li>
+<li>Create charts</li>
+<li>How to add statistics to the portal</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction to the training</a><ul>
+<li><a class="reference internal" href="#installation-of-the-system">Installation of the system</a></li>
+<li><a class="reference internal" href="#introduction-to-linux">Introduction to Linux</a></li>
+<li><a class="reference internal" href="#introduction-to-web-services">Introduction to web services</a><ul>
+<li><a class="reference internal" href="#ogc-open-geospatial-consortium-web-services">OGC (Open Geospatial Consortium) web services</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#system-architecture">System architecture</a></li>
+<li><a class="reference internal" href="#introduction-to-geoserver">Introduction to GeoServer</a></li>
+<li><a class="reference internal" href="#portal-configuration">Portal configuration</a><ul>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#statistics-service-data-model">Statistics service data model</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">DRC NFMS Portal training</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="portal_interface.html"
+                        title="next chapter">Interface description</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="portal_interface.html" title="Interface description"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="DRC NFMS Portal training"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">UNREDD NFMS 1.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >DRC NFMS Portal training</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012, FAO Forestry &amp; GeoSolutions SAS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>
